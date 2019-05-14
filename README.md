@@ -15,7 +15,7 @@
 + Iniciar sesión
 
 ### Colaboradores y Administradores
-+Crear nuevas incidencias
++ Crear nuevas incidencias
   - Aquí no es necesario poner la opción de añadir fotografías.
 + Cerrar sesión
 + Modificar datos personales, todo salvo Rango (y Estado, opcional)
