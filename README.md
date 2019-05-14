@@ -4,18 +4,18 @@
 
 ### Comunes a todos los usuarios
 
-1. Ver incidencia
++ Ver incidencia
 * Visualizar incidencias
 * Visualizar comentarios y valoraciones de cada incidencia
 + Realizar nuevos comentarios
 + Realizar valoraciones
 
 ### Visitantes
-1. Registrarse y darse de alta **(OPCIONAL)** - Pag 6 guión.
++ Registrarse y darse de alta **(OPCIONAL)** - Pag 6 guión.
 + Iniciar sesión
 
 ### Colaboradores y Administradores
-1. Crear nuevas incidencias
++Crear nuevas incidencias
   - Aquí no es necesario poner la opción de añadir fotografías.
 + Cerrar sesión
 + Modificar datos personales, todo salvo Rango (y Estado, opcional)
@@ -25,8 +25,8 @@
 + Borrar sus propias incidencias
 
 ### Administradores
-1. Visualizar usuarios registrados
-2. Crear nuevo usuario
++ Visualizar usuarios registrados
++ Crear nuevo usuario
 + Eliminar usuario
 + Gestión de perfiles de usuarios.
 + Modificar estado de una incidencia
@@ -38,8 +38,8 @@
 + Otras tareas, como administrar BBDD. **¿Especificar cuáles implementamos?**
 
 ### Log de la Aplicación
-Registro de los eventos principales del sistema, entre ellos:
-1. Identificación de un usuario.
++ Registro de los eventos principales del sistema, entre ellos:
++ Identificación de un usuario.
 + Registro de un usuario.
 + Cada vez que un usuario modifique la BBDD.
 + Cierres de sesión.
@@ -47,19 +47,19 @@ Registro de los eventos principales del sistema, entre ellos:
 
 ### Listado de incidencias
 Se puede ordenar según los siguientes criterios:
-1. Antigüedad
-2. Valoraciones positivas
++ Antigüedad
++ Valoraciones positivas
 + Valoraciones positivas netas
 
 Además, se puede filtrar según los siguientes criterios:
-1. Coincidencia de texto en título, descripción o palabras clave.**(Texto contenido, una única caja de texto)**
++ Coincidencia de texto en título, descripción o palabras clave.**(Texto contenido, una única caja de texto)**
 + Lugar de la incidencia **(Desplegable)**
 + Estado del mensaje **(Múltiple checkbox)**
 + Seleccionar palabra clave **(Desplegable, OPCIONAL)**
 
 ### Barra Lateral:
-1. Ranking N usuarios que más incidencias añaden.
-2. Ranking N usuarios que más opinan
++ Ranking N usuarios que más incidencias añaden.
++ Ranking N usuarios que más opinan
 + Número de inciencias resueltas, pendientes, etc...
 
 ## Datos a almacenar
@@ -120,7 +120,7 @@ Relación entre los comentarios realizados por los usuarios y las incidencias en
 + Comentario (varchar(300))
 
 ## Restricciones y anotaciones
-1. Tanto los usuarios registrados como los visitantes podrán hacer una única valoración de cada incidencia. **(Uso de cookies en caso de los invitados, tablas en caso de usuarios registrados.)**
++ Tanto los usuarios registrados como los visitantes podrán hacer una única valoración de cada incidencia. **(Uso de cookies en caso de los invitados, tablas en caso de usuarios registrados.)**
 + Se deberá mostrar un mensaje informando sobre el éxito o fracaso de cualquier modificación en la BBDD.
 + Los administradores no pueden registrarse de forma autónoma. Será otro administrador quien le aporte dicho rango.
 + Siempre debe de haber al menos un administrador.
