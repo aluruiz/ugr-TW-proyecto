@@ -70,7 +70,8 @@ Cuando un vecino del municipio detecta el mal funcionamiento de algún servicio,
 - Identificador (int) - Primary Key, Autoincrement
 - Titulo (varchar(50))
 - Descripción (varchar(300))
-- Fotografías **A debatir entre nosotras**
+- Fotografías (Tabla) **A debatir entre nosotras**
+- Palaras clave (Tabla)
 - Fecha (smalldatetime)
 - Usuario (int) - Foreign Key
 - Estado (Enum - Pendiente, Comprobada, Tramitada, Irresoluble, Resuelta)
@@ -103,6 +104,12 @@ Necesaria para establecer la relación de muchos a muchos entre incidencias y pa
 - Clave (varchar(30)) - Foreing Key
 - Identificador de la incidencia (int) - Foreign Key
 Juntos, forman la Primary Key.
+
+### Imágenes
+Una incidencia puede contener muchas imágenes asociadas.
+- Identificador (int) - Primary Key, Autoincrement
+- Identificador de incidencia (int) - Foreign Key
+- Imagen (BOB) 
 
 ### Valoración
 Relación de una valoración realizada por un usuario respecto a una incidencia concreta. La clave primaria será un identificador porque también puede ser realizada por un usuario anónimo. Como restricción, sólo se puede repetir una vez el par (usuario,incidencia).
