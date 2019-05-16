@@ -116,7 +116,8 @@ Relación de una valoración realizada por un usuario respecto a una incidencia 
 + Identificador (int) - Primary Key, Autoincrement
 + Identificador de Usuario (int) - Foreign Key
 + Identificador de incidencia (int) - Foreign Key
-+ Valoración **(bit ó int)**
++ Valoración positiva (bit)
++ Valoración negativa (bit)
 
 
 ### Comentarios
