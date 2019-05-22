@@ -1,0 +1,27 @@
+{% extends "vista/base.html" %}
+{% block main %}
+  <form action="../modelo/POST/nuevoUsuarioPOST.php" method="post">
+    <label for="Nombre">Nombre</label>
+    <input type="text" name="nombre" required>
+
+    <label for="Apellidos">Apellidos</label>
+    <input type="text" name="apellidos" required>
+
+    <label for="email">Email</label>
+    <input type="email" name="email" required>
+
+    <label for="postal">Direccion Postal</label>
+    <input type="text" name="postal" required>
+
+    <label for="tlf">Telefono</label>
+    <input type="tel" name="tlf" required>
+
+    <label for="contraseña">Contraseña</label>
+    <input type="password" name="contraseña" required>
+
+    <label for="foto">Fotografía</label>
+    <input type="text" name="foto">
+
+    <input type="submit" value="Enviar datos"/>
+  </form>
+{% endblock %}

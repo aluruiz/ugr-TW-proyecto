@@ -1,0 +1,14 @@
+{% extends "vista/base.html" %}
+{% block main %}
+  <form action="../modelo/POST/nuevaIncidenciaPOST.php" method="post">
+    <label for="titulo">Titulo</label>
+    <input type="text" name="titulo" required>
+    <label for="descripcion">Descripcion</label>
+    <<textarea name="descripcion" rows="8" cols="80"></textarea>
+    <label for="lugar">Lugar</label>
+    <input type="text" name="lugar" required>
+    <label for="palabras">Palabras Clave</label>
+    <input type="text" placeholder="Ej: farola, agua, luz, avenida" name="palabras">
+    <input type="submit" value="Enviar Incidencia"/>
+  </form>
+{% endblock %}

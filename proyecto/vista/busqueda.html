@@ -1,0 +1,44 @@
+{% extends "vista/base.html" %}
+{% block main %}
+<form class="" action="" method="get">
+
+  <fieldset>
+    <legend>Ordenar por:</legend>
+      <input type="radio" name="ordenarBusqueda" value="antiguedad">
+      <label for="antiguedad">Antiguedad (primero las mas recientes)</label>
+
+      <input type="radio" name="ordenarBusqueda" value="positivos">
+      <label for="positivos">Numero de positivos (de mas a menos)</label>
+
+      <input type="radio" name="ordenarBusqueda" value="netos">
+      <label for="netos">Numero de positivos netos (de mas a menos)</label>
+  </fieldset>
+
+  <fieldset>
+    <legend>Incidencias que contengan:</legend>
+      <label for="texto">Texto de busqueda:</label>
+      <input type="text" name="textoBusqueda">
+
+      <label for="lugarBusqueda">Lugar:</label>
+      <input type="text" name="lugarBusqueda">
+  </fieldset>
+
+  <fieldset>
+    <legend>Estado: </legend>
+      <label><input type="checkbox" name="estadoBusqueda" value="pendiente"/> Pendiente</label>
+      <label><input type="checkbox" name="estadoBusqueda" value="comprobada"/> Comprobada</label>
+      <label><input type="checkbox" name="estadoBusqueda" value="tramitada"/> Tramitada</label>
+      <label><input type="checkbox" name="estadoBusqueda" value="irresoluble"/> Irresoluble</label>
+      <label><input type="checkbox" name="estadoBusqueda" value="resuelta"/> Resuelta</label>
+  </fieldset>
+
+  <input type="submit" value="Aplicar criterios de busqueda"/>
+</form>
+
+<div class="incidencia">
+
+</div>
+  {% for incidencia in incidencias %}
+
+  {% endfor %}
+{% endblock %}
