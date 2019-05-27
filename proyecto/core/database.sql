@@ -20,20 +20,31 @@ CREATE TABLE Usuarios(
   telefono VARCHAR(15),
   password VARCHAR(15) NOT NULL,
   rango ENUM('Administrador','Colaborador') NOT NULL,
-  estado ENUM('Inactivo','Activo'),
+  estado ENUM('Inactivo','Activo') NOT NULL,
   PRIMARY KEY(identificador),
   UNIQUE (email)
 );
+
+INSERT INTO Usuarios (nombre,familia,email,password,rango,estado) VALUES (admin,admin,admin@admin.com,admin,Administrador,Activo);
 
 CREATE TABLE Incidencias(
   identificador INT AUTO_INCREMENT,
   titulo VARCHAR(50) NOT NULL,
   descripcion VARCHAR(300),
   fecha DATETIME,
+  positivas INT DEFAULT 0,
+  negativas INT DEFAULT 0,
   estado ENUM('Pendiente','Comprobada','Tramitada','Irresoluble','Resuelta') NOT NULL,
   usuario INT NOT NULL,
   PRIMARY KEY(identificador),
   FOREIGN KEY(usuario) REFERENCES Usuarios(identificador)
+);
+
+CREATE TABLE Imagenes(
+  identificador INT AUTO_INCREMENT,
+  incidencia INT NOT NULL,
+  PRIMARY KEY(identificador),
+  FOREIGN KEY(incidencia) REFERENCES Incidencias(identificador)
 );
 
 CREATE TABLE PalabrasClave(
