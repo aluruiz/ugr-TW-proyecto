@@ -9,6 +9,7 @@ require_once $ROOT_PATH . '/core/modelo/Usuario.php';
 class Database {
 
   private static $INSTANCE;
+  private $mysqli;
 
   private function __construct() {
     $hostname = "localhost";
@@ -17,9 +18,9 @@ class Database {
     $username2 = "lauragogar1819";
     $password2 = "KdnkJuSY";
     $databaseName = "proyectofinal_tw";
-    self::$INSTANCE = new mysqli($hostname, $username1, $password1, $databaseName);
-    if(!self::$INSTANCE){
-      self::$INSTANCE = new mysqli($hostname, $username2, $password2, $databaseName);
+    $this->mysqli = new mysqli($hostname, $username1, $password1, $databaseName);
+    if(!$this->mysql){
+      $this->mysqli = new mysqli($hostname, $username2, $password2, $databaseName);
     }
     $this->mysqli->set_charset("utf8");
 
@@ -28,13 +29,26 @@ class Database {
         exit();
     }
   }
-    
-    public static function getInstance(){
-      if(!self::$INSTANCE){
-        self::$INSTANCE=new DataBase();
-      }
-      return self::$INSTANCE;
+
+  public static function getInstance(){
+    if(!self::$INSTANCE){
+      self::$INSTANCE=new DataBase();
     }
+    return self::$INSTANCE;
+  }
+
+  public function consulta($consulta){
+    return $this->mysqli.query($consulta);
+  }
+
+  public function getIncidenciasFechaDesc(){
+    return $this->consulta("SELECT Incidencias.identificador, Incidencias.titulo, Incidencias.descripcion, Incidencias.fecha,Incidencias.estado,Usuarios.nombre,Usuarios.familia FROM Incidencias JOIN Usuarios ON (Incidencias.usuario=Usuarios.identificador) ORDER BY Incidencias.fecha DESC");
+  }
+
+  public function getValoracionesPositivasIncidencia($indentificador){
+    $contadorAnonimos = $this->consulta("SELECT Incidencias.positivas FROM Incidencias");
+    //FIXME
+  }
 }
 
   ?>
