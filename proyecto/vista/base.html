@@ -5,65 +5,71 @@
     <link rel="stylesheet" href="../css/index.css">
     <meta name="author" content="Laura Gomez y Paula Ruiz">
     <meta name="keywords" content="tecnologias web, html, php, pokemon, vencindario, quejas">
+    <link rel="stylesheet" type="text/css" href="./vista/css/index.css"/>
     <title>Pokejas!</title>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
   </head>
+
   <body>
       <header>
-        <h1>Pokejas! Atrapalas todas.</h1>
+        <section class="title">
+          <img class="logo" src="" alt="icono"/>
+          <div class="titulos">
+            <h1>Pokejas! Atrapalas todas.</h1>
+          </div>
+        </section>
       </header>
 
-    {% block nav %}
       <nav>
-        <a href="">Ver Incidencias</a>
-          <a href="">Nueva Incidencia</a>
-          <a href="">Mis Incidencias</a>
-          <a href="">Gestion de Usuarios</a>
-          <a href="">Ver log</a>
-          <a href="">Gestion de la BBDD</a>
+        <a href="busqueda.php">Ver Incidencias</a>
       </nav>
-    {% endblock %}
 
-    <div>
+      <nav class="navbar">
+        <a href="busqueda.php">Ver Incidencias</a>
+        <a href="nuevaIncidencia.php">Nueva Incidencia</a>
+        <a href="misIncidencias.php">Mis Incidencias</a>
+      </nav>
+
+      <nav class="navbar">
+        <a href="busqueda.php">Ver Incidencias</a>
+        <a href="nuevaIncidencia.php">Nueva Incidencia</a>
+        <a href="misIncidencias.php">Mis Incidencias</a>
+        <a href="gestionUsuarios.php">Gestion de Usuarios</a>
+        <a href="log.php">Ver log</a>
+        <a href="gestionBD.php">Gestion de la BBDD</a>
+      </nav>
+
+    <div class="contenido">
       <main>
 
         {% block main %}
+        <h1>Bienvenido al centro pokemon de quejas.</h1>
         {% endblock %}
 
       </main>
 
-      {% block aside %}
-      <aside>
-        <section>
-          <form>
-            <div class="form-group">
-              <label for="exampleInputEmail1">Email address</label>
-              <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email">
-              <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
-            </div>
-            <div class="form-group">
-              <label for="exampleInputPassword1">Password {{Usuario}}</label>
-              <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
-            </div>
-            <div class="form-check">
-              <input type="checkbox" class="form-check-input" id="exampleCheck1">
-              <label class="form-check-label" for="exampleCheck1">Check me out</label>
-            </div>
-            <a href="">Para Registrarse pulse aqui.</a>
-            <button type="submit" class="btn btn-primary">Submit</button>
-          </form>
-        </section>
-        <section>
-          <ol>
-            <li></li>
-            <li></li>
-            <li></li>
-          </ol>
-        </section>
-      {% endblock %}
+      <aside class="barraLateral">
+        <div class="infoLateral">
+          <section class="registrarse">
+            <form class="" action="" method="post">
+              <fieldset>
+                <legend>Conectarse</legend>
+                <label for="correo">Correo: </label>
+                <input type="email" name="correo" required>
+                <label for="psswrd">Contraseña :</label>
+                <input type="password" name="psswrd" required>
+                <a href="nuevoUsuario.php">Si no esta registrado pulse aqui.</a>
+                <button type="submit">Submit</button>
+              </fieldset>
+            </form>
+          </section>
+          <section class="tituloLateral">
+            <ol>
+              <li></li>
+              <li></li>
+              <li></li>
+            </ol>
+          </section>
+        </div>
       </aside>
     </div>
 

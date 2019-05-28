@@ -1,0 +1,15 @@
+{% extends "vista/base.html" %}
+{% block main %}
+  <table>
+    <tr>
+      <th>Fecha</th>
+      <th>Descripcion</th>
+    </tr>
+    {% for log in logs %}
+      <tr>
+        <td>{{ log.fecha }}</td>
+        <td>{{ log.descripcion }}</td>
+      </tr>
+    {% endfor %}
+  </table>
+{% endblock %}

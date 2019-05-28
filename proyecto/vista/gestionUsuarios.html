@@ -1,0 +1,15 @@
+{% extends "vista/base.html" %}
+{% block main %}
+  <span>Opciones a realizar</span>
+  <a href="#">Listado</a>
+  <a href="nuevoUsuario.php"> Añadir Usuario </a>
+  <table>
+    <--{% for usuario in usuarios %}-->
+      <tr>
+        <td>Imagen</td>
+        <td>Datos Personales</td>
+        <td>Opciones </td>
+      </tr>
+    <--{% endfor %}-->
+  </table>
+{% endblock %}

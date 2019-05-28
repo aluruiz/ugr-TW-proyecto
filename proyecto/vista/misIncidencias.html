@@ -1,0 +1,17 @@
+{% extends "vista/base.html" %}
+{% block main %}
+<div class="incidencia">
+  <section>
+    <h1> Titulo de la incidencia</h1>
+
+    <span>Lugar: {{incidencia.lugar}}</span>
+    <span>Fecha: {{incidencia.fecha}}</span>
+    <span>Creado por: {{incidencia.autor}}</span>
+    <span>Palabras Clave: </span>
+    <span>Estado: </span>
+    <span>Valoraciones: </span>
+
+    <p>{{incidencia.descripcion}}</p>
+  </section>
+</div>
+{% endblock %}

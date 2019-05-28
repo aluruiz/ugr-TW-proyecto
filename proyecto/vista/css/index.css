@@ -1,0 +1,91 @@
+/*Body*/
+body{
+  margin: 0;
+}
+
+/*Header*/
+header {
+  padding: 10px;
+}
+
+header .title {
+  display: flex;
+}
+header .title .logo {
+  height: 100px;
+  width: auto;
+}
+header .title .titulos {
+  padding: 10px;
+  margin-left: 15px;
+  color: #87CEEB;
+}
+
+header h1{
+  font-size: 30px;
+  margin: 10px 0px;
+}
+
+header h2{
+  font-size: 15px;
+  margin: 7px 0px;
+}
+
+/*Barra de Navegacion*/
+.navbar {
+  margin: 3px;
+  border: 3px solid #87CEEB;
+  background: #e6e6e6;
+  display: flex;
+}
+
+.navbar a{
+  padding: 5px;
+  flex: 15%;
+}
+
+/*Contenido Principal*/
+.contenido {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+/*Main*/
+main {
+  margin: 3px;
+  border: 3px solid #87CEEB;
+  background: #e6e6e6;
+  flex: 70%;
+  padding: 20px;
+  padding-top: 0px;
+}
+
+article {
+  text-align: justify;
+}
+
+article h1{
+  font-size: 25px;
+  margin-bottom: 0px;
+}
+
+article h2{
+  font-size: 15px;
+}
+
+/*Aside*/
+.barraLateral {
+    margin: 3px;
+    border: 3px solid #87CEEB;
+    background: #e6e6e6;
+    flex: 10%;
+}
+
+/*Footer*/
+footer {
+    margin: 3px;
+    border: 3px solid #87CEEB;
+    background: #e6e6e6;
+    display: flex;
+    flex-wrap: wrap;
+}
