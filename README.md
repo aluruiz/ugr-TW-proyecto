@@ -69,12 +69,14 @@ Cada una de las categorías se refiere a una tabla en sql por lo que también in
 Cuando un vecino del municipio detecta el mal funcionamiento de algún servicio, puede proceder a poner una incidencia en el sitio web para que esta sea conocida por otros vecinos y por las autoridades con competencia para su resolución. Dicha incidencia debe contener los siguientes datos:
 - Identificador (int) - Primary Key, Autoincrement
 - Titulo (varchar(50))
-- Descripción (varchar(300))
-- Fotografías (Tabla) **A debatir entre nosotras**
+- Positivas (int) default 0
+- Negativas (int) default 0
 - Palaras clave (Tabla)
 - Fecha (smalldatetime)
 - Usuario (int) - Foreign Key
 - Estado (Enum - Pendiente, Comprobada, Tramitada, Irresoluble, Resuelta)
+
+Tanto las fotografias, como las palabras clave, las valoracones no anónimas y los comentarios serán almacenados en unas tablas independientesy se conseguirá la información a través de operaciones de tablas. 
 
 ### Colaboradores
 Estos usuarios son los que van a nutrir de contenido al sitio web. Serán usuarios registrados en el sistema y tienen la posibilidad de añadir nuevas incidencias. La información que se almacena de ellos es la siguiente:
@@ -85,9 +87,10 @@ Estos usuarios son los que van a nutrir de contenido al sitio web. Serán usuari
   - Dirección (varchar(100))
   - Teléfono (varchar(15))
   - Password (varchar(15))
-  - Fotografía
   - Rango (Enum - Administrador, Colaborador)
   - Estado (Enum - Inactivo, Activo) - **(OPCIONAL)**
+
+El identificador será también el nombre de las imágenes a la hora de almacenarlo. Funcionamiento similar al de la tabla imágenes.
 
 ### Log de la aplicación
 Registro de los eventos principales del sistema, contendrá:
@@ -109,7 +112,8 @@ Juntos, forman la Primary Key.
 Una incidencia puede contener muchas imágenes asociadas.
 - Identificador (int) - Primary Key, Autoincrement
 - Identificador de incidencia (int) - Foreign Key
-- Imagen (BOB) 
+
+La idea es almacenar las imágenes en una carpeta dentro de nuestra web para que así sea más rápida la carga y además así la velocidad de acceso será mayor y el almacenamiento en la base de datos será menor. El identificador de cada imagen en la base de datos será el nombre que tendrá la imagen en la carpeta. No se especifica el nombre de la carpeta donde se almacenará para que así sea el propio progamador web quien pueda decidir donde almacenarlo. 
 
 ### Valoración
 Relación de una valoración realizada por un usuario respecto a una incidencia concreta. La clave primaria será un identificador porque también puede ser realizada por un usuario anónimo. Como restricción, sólo se puede repetir una vez el par (usuario,incidencia).
