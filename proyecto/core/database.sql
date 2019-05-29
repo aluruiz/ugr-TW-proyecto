@@ -15,7 +15,7 @@ CREATE TABLE Usuarios(
   identificador INT AUTO_INCREMENT,
   nombre VARCHAR(50) NOT NULL,
   familia VARCHAR(20) NOT NULL,
-  email VARCHAR(50) NOT NULL,
+  email VARCHAR(50) NOT NULL UNIQUE,
   direccion VARCHAR(100),
   telefono VARCHAR(15),
   password VARCHAR(15) NOT NULL,
@@ -25,13 +25,13 @@ CREATE TABLE Usuarios(
   UNIQUE (email)
 );
 
-INSERT INTO Usuarios (nombre,familia,email,password,rango,estado) VALUES (admin,admin,admin@admin.com,admin,Administrador,Activo);
+INSERT INTO Usuarios (nombre,familia,email,password,rango,estado) VALUES ('admin','admin','admin@admin.com','admin','Administrador','Activo');
 
 CREATE TABLE Incidencias(
   identificador INT AUTO_INCREMENT,
   titulo VARCHAR(50) NOT NULL,
   descripcion VARCHAR(300),
-  fecha DATETIME,
+  fecha DATETIME2 DEFAULT LOCALTIME(), --Si no funciona con LOCALTIME() probar con GETDATE()
   positivas INT DEFAULT 0,
   negativas INT DEFAULT 0,
   estado ENUM('Pendiente','Comprobada','Tramitada','Irresoluble','Resuelta') NOT NULL,
@@ -63,8 +63,7 @@ CREATE TABLE RelClaveIncidencia(
 CREATE TABLE Valoracion(
   usuario INT,
   incidencia INT,
-  positiva BIT NOT NULL,
-  negativa BIT NOT NULL,
+  valoracion ENUM('Positiva','Negativa') NOT NULL,
   FOREIGN KEY(usuario) REFERENCES Usuarios(identificador),
   FOREIGN KEY(incidencia) REFERENCES Incidencias(identificador),
   PRIMARY KEY(usuario,incidencia)
