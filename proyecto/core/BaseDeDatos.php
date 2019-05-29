@@ -62,9 +62,9 @@ class Database {
         if($key!=0){
           $texto.=" OR ";
         }
-        $texto.="Incidencias.estado=".$value;
+        $texto.="Incidencias.estado=\'${value}\'";
       }
-      $estado.=")";
+      $texto.=")";
     }
     return $texto;
   }
@@ -85,7 +85,7 @@ class Database {
   public function nuevaIndicencia($especificaciones){
     $texto="INSERT INTO Indicencias (titulo,descripcion,estado,usuario) VALUES (";
     foreach ($especificaciones as $key => $value) {
-      $texto.=$value.",";
+      $texto.="\'${value}\',";
     }
     $texto.=")";
     return $this->consulta($texto);
@@ -94,7 +94,7 @@ class Database {
   public function nuevoUsuario($especificaciones){
     $texto="INSERT INTO Usuarios (nombre,familia,email,password,rango,estado) VALUES (";
     foreach ($especificaciones as $key => $value) {
-      $texto.=$value.",";
+      $texto.="\'${value}\',";
     }
     $texto.=")";
     return $this->consulta($texto);
@@ -103,7 +103,7 @@ class Database {
   public function nuevaValoracionUsuario($especificaciones){
     $texto="INSERT INTO Valoracion (incidencia,valoracion,usuario) VALUES (";
     foreach ($especificaciones as $key => $value) {
-      $texto.=$value.",";
+      $texto.="\'${value}\',";
     }
     $texto.=")";
     $consulta1=$this->consulta($texto);
