@@ -19,36 +19,35 @@
         </section>
       </header>
 
-      <nav>
-        <a href="busqueda.php">Ver Incidencias</a>
-      </nav>
-
+      {% block nav %}
       <nav class="navbar">
         <a href="busqueda.php">Ver Incidencias</a>
+        {% if loggedUser.rango == 'Colaborador' %}
         <a href="nuevaIncidencia.php">Nueva Incidencia</a>
         <a href="misIncidencias.php">Mis Incidencias</a>
-      </nav>
-
-      <nav class="navbar">
-        <a href="busqueda.php">Ver Incidencias</a>
+        {% endif %}
+        {% if loggedUser.rango == 'Administrador' %}
         <a href="nuevaIncidencia.php">Nueva Incidencia</a>
         <a href="misIncidencias.php">Mis Incidencias</a>
         <a href="gestionUsuarios.php">Gestion de Usuarios</a>
         <a href="log.php">Ver log</a>
         <a href="gestionBD.php">Gestion de la BBDD</a>
+        {% endif %}
       </nav>
+      {% endblock %}
 
     <div class="contenido">
-      <main>
 
+      <main>
         {% block main %}
         <h1>Bienvenido al centro pokemon de quejas.</h1>
         {% endblock %}
-
       </main>
 
       <aside class="barraLateral">
         <div class="infoLateral">
+
+        {% if loggedUser is null %}
           <section class="registrarse">
             <form class="" action="" method="post">
               <fieldset>
@@ -62,6 +61,15 @@
               </fieldset>
             </form>
           </section>
+          {% else %}
+            <label>Nombre: {{ loggedUser.nombre }}</label>
+            <label>{{ loggedUser.foto }}</label>
+            <form action="/core/POST/postLogout.php" method="post">
+            <input name="logout" type="submit" value="Logout"/>
+            </form>
+          {% endif %}
+
+
           <section class="tituloLateral">
             <ol>
               <li></li>
