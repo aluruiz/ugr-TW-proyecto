@@ -17,10 +17,11 @@ class Database {
     $password1 = "fuWxW4c7";
     $username2 = "lauragogar1819";
     $password2 = "KdnkJuSY";
-    $databaseName = "proyectofinal_tw";
-    $this->mysqli = new mysqli($hostname, $username1, $password1, $databaseName);
+    $databaseName1 = "paularg981819";
+    $databaseName2 = "lauragogar1819";
+    $this->mysqli = new mysqli($hostname, $username1, $password1, $databaseName1);
     if(!$this->mysql){
-      $this->mysqli = new mysqli($hostname, $username2, $password2, $databaseName);
+      $this->mysqli = new mysqli($hostname, $username2, $password2, $databaseName2);
     }
     $this->mysqli->set_charset("utf8");
 
