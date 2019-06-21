@@ -1,11 +1,11 @@
 {% extends "vista/base.html" %}
 {% block main %}
-<form class="" action="" method="get">
+<form class="formularioBusqueda" action="../modelo/POST/postBusqueda.php" method="post">
 
   <fieldset>
     <legend>Ordenar por:</legend>
-      <input type="radio" name="ordenarBusqueda" value="antiguedad">
-      <label for="antiguedad">Antiguedad (primero las mas recientes)</label>
+      <input type="radio" name="ordenarBusqueda" value="fecha">
+      <label for="fecha">Fecha (primero las mas recientes)</label>
 
       <input type="radio" name="ordenarBusqueda" value="positivos">
       <label for="positivos">Numero de positivos (de mas a menos)</label>
@@ -19,17 +19,36 @@
       <label for="texto">Texto de busqueda:</label>
       <input type="text" name="textoBusqueda">
 
-      <label for="lugarBusqueda">Lugar:</label>
-      <input type="text" name="lugarBusqueda">
+      <input type="radio" name="lugarBusqueda" value="lugarTitulo">
+      <label for="lugarTitulo">Título</label>
+
+      <input type="radio" name="lugarBusqueda" value="lugarDescripcion">
+      <label for="lugarDescripcion">Descripción</label>
+
+      <input type="radio" name="lugarBusqueda" value="lugarClave">
+      <label for="lugarClave">Palabras Clave</label>
+  </fieldset>
+
+  <fieldset>
+    <legend>Lugar de la incidencia:</legend>
+    <?php
+    require_once "../core/BaseDeDatos.php";
+    $lugares=(new BaseDeDatos()).getAllLugares()
+    ?>
+    <select class="desplegable-lugares">
+      {% for lugar in lugares %}
+      <option value="{{lugar.lugar}}">{{lugar.lugar}}</option>
+      {% endfor %}
+    </select>
   </fieldset>
 
   <fieldset>
     <legend>Estado: </legend>
-      <label><input type="checkbox" name="estadoBusqueda" value="pendiente"/> Pendiente</label>
-      <label><input type="checkbox" name="estadoBusqueda" value="comprobada"/> Comprobada</label>
-      <label><input type="checkbox" name="estadoBusqueda" value="tramitada"/> Tramitada</label>
-      <label><input type="checkbox" name="estadoBusqueda" value="irresoluble"/> Irresoluble</label>
-      <label><input type="checkbox" name="estadoBusqueda" value="resuelta"/> Resuelta</label>
+      <label><input type="checkbox" name="estadoBusqueda" value="Pendiente"/> Pendiente</label>
+      <label><input type="checkbox" name="estadoBusqueda" value="Comprobada"/> Comprobada</label>
+      <label><input type="checkbox" name="estadoBusqueda" value="Tramitada"/> Tramitada</label>
+      <label><input type="checkbox" name="estadoBusqueda" value="Irresoluble"/> Irresoluble</label>
+      <label><input type="checkbox" name="estadoBusqueda" value="Resuelta"/> Resuelta</label>
   </fieldset>
 
   <input type="submit" value="Aplicar criterios de busqueda"/>

@@ -73,7 +73,7 @@ class Database {
 
   //orden(fecha,positivas,neto),estado='Pendiente','Comprobada','Tramitada','Irresoluble','Resuelta' o NULL
   public function getIncidenciasTituloDesc($orden,$clave,$estado){
-    $texto="SELECT Incidencias.identificador, Incidencias.titulo, Incidencias.descripcion, Incidencias.fecha, Incidencias.positivas, Incidencias.negativas, Incidencias.estado,Usuarios.nombre,Usuarios.familia FROM Incidencias JOIN Usuarios ON (Incidencias.usuario=Usuarios.identificador";
+    $texto="SELECT Incidencias.identificador, Incidencias.titulo, Incidencia.lugar, Incidencias.descripcion, Incidencias.fecha, Incidencias.positivas, Incidencias.negativas, Incidencias.estado,Usuarios.nombre,Usuarios.familia FROM Incidencias JOIN Usuarios ON (Incidencias.usuario=Usuarios.identificador";
     if(!is_null($estado)){
       $texto.=" AND Incidencias.estado=?";
     }
@@ -97,7 +97,7 @@ class Database {
   }
 
   public function getIncidenciasDescripcionDesc($orden,$clave,$estado){
-    $texto="SELECT Incidencias.identificador, Incidencias.titulo, Incidencias.descripcion, Incidencias.fecha, Incidencias.positivas, Incidencias.negativas, Incidencias.estado,Usuarios.nombre,Usuarios.familia FROM Incidencias JOIN Usuarios ON (Incidencias.usuario=Usuarios.identificador";
+    $texto="SELECT Incidencias.identificador, Incidencias.titulo, Incidencia.lugar, Incidencias.descripcion, Incidencias.fecha, Incidencias.positivas, Incidencias.negativas, Incidencias.estado,Usuarios.nombre,Usuarios.familia FROM Incidencias JOIN Usuarios ON (Incidencias.usuario=Usuarios.identificador";
     if(!is_null($estado)){
       $texto.=" AND Incidencias.estado=?";
     }
@@ -121,7 +121,7 @@ class Database {
   }
 
   public function getIncidenciasClaveDesc($orden,$clave,$estado){
-    $texto="SELECT Incidencias.identificador, Incidencias.titulo, Incidencias.descripcion, Incidencias.fecha, Incidencias.positivas, Incidencias.negativas, Incidencias.estado,Usuarios.nombre,Usuarios.familia FROM Incidencias JOIN Usuarios ON (Incidencias.usuario=Usuarios.identificador";
+    $texto="SELECT Incidencias.identificador, Incidencias.titulo, Incidencia.lugar, Incidencias.descripcion, Incidencias.fecha, Incidencias.positivas, Incidencias.negativas, Incidencias.estado,Usuarios.nombre,Usuarios.familia FROM Incidencias JOIN Usuarios ON (Incidencias.usuario=Usuarios.identificador";
     if(!is_null($estado)){
       $texto.=" AND Incidencias.estado=?";
     }
@@ -145,7 +145,7 @@ class Database {
   }
 
   public function getIncidenciasUsuario($identificadorUsu){
-    $texto="SELECT Incidencias.identificador, Incidencias.titulo, Incidencias.descripcion, Incidencias.fecha, Incidencias.positivas, Incidencias.negativas, Incidencias.estado FROM Incidencias WHERE Incidencias.usuario=? ORDER BY Incidencias.fecha DESC";
+    $texto="SELECT Incidencias.identificador, Incidencias.titulo, Incidencia.lugar, Incidencias.descripcion, Incidencias.fecha, Incidencias.positivas, Incidencias.negativas, Incidencias.estado FROM Incidencias WHERE Incidencias.usuario=? ORDER BY Incidencias.fecha DESC";
     $stmt=$this->mysqli->prepare($texto);
     $stmt->bind_param("s",$identificadorUsu;
     $stmt->execute();
@@ -154,10 +154,10 @@ class Database {
     return $result;
   }
 
-  public function nuevaIndicencia($titulo,$descripcion,$estado,$usuario){
-    $texto="INSERT INTO Indicencias (titulo,descripcion,estado,usuario) VALUES (?,?,?,?)";
+  public function nuevaIndicencia($titulo,$lugar,$descripcion,$estado,$usuario){
+    $texto="INSERT INTO Indicencias (titulo,lugar,descripcion,estado,usuario) VALUES (?,?,?,?,?)";
     $stmt=$this->mysqli->prepare($texto);
-    $stmt->bind_param("ssss",$titulo,$descripcion,$estado,$usuario);
+    $stmt->bind_param("sssss",$titulo,$lugar,$descripcion,$estado,$usuario);
     $stmt->execute();
     $result=$stmt->get_result();
     $stmt->close();
@@ -309,6 +309,15 @@ class Database {
     $stmt->execute();
     $result=$stmt->get_result();
     $stmt->close();
+  }
+
+  public function getAllLugares(){
+    $texto="SELECT DISTINCT Incidencia.lugar FROM Incidencias";
+    $stmt=$this->mysqli->prepare($texto);
+    $stmt->execute();
+    $result=$stmt->get_result();
+    $stmt->close();
+    return $result;
   }
 
 }
