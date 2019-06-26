@@ -1,0 +1,12 @@
+.formularioBusqueda{
+  margin: 5px;
+}
+
+fieldset {
+  background-color: #b3d1ff;
+  margin: 5px;
+}
+
+legend {
+  font-weight: bold;
+}

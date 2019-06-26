@@ -1,0 +1,9 @@
+.incidencia {
+  border: 2px solid;
+  border-color: red;
+}
+
+.incidencia h1 {
+  font-size: 18pt;
+  background-color: red;
+}

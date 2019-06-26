@@ -1,0 +1,110 @@
+{% extends "vista/base.html" %}
+{% block css %}
+<link href="./assets/busqueda.css" rel="stylesheet"/>
+<link href="./assets/incidencia.css" rel="stylesheet"/>
+{% endblock %}
+
+{% block main %}
+
+<form class="formularioBusqueda" action="../modelo/POST/postBusqueda.php" method="post">
+  <fieldset>
+    <legend>Ordenar por:</legend>
+      <div class="form-check">
+        <input type="radio" name="ordenarBusqueda" value="fecha">
+        <label for="fecha">Fecha (primero las mas recientes)</label>
+      </div>
+
+      <div class="form-check">
+        <input type="radio" name="ordenarBusqueda" value="positivos">
+        <label for="positivos">Numero de positivos (de mas a menos)</label>
+      </div>
+
+      <div class="form-check">
+        <input type="radio" name="ordenarBusqueda" value="netos">
+        <label for="netos">Numero de positivos netos (de mas a menos)</label>
+      </div>
+
+  </fieldset>
+
+  <fieldset>
+    <legend>Incidencias que contengan:</legend>
+      <label for="texto">Texto de busqueda:</label>
+
+      <div class="form-check form-check-inline">
+        <input class="form-check-input" type="radio" name="lugarBusqueda" value="lugarTitulo">
+        <label class="form-check-label" for="lugarTitulo">Título</label>
+      </div>
+
+      <div class="form-check form-check-inline">
+        <input class="form-check-input" type="radio" name="lugarBusqueda" value="lugarDescripcion">
+        <label class="form-check-label" for="lugarDescripcion">Descripción</label>
+      </div>
+
+      <div class="form-check form-check-inline">
+        <input class="form-check-input" type="radio" name="lugarBusqueda" value="lugarClave">
+        <label class="form-check-label" for="lugarClave">Palabras Clave</label>
+      </div>
+
+      <input type="text" class="form-control" name="textoBusqueda" placeholder="Escribe aqui el texto.">
+
+  </fieldset>
+
+  <fieldset>
+    <legend>Lugar de la incidencia:</legend>
+    <?php
+    require_once "../core/BaseDeDatos.php";
+    $lugares=(new BaseDeDatos()).getAllLugares()
+    ?>
+    <select class="desplegable-lugares">
+      {% for lugar in lugares %}
+      <option value="{{lugar.lugar}}">{{lugar.lugar}}</option>
+      {% endfor %}
+    </select>
+  </fieldset>
+
+  <fieldset>
+    <legend>Estado: </legend>
+      <div class="form-check form-check-inline">
+        <input class="form-check-input" type="checkbox" name="estadoBusqueda" value="Pendiente">
+        <label class="form-check-label" for="Pendiente">Pendiente</label>
+      </div>
+
+      <div class="form-check form-check-inline">
+        <input class="form-check-input" type="checkbox" name="estadoBusqueda" value="Comprobada">
+        <label class="form-check-label" for="Comprobada">Comprobada</label>
+      </div>
+
+      <div class="form-check form-check-inline">
+        <input class="form-check-input" type="checkbox" name="estadoBusqueda" value="Tramitada">
+        <label class="form-check-label" for="Tramitada">Tramitada</label>
+      </div>
+
+      <div class="form-check form-check-inline">
+        <input class="form-check-input" type="checkbox"  name="estadoBusqueda" value="Irresoluble">
+        <label class="form-check-label" for="Irresoluble">Irresoluble</label>
+      </div>
+
+      <div class="form-check form-check-inline">
+        <input class="form-check-input" type="checkbox" name="estadoBusqueda" value="Resuelta">
+        <label class="form-check-label" for="Resuelta">Resuelta</label>
+      </div>
+  </fieldset>
+
+    <input type="submit" class="btn btn-primary" value="Aplicar criterios de busqueda"/>
+</form>
+
+<div class="incidencia">
+  <section>
+    <h1> Titulo de la incidencia</h1>
+
+    <span>Lugar: {{incidencia.lugar}}</span>
+    <span>Fecha: {{incidencia.fecha}}</span>
+    <span>Creado por: {{incidencia.autor}}</span>
+    <span>Palabras Clave: </span>
+    <span>Estado: </span>
+    <span>Valoraciones: </span>
+
+    <p>{{incidencia.descripcion}}</p>
+  </section>
+</div>
+{% endblock %}

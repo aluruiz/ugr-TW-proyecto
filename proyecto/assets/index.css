@@ -1,0 +1,42 @@
+/*Body*/
+body{
+  background-color: #f9ecec;
+}
+
+/*Header*/
+header {
+  padding: 10px;
+  background-color:#ff4d4d;
+  text-align: center;
+}
+/*Nav*/
+nav{
+  background-color: black;
+}
+
+nav a{
+  color: white;
+
+}
+
+/*Contenido*/
+
+/*Main*/
+main{
+  border-bottom: 2px solid;
+  background-color: #f9ecec;
+}
+
+/*Aside*/
+aside{
+  border-left: 2px solid;
+  border-bottom: 2px solid;
+  border-color: black;
+}
+
+/*Footer*/
+footer{
+  margin: 5px;
+  border: 2px solid;
+  background-color:#4d94ff;
+}
