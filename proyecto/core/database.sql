@@ -1,15 +1,11 @@
-DROP DATABASE IF EXISTS proyectofinal_tw;
-CREATE DATABASE proyectofinal_tw;
-USE proyectofinal_tw;
-
+DROP TABLE IF EXISTS Log;
+DROP TABLE IF EXISTS Comentarios;
+DROP TABLE IF EXISTS Imagenes;
+DROP TABLE IF EXISTS RelClaveIncidencia;
+DROP TABLE IF EXISTS PalabrasClave;
+DROP TABLE IF EXISTS Valoracion;
 DROP TABLE IF EXISTS Incidencias;
 DROP TABLE IF EXISTS Usuarios;
-DROP TABLE IF EXISTS Valoracion;
-DROP TABLE IF EXISTS PalabrasClave;
-DROP TABLE IF EXISTS RelClaveIncidencia;
-DROP TABLE IF EXISTS Imagenes;
-DROP TABLE IF EXISTS Comentarios;
-DROP TABLE IF EXISTS Log;
 
 CREATE TABLE Usuarios(
   identificador INT AUTO_INCREMENT,
@@ -21,8 +17,7 @@ CREATE TABLE Usuarios(
   password VARCHAR(15) NOT NULL,
   rango ENUM('Administrador','Colaborador') NOT NULL,
   estado ENUM('Inactivo','Activo') NOT NULL,
-  PRIMARY KEY(identificador),
-  UNIQUE (email)
+  PRIMARY KEY(identificador)
 );
 
 INSERT INTO Usuarios (nombre,familia,email,password,rango,estado) VALUES ('admin','admin','admin@admin.com','admin','Administrador','Activo');
@@ -41,6 +36,9 @@ CREATE TABLE Incidencias(
   PRIMARY KEY(identificador),
   FOREIGN KEY(usuario) REFERENCES Usuarios(identificador)
 );
+
+INSERT INTO Incidencias(titulo,lugar,descripcion,estado,usuario) VALUES ('Incidencia de prueba','En un rincon de la mancha', 'texto de ejemplo', 'Resuelta',1);
+INSERT INTO Incidencias(titulo,lugar,descripcion,estado,usuario) VALUES ('Prueba mi Prueba','De cuyo nombre no quiero acordarme', 'texto de ejemplo', 'Pendiente',1);
 
 CREATE TABLE Imagenes(
   identificador INT AUTO_INCREMENT,

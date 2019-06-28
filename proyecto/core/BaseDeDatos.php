@@ -1,10 +1,13 @@
 <?php
 $ROOT_PATH = dirname(__DIR__);
+/*
 require_once $ROOT_PATH . '/core/modelo/Evento.php';
 require_once $ROOT_PATH . '/core/modelo/Comentario.php';
 require_once $ROOT_PATH . '/core/modelo/Tag.php';
 require_once $ROOT_PATH . '/core/modelo/Contacto.php';
 require_once $ROOT_PATH . '/core/modelo/Usuario.php';
+require_once $ROOT_PATH . '/core/modelo/Incidencia.php';
+*/
 
 class Database {
 
@@ -19,16 +22,20 @@ class Database {
     $password2 = "KdnkJuSY";
     $databaseName1 = "paularg981819";
     $databaseName2 = "lauragogar1819";
-    $this->mysqli = new mysqli($hostname, $username1, $password1, $databaseName1);
-    if(!$this->mysql){
-      $this->mysqli = new mysqli($hostname, $username2, $password2, $databaseName2);
-    }
-    $this->mysqli->set_charset("utf8");
+    $this->mysqli = new mysqli($hostname, $username2, $password2, $databaseName2);
+/*    if(!$this->mysql){
+      $this->mysqli = new mysqli($hostname, $username1, $password1, $databaseName1);
+    }*/
 
     if (mysqli_connect_errno()) {
+      $this->mysqli = new mysqli($hostname, $username1, $password1, $databaseName1);
+      if(mysqli_connect_errno()){
         printf("Conexión errónea: %s\n", mysqli_connect_error());
         exit();
+      }
     }
+        $this->mysqli->set_charset("utf8");
+        mysqli_report(MYSQLI_REPORT_ERROR | MYSQLI_REPORT_STRICT);
   }
 /*
   public static function getInstance(){
@@ -73,22 +80,24 @@ class Database {
 
   //orden(fecha,positivas,neto),estado='Pendiente','Comprobada','Tramitada','Irresoluble','Resuelta' o NULL
   public function getIncidenciasTituloDesc($orden,$clave,$estado){
-    $texto="SELECT Incidencias.identificador, Incidencias.titulo, Incidencia.lugar, Incidencias.descripcion, Incidencias.fecha, Incidencias.positivas, Incidencias.negativas, Incidencias.estado,Usuarios.nombre,Usuarios.familia FROM Incidencias JOIN Usuarios ON (Incidencias.usuario=Usuarios.identificador";
+    $texto="SELECT Incidencias.identificador, Incidencias.titulo, Incidencias.lugar, Incidencias.descripcion, Incidencias.fecha, Incidencias.positivas, Incidencias.negativas, Incidencias.estado,Incidencias.usuario,Usuarios.nombre,Usuarios.familia FROM Incidencias JOIN Usuarios ON (Incidencias.usuario = Usuarios.identificador";
     if(!is_null($estado)){
-      $texto.=" AND Incidencias.estado=?";
+      $texto.=" AND Incidencias.estado = ? ";
     }
     $texto.=") WHERE Incidencias.titulo LIKE CONCAT('%',?,'%') ORDER BY ";
     if(strcmp($orden,"neto")==0){
-      $texto.="Incidencias.positivas - Incidencias.negativas"
+      $texto.="Incidencias.positivas - Incidencias.negativas";
     }else {
       $texto.="Incidencias.".$orden;
     }
     $texto.=" DESC";
-    $stmt=$this->mysqli->prepare();
+
+    $stmt=$this->mysqli->prepare($texto);
+
     if(!is_null($estado)){
       $stmt->bind_param("ss",$estado,$clave);
     }else{
-      $stmt->bind_param("s"$clave);
+      $stmt->bind_param("s",$clave);
     }
     $stmt->execute();
     $result=$stmt->get_result();
@@ -97,22 +106,22 @@ class Database {
   }
 
   public function getIncidenciasDescripcionDesc($orden,$clave,$estado){
-    $texto="SELECT Incidencias.identificador, Incidencias.titulo, Incidencia.lugar, Incidencias.descripcion, Incidencias.fecha, Incidencias.positivas, Incidencias.negativas, Incidencias.estado,Usuarios.nombre,Usuarios.familia FROM Incidencias JOIN Usuarios ON (Incidencias.usuario=Usuarios.identificador";
+    $texto="SELECT Incidencias.identificador, Incidencias.titulo, Incidencias.lugar, Incidencias.descripcion, Incidencias.fecha, Incidencias.positivas, Incidencias.negativas, Incidencias.estado,Incidencias.usuario,Usuarios.nombre,Usuarios.familia FROM Incidencias JOIN Usuarios ON (Incidencias.usuario=Usuarios.identificador";
     if(!is_null($estado)){
       $texto.=" AND Incidencias.estado=?";
     }
     $texto.=") WHERE Incidencias.descripcion LIKE CONCAT('%',?,'%') ORDER BY ";
     if(strcmp($orden,"neto")==0){
-      $texto.="Incidencias.positivas - Incidencias.negativas"
+      $texto.="Incidencias.positivas - Incidencias.negativas";
     }else {
       $texto.="Incidencias.".$orden;
     }
     $texto.=" DESC";
-    $stmt=$this->mysqli->prepare();
+    $stmt=$this->mysqli->prepare($texto);
     if(!is_null($estado)){
       $stmt->bind_param("ss",$estado,$clave);
     }else{
-      $stmt->bind_param("s"$clave);
+      $stmt->bind_param("s",$clave);
     }
     $stmt->execute();
     $result=$stmt->get_result();
@@ -121,22 +130,22 @@ class Database {
   }
 
   public function getIncidenciasClaveDesc($orden,$clave,$estado){
-    $texto="SELECT Incidencias.identificador, Incidencias.titulo, Incidencia.lugar, Incidencias.descripcion, Incidencias.fecha, Incidencias.positivas, Incidencias.negativas, Incidencias.estado,Usuarios.nombre,Usuarios.familia FROM Incidencias JOIN Usuarios ON (Incidencias.usuario=Usuarios.identificador";
+    $texto="SELECT Incidencias.identificador, Incidencias.titulo, Incidencias.lugar, Incidencias.descripcion, Incidencias.fecha, Incidencias.positivas, Incidencias.negativas, Incidencias.estado,Incidencias.usuario,Usuarios.nombre,Usuarios.familia FROM Incidencias JOIN Usuarios ON (Incidencias.usuario=Usuarios.identificador";
     if(!is_null($estado)){
       $texto.=" AND Incidencias.estado=?";
     }
-    $texto.=") WHERE Incidencias IN (SELECT RelClaveIncidencia.incidencia WHERE RelClaveIncidencia LIKE CONCAT('%',?,'%') ) ORDER BY ";
+    $texto.=") WHERE Incidencias IN (SELECT RelClaveIncidencia.incidencia WHERE RelClaveIncidencia LIKE CONCAT('%',?,'%')) ORDER BY ";
     if(strcmp($orden,"neto")==0){
-      $texto.="Incidencias.positivas - Incidencias.negativas"
+      $texto.="Incidencias.positivas - Incidencias.negativas";
     }else {
       $texto.="Incidencias.".$orden;
     }
     $texto.=" DESC";
-    $stmt=$this->mysqli->prepare();
+    $stmt=$this->mysqli->prepare($texto);
     if(!is_null($estado)){
       $stmt->bind_param("ss",$estado,$clave);
     }else{
-      $stmt->bind_param("s"$clave);
+      $stmt->bind_param("s",$clave);
     }
     $stmt->execute();
     $result=$stmt->get_result();
@@ -145,9 +154,9 @@ class Database {
   }
 
   public function getIncidenciasUsuario($identificadorUsu){
-    $texto="SELECT Incidencias.identificador, Incidencias.titulo, Incidencia.lugar, Incidencias.descripcion, Incidencias.fecha, Incidencias.positivas, Incidencias.negativas, Incidencias.estado FROM Incidencias WHERE Incidencias.usuario=? ORDER BY Incidencias.fecha DESC";
+    $texto="SELECT Incidencias.identificador, Incidencias.titulo, Incidencias.lugar, Incidencias.descripcion, Incidencias.fecha, Incidencias.positivas, Incidencias.negativas, Incidencias.estado FROM Incidencias WHERE Incidencias.usuario=? ORDER BY Incidencias.fecha DESC";
     $stmt=$this->mysqli->prepare($texto);
-    $stmt->bind_param("s",$identificadorUsu;
+    $stmt->bind_param("s",$identificadorUsu);
     $stmt->execute();
     $result=$stmt->get_result();
     $stmt->close();
@@ -157,17 +166,26 @@ class Database {
   public function nuevaIndicencia($titulo,$lugar,$descripcion,$estado,$usuario){
     $texto="INSERT INTO Indicencias (titulo,lugar,descripcion,estado,usuario) VALUES (?,?,?,?,?)";
     $stmt=$this->mysqli->prepare($texto);
-    $stmt->bind_param("sssss",$titulo,$lugar,$descripcion,$estado,$usuario);
+    $stmt->bind_param("ssssi",$titulo,$lugar,$descripcion,$estado,$usuario);
     $stmt->execute();
     $result=$stmt->get_result();
     $stmt->close();
     return $result;
   }
-
+/*
   public function nuevoUsuario($nombre,$familia,$email,$pass,$rango,$estado){
     $texto="INSERT INTO Usuarios (nombre,familia,email,password,rango,estado) VALUES (?,?,?,?,?,?)";
     $stmt=$this->mysqli->prepare($texto);
     $stmt->bind_param("ssssss",$nombre,$familia,$email,$pass,$rango,$estado);
+    $stmt->execute();
+    $result=$stmt->get_result();
+    $stmt->close();
+    return $result;
+  }*/
+  public function nuevoUsuario($nombre,$familia,$email,$direccion,$telefono,$password,$rango,$estado){
+    $texto="INSERT INTO Usuarios (nombre,familia,email,direccion,telefono,password,rango,estado) VALUES (?,?,?,?,?,?,?,?)";
+    $stmt = $this->mysqli->prepare($texto);
+    $stmt->bind_param("ssssssss",$nombre,$familia,$email,$direccion,$telefono,$password,$rango,$estado);
     $stmt->execute();
     $result=$stmt->get_result();
     $stmt->close();
@@ -213,16 +231,6 @@ class Database {
   public function getLog(){
     $texto="SELECT Log.fecha,Log.descripcion FROM Log ORDER BY Log.fecha DESC";
     $stmt = $this->mysqli->prepare($texto);
-    $stmt->execute();
-    $result=$stmt->get_result();
-    $stmt->close();
-    return $result;
-  }
-
-  public function nuevoUsuario($nombre,$familia,$email,$direccion,$telefono,$password,$rango,$estado){
-    $texto="INSERT INTO Usuarios (nombre,familia,email,direccion,telefono,password,rango,estado) VALUES (?,?,?,?,?,?,?,?)";
-    $stmt = $this->mysqli->prepare($texto);
-    $stmt->bind_param("ssssssss",$nombre,$familia,$email,$direccion,$telefono,$password,$rango,$estado);
     $stmt->execute();
     $result=$stmt->get_result();
     $stmt->close();
@@ -312,7 +320,7 @@ class Database {
   }
 
   public function getAllLugares(){
-    $texto="SELECT DISTINCT Incidencia.lugar FROM Incidencias";
+    $texto="SELECT DISTINCT Incidencias.lugar FROM Incidencias";
     $stmt=$this->mysqli->prepare($texto);
     $stmt->execute();
     $result=$stmt->get_result();

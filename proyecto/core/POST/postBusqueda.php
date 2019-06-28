@@ -1,18 +1,51 @@
 <?php
+  $ROOT_PATH = dirname(__DIR__);
   require_once "../BaseDeDatos.php";
+  require_once $ROOT_PATH . '/core/modelo/Usuario.php';
+  require_once $ROOT_PATH . '/core/modelo/Incidencia.php';
+
   $database = new Database();
   $ordenarBusqueda = $_POST['ordenarBusqueda'] ?? "";
   $textoBusqueda = $_POST['textoBusqueda'] ?? "";
   $buscarEn = $_POST['lugarBusqueda'] ?? "";
-  $estadoBusqueda = $_POST['estadoBusqueda'] ?? "";
+  $estadoBusqueda = $_POST['estadoBusqueda'] ?? array();
 
-  $busqueda = NULL;
+  $incidencias = array();
+  $usuarios = array();
  // AQUÍ VA UN BUCLE FOR PARA CADA IF CONCATENANDO LAS $BUSQUEDA POR CADA ESTADO DE BUSQUEDA
   if(strcmp($buscarEn,"lugarTitulo")){
-    $busqueda=$database.getIncidenciasTituloDesc($ordenarBusqueda,$textoBusqueda,$estadoBusqueda);
-  }elseif (strcmp($buscarEn,"lugarDescripcion") {
-    $busqueda=$database.getIncidenciasDescripcionDesc($ordenarBusqueda,$textoBusqueda,$estadoBusqueda);
-  }elseif (strcmp($buscarEn,"lugarClave") {
-    $busqueda=$database.getIncidenciasClaveDesc($ordenarBusqueda,$textoBusqueda,$estadoBusqueda);
+    foreach ($estadoBusqueda as $key => $value) {
+      $result=$database->getIncidenciasTituloDesc($ordenarBusqueda,$textoBusqueda,$value);
+      while ($row = $result->fetch_assoc()) {
+        $incidencia = new Incidencia($row["identificador"],$row["titulo"],$row["lugar"],$row["descripcion"],$row["fecha"],$row["positivas"],$row["negativas"],$row["estado"],$row["usuario"]);
+        $usuario = new Usuario($row["usuario"],$row["nombre"],$row["familia"],NULL,NULL,NULL,NULL,NULL,NULL);
+        $incidencias[$row["identificador"]] = $incidencia;
+        $usuarios[$row["usuario"]]=$usuario;
+      }
+    }
+  }elseif (strcmp($buscarEn,"lugarDescripcion")) {
+    foreach ($estadoBusqueda as $key => $value) {
+      echo "descripcion";
+      $result=$database->getIncidenciasDescripcionDesc($ordenarBusqueda,$textoBusqueda,$value);
+      while ($row = $result->fetch_assoc()) {
+        $incidencia = new Incidencia($row["identificador"],$row["titulo"],$row["lugar"],$row["descripcion"],$row["fecha"],$row["positivas"],$row["negativas"],$row["estado"],$row["usuario"]);
+        $usuario = new Usuario($row["usuario"],$row["nombre"],$row["familia"],NULL,NULL,NULL,NULL,NULL,NULL);
+        $incidencias[$row["identificador"]] = $incidencia;
+        $usuarios[$row["usuario"]]=$usuario;
+      }
+    }
+  }elseif (strcmp($buscarEn,"lugarClave")) {
+    foreach ($estadoBusqueda as $key => $value) {
+      echo "clave";
+      $result=$database->getIncidenciasClaveDesc($ordenarBusqueda,$textoBusqueda,$value);
+      while ($row = $result->fetch_assoc()) {
+        $incidencia = new Incidencia($row["identificador"],$row["titulo"],$row["lugar"],$row["descripcion"],$row["fecha"],$row["positivas"],$row["negativas"],$row["estado"],$row["usuario"]);
+        $usuario = new Usuario($row["usuario"],$row["nombre"],$row["familia"],NULL,NULL,NULL,NULL,NULL,NULL);
+        $incidencias[$row["identificador"]] = $incidencia;
+        $usuarios[$row["usuario"]]=$usuario;
+      }
+    }
   }
+
+  header('Location: ../../busqueda.php');
 ?>

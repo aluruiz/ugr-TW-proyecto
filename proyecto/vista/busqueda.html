@@ -6,11 +6,11 @@
 
 {% block main %}
 
-<form class="formularioBusqueda" action="../modelo/POST/postBusqueda.php" method="post">
+<form class="formularioBusqueda" action="./core/POST/postBusqueda.php" method="post">
   <fieldset>
     <legend>Ordenar por:</legend>
       <div class="form-check">
-        <input type="radio" name="ordenarBusqueda" value="fecha">
+        <input type="radio" name="ordenarBusqueda" value="fecha" checked>
         <label for="fecha">Fecha (primero las mas recientes)</label>
       </div>
 
@@ -65,27 +65,27 @@
   <fieldset>
     <legend>Estado: </legend>
       <div class="form-check form-check-inline">
-        <input class="form-check-input" type="checkbox" name="estadoBusqueda" value="Pendiente">
+        <input class="form-check-input" type="checkbox" name="estadoBusqueda[]" value="Pendiente">
         <label class="form-check-label" for="Pendiente">Pendiente</label>
       </div>
 
       <div class="form-check form-check-inline">
-        <input class="form-check-input" type="checkbox" name="estadoBusqueda" value="Comprobada">
+        <input class="form-check-input" type="checkbox" name="estadoBusqueda[]" value="Comprobada">
         <label class="form-check-label" for="Comprobada">Comprobada</label>
       </div>
 
       <div class="form-check form-check-inline">
-        <input class="form-check-input" type="checkbox" name="estadoBusqueda" value="Tramitada">
+        <input class="form-check-input" type="checkbox" name="estadoBusqueda[]" value="Tramitada">
         <label class="form-check-label" for="Tramitada">Tramitada</label>
       </div>
 
       <div class="form-check form-check-inline">
-        <input class="form-check-input" type="checkbox"  name="estadoBusqueda" value="Irresoluble">
+        <input class="form-check-input" type="checkbox"  name="estadoBusqueda[]" value="Irresoluble">
         <label class="form-check-label" for="Irresoluble">Irresoluble</label>
       </div>
 
       <div class="form-check form-check-inline">
-        <input class="form-check-input" type="checkbox" name="estadoBusqueda" value="Resuelta">
+        <input class="form-check-input" type="checkbox" name="estadoBusqueda[]" value="Resuelta">
         <label class="form-check-label" for="Resuelta">Resuelta</label>
       </div>
   </fieldset>
@@ -94,17 +94,24 @@
 </form>
 
 <div class="incidencia">
+  {% if incidencias is defined %}
+  {% for incidencia in incidencias %}
+  {% set usuario = incidencia.usuario %}
   <section>
     <h1> Titulo de la incidencia</h1>
 
     <span>Lugar: {{incidencia.lugar}}</span>
     <span>Fecha: {{incidencia.fecha}}</span>
-    <span>Creado por: {{incidencia.autor}}</span>
+    <span>Creado por: {{usuarios.usuario.nombre}} {{usuarios.usuario.familia}}</span>
     <span>Palabras Clave: </span>
-    <span>Estado: </span>
-    <span>Valoraciones: </span>
+    <span>Estado: {{incidencia.estado}}</span>
+    <span>Valoraciones: +{{incidencia.positivas}}  -{{incidencia.negativas}}</span>
 
     <p>{{incidencia.descripcion}}</p>
   </section>
+  {% endfor %}
+  {% else %}
+    <p>NO DEFINIDO</p>
+  {% endif %}
 </div>
 {% endblock %}
