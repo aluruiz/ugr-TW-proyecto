@@ -173,8 +173,15 @@ class Database {
     return $result;
   }
 
-  public function nuevaIndicencia($titulo,$lugar,$descripcion,$estado,$usuario){
-    $texto="INSERT INTO Indicencias (titulo,lugar,descripcion,estado,usuario) VALUES (?,?,?,?,?)";
+  public function nuevaIncidencia($titulo,$lugar,$descripcion,$estado,$usuario){
+    $texto="INSERT INTO Incidencias(titulo,lugar,descripcion,estado,usuario) VALUES (?,?,?,?,?)";
+    $stmt=$this->mysqli->prepare($texto);
+    $stmt->bind_param("ssssi",$titulo,$lugar,$descripcion,$estado,$usuario);
+    $stmt->execute();
+    $result=$stmt->get_result();
+    $stmt->close();
+
+    $texto="SELECT Incidencias.identificador FROM Incidencias WHERE(Incidencias.titulo=? AND Incidencias.lugar=? AND Incidencias.descripcion=? AND Incidencias.estado=? AND Incidencias.usuario=?)";
     $stmt=$this->mysqli->prepare($texto);
     $stmt->bind_param("ssssi",$titulo,$lugar,$descripcion,$estado,$usuario);
     $stmt->execute();
@@ -332,6 +339,36 @@ class Database {
   public function getAllLugares(){
     $texto="SELECT DISTINCT Incidencias.lugar FROM Incidencias";
     $stmt=$this->mysqli->prepare($texto);
+    $stmt->execute();
+    $result=$stmt->get_result();
+    $stmt->close();
+    return $result;
+  }
+
+  public function existePalabraClave($clave){
+    $texto="SELECT PalabrasClave.clave FROM PalabrasClave WHERE(PalabrasClave.clave=?)";
+    $stmt=$this->mysqli->prepare($texto);
+    $stmt->bind_param("s",$clave);
+    $stmt->execute();
+    $result=$stmt->get_result();
+    $stmt->close();
+    return $result;
+  }
+
+  public function nuevaPalabraClave($clave){
+    $texto="INSERT INTO PalabrasClave(clave) VALUES (?)";
+    $stmt=$this->mysqli->prepare($texto);
+    $stmt->bind_param("s",$clave);
+    $stmt->execute();
+    $result=$stmt->get_result();
+    $stmt->close();
+    return $result;
+  }
+
+  public function nuevaRelClaveIncidencia($incidencia,$clave){
+    $texto="INSERT INTO RelClaveIncidencia(clave,incidencia) VALUES (?,?)";
+    $stmt=$this->mysqli->prepare($texto);
+    $stmt->bind_param("si",$clave,$incidencia);
     $stmt->execute();
     $result=$stmt->get_result();
     $stmt->close();
