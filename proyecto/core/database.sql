@@ -79,6 +79,8 @@ CREATE TABLE Comentarios(
   PRIMARY KEY(identificador)
 );
 
+INSERT INTO Comentarios(usuario,incidencia,comentario) VALUES(1,2,'Comentario de prueba');
+
 CREATE TABLE Log(
   identificador INT AUTO_INCREMENT,
   fecha DATETIME NOT NULL,

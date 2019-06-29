@@ -10,8 +10,9 @@ class Incidencia{
   public $negativas;
   public $estado;
   public $usuario;
+  public $comentarios;
 
-  public function __construct($id,$titulo,$lugar,$descripcion,$fecha,$positivas,$negativas,$estado,$usuario){
+  public function __construct($id,$titulo,$lugar,$descripcion,$fecha,$positivas,$negativas,$estado,$usuario,$comentarios){
     $this->id=$id;
     $this->titulo=$titulo;
     $this->lugar=$lugar;
@@ -21,6 +22,7 @@ class Incidencia{
     $this->negativas=$negativas;
     $this->estado=$estado;
     $this->usuario=$usuario;
+    $this->comentarios=$comentarios;
   }
 }
 
