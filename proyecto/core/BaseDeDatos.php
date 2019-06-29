@@ -1,13 +1,7 @@
 <?php
 $ROOT_PATH = dirname(__DIR__);
-/*
-require_once $ROOT_PATH . '/core/modelo/Evento.php';
-require_once $ROOT_PATH . '/core/modelo/Comentario.php';
-require_once $ROOT_PATH . '/core/modelo/Tag.php';
-require_once $ROOT_PATH . '/core/modelo/Contacto.php';
 require_once $ROOT_PATH . '/core/modelo/Usuario.php';
 require_once $ROOT_PATH . '/core/modelo/Incidencia.php';
-*/
 
 class Database {
 
@@ -16,24 +10,30 @@ class Database {
 
   public function __construct() {
     $hostname = "localhost";
+    $username1 = "tw";
+    $password1 = "KpxlwisaphBmGOVD";
+    $databaseName1 = "tw_proyecto";
+    /*FZkuCumUMWErcqfb
+    KpxlwisaphBmGOVD
+    $hostname = "localhost";
     $username1 = "paularg981819";
     $password1 = "fuWxW4c7";
     $username2 = "lauragogar1819";
     $password2 = "KdnkJuSY";
     $databaseName1 = "paularg981819";
-    $databaseName2 = "lauragogar1819";
-    $this->mysqli = new mysqli($hostname, $username2, $password2, $databaseName2);
+    $databaseName2 = "lauragogar1819";*/
+    $this->mysqli = new mysqli($hostname, $username1, $password1, $databaseName1);
 /*    if(!$this->mysql){
       $this->mysqli = new mysqli($hostname, $username1, $password1, $databaseName1);
     }*/
 
-    if (mysqli_connect_errno()) {
-      $this->mysqli = new mysqli($hostname, $username1, $password1, $databaseName1);
+    /*if (mysqli_connect_errno()) {
+      $this->mysqli = new mysqli($hostname, $username1, $password1, $databaseName1);*/
       if(mysqli_connect_errno()){
         printf("Conexión errónea: %s\n", mysqli_connect_error());
         exit();
       }
-    }
+    /*}*/
         $this->mysqli->set_charset("utf8");
         mysqli_report(MYSQLI_REPORT_ERROR | MYSQLI_REPORT_STRICT);
   }
@@ -345,6 +345,7 @@ class Database {
     return $result;
   }
 
+
   public function existePalabraClave($clave){
     $texto="SELECT PalabrasClave.clave FROM PalabrasClave WHERE(PalabrasClave.clave=?)";
     $stmt=$this->mysqli->prepare($texto);
@@ -377,4 +378,33 @@ class Database {
 
 }
 
-  ?>
+  public function getUsuarioByEmail($email) {
+   $queryUsuarios = "SELECT * FROM usuarios WHERE email=?";
+   $stmt = $this->mysqli->prepare($queryUsuarios);
+   $stmt->bind_param("s", $email);
+   $stmt->execute();
+   $resultUsuario = $stmt->get_result();
+   $usuario = null;
+   if ($row = $resultUsuario->fetch_assoc()) {
+       $usuario = new Usuario($row["identificador"], $row["nombre"], $row["familia"], $row["email"], $row["direccion"], $row["telefono"], $row["password"], $row["rango"], $row["estado"]);
+   }
+   $stmt->close();
+   return $usuario;
+ }
+
+
+  public function getUsuarioById($id) {
+  $queryUsuarios = "SELECT * FROM usuarios WHERE identificador=?";
+  $stmt = $this->mysqli->prepare($queryUsuarios);
+  $stmt->bind_param("i", $id);
+  $stmt->execute();
+  $resultUsuario = $stmt->get_result();
+  $usuario = NULL;
+  if ($row = $resultUsuario->fetch_assoc()) {
+    $usuario = new Usuario($row["identificador"], $row["nombre"], $row["familia"], $row["email"], $row["direccion"], $row["telefono"], $row["password"], $row["rango"], $row["estado"]);
+  }
+  $stmt->close();
+  return $usuario;
+  }
+}
+?>
