@@ -47,5 +47,7 @@
     }
   }
 
+  $_SESSION["vector_incidencias"]=$incidencias;
+  $_SESSION["vector_usuarios"]=$usuarios;
   header('Location: ../../busqueda.php');
 ?>
