@@ -80,7 +80,7 @@ class Database {
 
   //orden(fecha,positivas,neto),estado='Pendiente','Comprobada','Tramitada','Irresoluble','Resuelta' o NULL
   public function getIncidenciasTituloDesc($orden,$clave,$estado){
-    $texto="SELECT Incidencias.identificador, Incidencias.titulo, Incidencias.lugar, Incidencias.descripcion, Incidencias.fecha, Incidencias.positivas, Incidencias.negativas, Incidencias.estado,Incidencias.usuario,Usuarios.nombre,Usuarios.familia FROM Incidencias JOIN Usuarios ON (Incidencias.usuario = Usuarios.identificador";
+    $texto="SELECT Incidencias.identificador, Incidencias.titulo, Incidencias.lugar, Incidencias.descripcion, Incidencias.fecha, Incidencias.positivas, Incidencias.negativas, Incidencias.estado, Incidencias.usuario, Usuarios.nombre, Usuarios.familia FROM Incidencias JOIN Usuarios ON (Incidencias.usuario = Usuarios.identificador";
     if(!is_null($estado)){
       $texto.=" AND Incidencias.estado = ? ";
     }
@@ -106,7 +106,7 @@ class Database {
   }
 
   public function getIncidenciasDescripcionDesc($orden,$clave,$estado){
-    $texto="SELECT Incidencias.identificador, Incidencias.titulo, Incidencias.lugar, Incidencias.descripcion, Incidencias.fecha, Incidencias.positivas, Incidencias.negativas, Incidencias.estado,Incidencias.usuario,Usuarios.nombre,Usuarios.familia FROM Incidencias JOIN Usuarios ON (Incidencias.usuario=Usuarios.identificador";
+    $texto="SELECT Incidencias.identificador, Incidencias.titulo, Incidencias.lugar, Incidencias.descripcion, Incidencias.fecha, Incidencias.positivas, Incidencias.negativas, Incidencias.estado, Incidencias.usuario, Usuarios.nombre, Usuarios.familia FROM Incidencias JOIN Usuarios ON (Incidencias.usuario=Usuarios.identificador";
     if(!is_null($estado)){
       $texto.=" AND Incidencias.estado=?";
     }
@@ -130,7 +130,7 @@ class Database {
   }
 
   public function getIncidenciasClaveDesc($orden,$clave,$estado){
-    $texto="SELECT Incidencias.identificador, Incidencias.titulo, Incidencias.lugar, Incidencias.descripcion, Incidencias.fecha, Incidencias.positivas, Incidencias.negativas, Incidencias.estado,Incidencias.usuario,Usuarios.nombre,Usuarios.familia FROM Incidencias JOIN Usuarios ON (Incidencias.usuario=Usuarios.identificador";
+    $texto="SELECT Incidencias.identificador, Incidencias.titulo, Incidencias.lugar, Incidencias.descripcion, Incidencias.fecha, Incidencias.positivas, Incidencias.negativas, Incidencias.estado, Incidencias.usuario, Usuarios.nombre, Usuarios.familia FROM Incidencias JOIN Usuarios ON (Incidencias.usuario=Usuarios.identificador";
     if(!is_null($estado)){
       $texto.=" AND Incidencias.estado=?";
     }
@@ -157,6 +157,16 @@ class Database {
     $texto="SELECT Incidencias.identificador, Incidencias.titulo, Incidencias.lugar, Incidencias.descripcion, Incidencias.fecha, Incidencias.positivas, Incidencias.negativas, Incidencias.estado FROM Incidencias WHERE Incidencias.usuario=? ORDER BY Incidencias.fecha DESC";
     $stmt=$this->mysqli->prepare($texto);
     $stmt->bind_param("s",$identificadorUsu);
+    $stmt->execute();
+    $result=$stmt->get_result();
+    $stmt->close();
+    return $result;
+  }
+
+  public function getComentariosIncidencia($identificador){
+    $texto="SELECT Comentarios.identificador, Comentarios.usuario, Comentarios.incidencia, Comentarios.comentario, Usuarios.nombre, Usuarios.familia FROM Comentarios JOIN Usuarios ON (Comentarios.usuario = Usuarios.identificador AND Comentarios.incidencia=?)";
+    $stmt=$this->mysqli->prepare($texto);
+    $stmt->bind_param("s",$identificador);
     $stmt->execute();
     $result=$stmt->get_result();
     $stmt->close();

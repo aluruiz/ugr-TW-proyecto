@@ -3,6 +3,12 @@
   require_once "../BaseDeDatos.php";
   require_once $ROOT_PATH . '/core/modelo/Usuario.php';
   require_once $ROOT_PATH . '/core/modelo/Incidencia.php';
+  require_once $ROOT_PATH .'/controlador/herramientas/vendor/autoload.php';
+
+  $loader = new \Twig\Loader\FilesystemLoader($ROOT_PATH);
+  $twig = new \Twig\Environment($loader);
+  $ruta = "/vista/busqueda.html";
+  $template = $twig -> load($ruta);
 
   $database = new Database();
   $ordenarBusqueda = $_POST['ordenarBusqueda'] ?? "";
@@ -47,5 +53,10 @@
     }
   }
 
-  header('Location: ../../busqueda.php');
+  $argumentos = array();
+  $argumentos["incidencias"]=$incidencias;
+  $argumentos["usuarios"]=$usuarios;
+  //header('Location: ../../busqueda.php');
+  //$twig-> render('../../busqueda.php', $argumentos);
+  echo $template -> render($argumentos);
 ?>

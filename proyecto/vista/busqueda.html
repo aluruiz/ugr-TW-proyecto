@@ -6,7 +6,7 @@
 
 {% block main %}
 
-<form class="formularioBusqueda" action="./core/POST/postBusqueda.php" method="post">
+<form class="formularioBusqueda" action="busqueda.php" method="post">
   <fieldset>
     <legend>Ordenar por:</legend>
       <div class="form-check">
@@ -96,18 +96,26 @@
 <div class="incidencia">
   {% if incidencias is defined %}
   {% for incidencia in incidencias %}
-  {% set usuario = incidencia.usuario %}
   <section>
-    <h1> Titulo de la incidencia</h1>
+    <h1> {{incidencia.titulo}}</h1>
+
+    <p>{{incidencia.descripcion}}</p>
 
     <span>Lugar: {{incidencia.lugar}}</span>
     <span>Fecha: {{incidencia.fecha}}</span>
-    <span>Creado por: {{usuarios.usuario.nombre}} {{usuarios.usuario.familia}}</span>
+    <span>Creado por: {{incidencia.usuario.nombre}} {{incidencia.usuario.familia}}</span>
     <span>Palabras Clave: </span>
     <span>Estado: {{incidencia.estado}}</span>
     <span>Valoraciones: +{{incidencia.positivas}}  -{{incidencia.negativas}}</span>
 
-    <p>{{incidencia.descripcion}}</p>
+    <div class="comentarios">
+      {% for comentario in incidencia.comentarios %}
+      <section>
+        <p>Comentario de: {{comentario.usuario.nombre}} {{comentario.usuario.familia}}</p>
+        <p>{{comentario.comentario}}</p>
+      </section>
+      {% endfor %}
+    </div>
   </section>
   {% endfor %}
   {% else %}
