@@ -11,7 +11,7 @@ class Usuario{
   public $rango;
   public $estado;
 
-  public function __construct($id, $nombre,$familia, $direccion, $telefono, $password, $rango, $estado){
+  public function __construct($id, $nombre,$familia, $email, $direccion, $telefono, $password, $rango, $estado){
     $this->id=$id;
     $this->nombre=$nombre;
     $this->familia=$familia;
@@ -23,6 +23,4 @@ class Usuario{
     $this->estado=$estado;
   }
 }
-
-
- ?>
+?>

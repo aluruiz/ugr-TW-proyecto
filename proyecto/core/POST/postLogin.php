@@ -1,6 +1,6 @@
 <?php
 
-require "../Database.php";
+require "../BaseDeDatos.php";
 $database = new Database();
 
 $emailLogin = $_POST['email'] ?? "";
@@ -12,13 +12,14 @@ if (empty($emailLogin) || empty($passwordLogin)) {
   session_start();
   $userBuscado = $database->getUsuarioByEmail($emailLogin);
   if (is_null($userBuscado)) {
-    echo "error";
+    echo "error1";
   } else {
-    if (password_verify($passwordLogin, $userBuscado->password)) {
+  if ($passwordLogin == $userBuscado->password/*password_verify($passwordLogin, $userBuscado->password)*/) {
       $_SESSION["loggedUserId"] = $userBuscado->id;
     } else {
-      echo "error";
+      echo "error2";
     }
    }
 }
+header("Location: ../../index.php");
 ?>
