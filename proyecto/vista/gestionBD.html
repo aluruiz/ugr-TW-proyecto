@@ -1,4 +1,8 @@
 {% extends "vista/base.html" %}
 {% block main %}
-  <a href="#">Pincha aqui para hacer una copia de la base de datos.</a>
+  {% if loggedUser.rango == 'Administrador'%}
+    <a href="#">Pincha aqui para hacer una copia de la base de datos.</a>
+  {% else %}
+    <h1>No eres administrador, no puedes acceder a esta pagina.</h1>
+  {% endif %}
 {% endblock %}

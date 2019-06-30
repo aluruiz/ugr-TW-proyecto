@@ -2,6 +2,11 @@
 require_once './controlador/herramientas/vendor/autoload.php';
 require_once './core/modelo/Incidencia.php';
 require_once './core/BaseDeDatos.php';
+require_once './login.php';
+
+$database = new Database();
+$idLogeado = getUsuarioLogged();
+$loggedUser = $database->getUsuarioById($idLogeado);
 
 $loader = new \Twig\Loader\FilesystemLoader('.');
 $twig = new \Twig\Environment($loader);
@@ -10,7 +15,6 @@ $ruta = "vista/nuevaIncidencia.html";
 $template = $twig -> load($ruta);
 
 if(isset($_POST['titulo'])) {
-  $database = new DataBase();
   $titulo = $_POST['titulo'];
   $descripcion = $_POST['descripcion'] ?? "";
   $lugar = $_POST['lugar'] ?? "";
@@ -28,6 +32,8 @@ if(isset($_POST['titulo'])) {
   }
 }
 
+$argumentos = [];
+$argumentos["loggedUser"] = $loggedUser;
 
-echo $template -> render();
+echo $template -> render($argumentos);
 ?>

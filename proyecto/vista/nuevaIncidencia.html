@@ -1,5 +1,8 @@
 {% extends "vista/base.html" %}
 {% block main %}
+  {% if loggedUser is null %}
+    <h1>No eres usuario, no puedes acceder a esta pagina.</h1>
+  {% else %}
   <form action="nuevaIncidencia.php" method="post">
     <label for="titulo">Titulo</label>
     <input type="text" name="titulo" required>
@@ -11,4 +14,5 @@
     <input type="text" placeholder="Ej: farola, agua, luz, avenida" name="palabras">
     <input type="submit" value="Enviar Incidencia"/>
   </form>
+  {% endif %}
 {% endblock %}

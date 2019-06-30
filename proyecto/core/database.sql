@@ -21,6 +21,7 @@ CREATE TABLE Usuarios(
 );
 
 INSERT INTO Usuarios (nombre,familia,email,password,rango,estado) VALUES ('admin','admin','admin@admin.com','admin','Administrador','Activo');
+INSERT INTO Usuarios (nombre,familia,email,password,rango,estado) VALUES ('colab','colab','colab@colab.com','colab','Colaborador','Activo');
 
 CREATE TABLE Incidencias(
   identificador INT AUTO_INCREMENT,

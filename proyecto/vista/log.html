@@ -1,15 +1,19 @@
 {% extends "vista/base.html" %}
 {% block main %}
-  <table>
-    <tr>
-      <th>Fecha</th>
-      <th>Descripcion</th>
-    </tr>
-    {% for log in logs %}
+  {% if loggedUser.rango == 'Administrador' %}
+    <table>
       <tr>
-        <td>{{ log.fecha }}</td>
-        <td>{{ log.descripcion }}</td>
+        <th>Fecha</th>
+        <th>Descripcion</th>
       </tr>
-    {% endfor %}
-  </table>
+      {% for log in logs %}
+        <tr>
+          <td>{{ log.fecha }}</td>
+          <td>{{ log.descripcion }}</td>
+        </tr>
+      {% endfor %}
+    </table>
+  {% else %}
+    <h1>No eres administrador, no puedes acceder a esta pagina.</h1>
+  {% endif %}
 {% endblock %}

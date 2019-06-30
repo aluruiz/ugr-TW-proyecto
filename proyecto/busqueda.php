@@ -5,18 +5,23 @@ require_once './core/BaseDeDatos.php';
 require_once './core/modelo/Usuario.php';
 require_once './core/modelo/Incidencia.php';
 require_once './core/modelo/Comentario.php';
+require_once './login.php';
 $loader = new \Twig\Loader\FilesystemLoader('.');
 $twig = new \Twig\Environment($loader);
 
 $ruta = "vista/busqueda.html";
 $template = $twig -> load($ruta);
 
-
   $database = new Database();
+  $idLogeado = getUsuarioLogged();
+  $loggedUser = $database->getUsuarioById($idLogeado);
+
+
   $ordenarBusqueda = $_POST['ordenarBusqueda'] ?? "";
   $textoBusqueda = $_POST['textoBusqueda'] ?? "";
   $buscarEn = $_POST['lugarBusqueda'] ?? "";
   $estadoBusqueda = $_POST['estadoBusqueda'] ?? array();
+
 
   $incidencias = array();
  // AQUÍ VA UN BUCLE FOR PARA CADA IF CONCATENANDO LAS $BUSQUEDA POR CADA ESTADO DE BUSQUEDA
@@ -72,6 +77,7 @@ $template = $twig -> load($ruta);
 
   $argumentos = array();
   $argumentos["incidencias"]=$incidencias;
+  $argumentos["loggedUser"] = $loggedUser;
   //$argumentos["usuarios"]=$usuarios;
 
 echo $template -> render($argumentos);

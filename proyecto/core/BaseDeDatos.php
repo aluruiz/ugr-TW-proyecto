@@ -376,8 +376,6 @@ class Database {
     return $result;
   }
 
-}
-
   public function getUsuarioByEmail($email) {
    $queryUsuarios = "SELECT * FROM usuarios WHERE email=?";
    $stmt = $this->mysqli->prepare($queryUsuarios);
