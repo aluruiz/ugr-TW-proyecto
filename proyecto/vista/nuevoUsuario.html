@@ -1,28 +1,32 @@
 {% extends "vista/base.html" %}
 {% block main %}
-  <form action="./core/post/admin/postNuevoUsuario.php" method="post">
-    <label for="Nombre">Nombre</label>
-    <input type="text" name="nombre" required>
+  {% if loggedUser.rango == 'Administrador' %}
+    <form action="./core/post/admin/postNuevoUsuario.php" method="post">
+      <label for="Nombre">Nombre</label>
+      <input type="text" name="nombre" required>
 
-    <label for="Familia">Familia</label>
-    <input type="text" name="familia" required>
+      <label for="Familia">Familia</label>
+      <input type="text" name="familia" required>
 
-    <label for="email">Email</label>
-    <input type="email" name="email" id = "checkEmail" onblur='validarEmail(this)' placeholder="usuario@usuario.algo" required>
-    <div class='info' id='emailinfo'></div>
+      <label for="email">Email</label>
+      <input type="email" name="email" id = "checkEmail" onblur='validarEmail(this)' placeholder="usuario@usuario.algo" required>
+      <div class='info' id='emailinfo'></div>
 
-    <label for="postal">Direccion Postal</label>
-    <input type="text" name="postal" onblur='validarPostal(this)' placeholder="99099" required>
-    <div class='info' id='postalinfo'></div>
+      <label for="postal">Direccion Postal</label>
+      <input type="text" name="postal" onblur='validarPostal(this)' placeholder="99099" required>
+      <div class='info' id='postalinfo'></div>
 
-    <label for="tlf">Telefono</label>
-    <input type="tel" name="tlf" onblur='validarTelefono(this)' placeholder="(+34) 999 999999" required>
-    <div class='info' id='tlfinfo'></div>
+      <label for="tlf">Telefono</label>
+      <input type="tel" name="tlf" onblur='validarTelefono(this)' placeholder="(+34) 999 999999" required>
+      <div class='info' id='tlfinfo'></div>
 
-    <label for="contraseña">Contraseña</label>
-    <input type="password" name="contraseña" onblur='' required>
-    <div class='info' id='contraseñainfo'></div>
+      <label for="contraseña">Contraseña</label>
+      <input type="password" name="contraseña" onblur='' required>
+      <div class='info' id='contraseñainfo'></div>
 
-    <input type="submit" value="Enviar datos"/>
-  </form>
+      <input type="submit" value="Enviar datos"/>
+    </form>
+    {% else %}
+      <h1>No eres administrador, no puedes acceder a esta pagina.</h1>
+    {% endif %}
 {% endblock %}

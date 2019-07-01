@@ -84,7 +84,8 @@ INSERT INTO Comentarios(usuario,incidencia,comentario) VALUES(1,2,'Comentario de
 
 CREATE TABLE Log(
   identificador INT AUTO_INCREMENT,
-  fecha DATETIME NOT NULL,
+  fecha TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+ ON UPDATE CURRENT_TIMESTAMP,
   descripcion VARCHAR(100),
   PRIMARY KEY(identificador)
 );

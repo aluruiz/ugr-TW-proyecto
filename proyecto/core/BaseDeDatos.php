@@ -9,31 +9,31 @@ class Database {
   private $mysqli;
 
   public function __construct() {
-    $hostname = "localhost";
+  /*  $hostname = "localhost";
     $username1 = "tw";
     $password1 = "KpxlwisaphBmGOVD";
     $databaseName1 = "tw_proyecto";
-    /*FZkuCumUMWErcqfb
-    KpxlwisaphBmGOVD
+    /*FZkuCumUMWErcqfb*/
+    //KpxlwisaphBmGOVD
     $hostname = "localhost";
     $username1 = "paularg981819";
     $password1 = "fuWxW4c7";
     $username2 = "lauragogar1819";
     $password2 = "KdnkJuSY";
     $databaseName1 = "paularg981819";
-    $databaseName2 = "lauragogar1819";*/
-    $this->mysqli = new mysqli($hostname, $username1, $password1, $databaseName1);
+    $databaseName2 = "lauragogar1819";
+    $this->mysqli = new mysqli($hostname, $username2, $password2, $databaseName2);
 /*    if(!$this->mysql){
       $this->mysqli = new mysqli($hostname, $username1, $password1, $databaseName1);
     }*/
 
-    /*if (mysqli_connect_errno()) {
-      $this->mysqli = new mysqli($hostname, $username1, $password1, $databaseName1);*/
+    if (mysqli_connect_errno()) {
+      $this->mysqli = new mysqli($hostname, $username1, $password1, $databaseName1);
       if(mysqli_connect_errno()){
         printf("Conexión errónea: %s\n", mysqli_connect_error());
         exit();
       }
-    /*}*/
+    }
         $this->mysqli->set_charset("utf8");
         mysqli_report(MYSQLI_REPORT_ERROR | MYSQLI_REPORT_STRICT);
   }
@@ -153,6 +153,48 @@ class Database {
     return $result;
   }
 
+  public function getUsuariosIncDesc(){
+    $texto="SELECT Usuarios.* FROM Usuarios JOIN Incidencias ON (Incidencias.usuario = Usuarios.identificador) GROUP BY Incidencias.usuario ORDER BY COUNT(Incidencias.identificador) ";
+    $stmt=$this->mysqli->prepare($texto);
+    $stmt->execute();
+    $result=$stmt->get_result();
+    $stmt->close();
+    return $result;
+  }
+
+  public function getUsuariosComDesc(){
+    $texto="SELECT Usuarios.* FROM Usuarios JOIN Comentarios ON (Comentarios.usuario = Usuarios.identificador) GROUP BY Comentarios.usuario ORDER BY COUNT(Comentarios.identificador) ";
+    $stmt=$this->mysqli->prepare($texto);
+    $stmt->execute();
+    $result=$stmt->get_result();
+    $stmt->close();
+    return $result;
+  }
+
+  public function getNumIncidenciasResueltas(){
+    $texto="SELECT COUNT(Incidencias.identificador) FROM Incidencias WHERE Incidencias.estado = ? ";
+    $stmt=$this->mysqli->prepare($texto);
+    $a="Resuelta";
+    $stmt->bind_param("s",$a);
+    $stmt->execute();
+    $result=$stmt->get_result();
+    $result=$result->fetch_row()[0];
+    $stmt->close();
+    return $result;
+  }
+
+  public function getNumIncidenciasPendientes(){
+    $texto="SELECT COUNT(Incidencias.identificador) FROM Incidencias WHERE Incidencias.estado = ? ";
+    $stmt=$this->mysqli->prepare($texto);
+    $a="Pendiente";
+    $stmt->bind_param("s",$a);
+    $stmt->execute();
+    $result=$stmt->get_result();
+    $result=$result->fetch_row()[0];
+    $stmt->close();
+    return $result;
+  }
+
   public function getIncidenciasUsuario($identificadorUsu){
     $texto="SELECT Incidencias.identificador, Incidencias.titulo, Incidencias.lugar, Incidencias.descripcion, Incidencias.fecha, Incidencias.positivas, Incidencias.negativas, Incidencias.estado FROM Incidencias WHERE Incidencias.usuario=? ORDER BY Incidencias.fecha DESC";
     $stmt=$this->mysqli->prepare($texto);
@@ -166,11 +208,26 @@ class Database {
   public function getComentariosIncidencia($identificador){
     $texto="SELECT Comentarios.identificador, Comentarios.usuario, Comentarios.incidencia, Comentarios.comentario, Usuarios.nombre, Usuarios.familia FROM Comentarios JOIN Usuarios ON (Comentarios.usuario = Usuarios.identificador AND Comentarios.incidencia=?)";
     $stmt=$this->mysqli->prepare($texto);
-    $stmt->bind_param("s",$identificador);
+    $stmt->bind_param("i",$identificador);
     $stmt->execute();
     $result=$stmt->get_result();
     $stmt->close();
     return $result;
+  }
+
+  public function getPalabrasClave($identificador){
+    $texto="SELECT RelClaveIncidencia.clave FROM RelClaveIncidencia WHERE RelClaveIncidencia.incidencia=?";
+    $stmt=$this->mysqli->prepare($texto);
+    $stmt->bind_param("i",$identificador);
+    $stmt->execute();
+    $result=$stmt->get_result();
+    $string = "";
+    while ($row=$result->fetch_assoc()) {
+      $string.=$row['clave'].", ";
+    }
+    $string=trim($string,', ');
+    $stmt->close();
+    return $string;
   }
 
   public function nuevaIncidencia($titulo,$lugar,$descripcion,$estado,$usuario){
@@ -185,7 +242,7 @@ class Database {
     $stmt=$this->mysqli->prepare($texto);
     $stmt->bind_param("ssssi",$titulo,$lugar,$descripcion,$estado,$usuario);
     $stmt->execute();
-    $result=$stmt->get_result();
+    $result=($stmt->get_result()->fetch_assoc())['identificador'];
     $stmt->close();
     return $result;
   }
@@ -206,6 +263,15 @@ class Database {
     $stmt->execute();
     $result=$stmt->get_result();
     $stmt->close();
+
+    $texto="SELECT Usuarios.identificador FROM Usuarios WHERE(Usuarios.nombre=? AND Usuarios.familia=? AND Usuarios.email=?, AND Usuarios.direccion=? AND Usuarios.telefono=? AND Usuarios.password=? AND Usuarios.rango=? AND Usuarios.estado=?)";
+    $stmt=$this->mysqli->prepare($texto);
+    $stmt->bind_param("ssssssss",$nombre,$familia,$email,$direccion,$telefono,$password,$rango,$estado);
+    $stmt->execute();
+    $result=($stmt->get_result()->fetch_assoc())['identificador'];
+    $stmt->close();
+    return $result;
+
     return $result;
   }
 
@@ -245,8 +311,18 @@ class Database {
     return $result;
   }
 
+  public function nuevoLog($descripcion){
+    $texto="INSERT INTO Log (descripcion) VALUES (?)";
+    $stmt = $this->mysqli->prepare($texto);
+    $stmt->bind_param("s",$descripcion);
+    $stmt->execute();
+    $result=$stmt->get_result();
+    $stmt->close();
+    return $result;
+  }
+
   public function getLog(){
-    $texto="SELECT Log.fecha,Log.descripcion FROM Log ORDER BY Log.fecha DESC";
+    $texto="SELECT Log.identificador, Log.fecha, Log.descripcion FROM Log ORDER BY Log.fecha DESC";
     $stmt = $this->mysqli->prepare($texto);
     $stmt->execute();
     $result=$stmt->get_result();
@@ -351,7 +427,7 @@ class Database {
     $stmt=$this->mysqli->prepare($texto);
     $stmt->bind_param("s",$clave);
     $stmt->execute();
-    $result=$stmt->get_result();
+    $result=$stmt->get_result()->fetch_assoc();
     $stmt->close();
     return $result;
   }
@@ -377,7 +453,7 @@ class Database {
   }
 
   public function getUsuarioByEmail($email) {
-   $queryUsuarios = "SELECT * FROM usuarios WHERE email=?";
+   $queryUsuarios = "SELECT * FROM Usuarios WHERE email=?";
    $stmt = $this->mysqli->prepare($queryUsuarios);
    $stmt->bind_param("s", $email);
    $stmt->execute();
@@ -392,7 +468,7 @@ class Database {
 
 
   public function getUsuarioById($id) {
-  $queryUsuarios = "SELECT * FROM usuarios WHERE identificador=?";
+  $queryUsuarios = "SELECT * FROM Usuarios WHERE identificador=?";
   $stmt = $this->mysqli->prepare($queryUsuarios);
   $stmt->bind_param("i", $id);
   $stmt->execute();

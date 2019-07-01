@@ -71,13 +71,25 @@
             </form>
           {% endif %}
 
+          {% if aside is defined %}
           <section class="tituloLateral">
+            <legend>Top Usuarios Nº Incidencias:</legend>
             <ol>
-              <li></li>
-              <li></li>
-              <li></li>
+              {% for usuario in aside.topUsuariosIncidencias %}
+                <li>{{usuario.nombre}} {{usuario.familia}}</li>
+              {% endfor %}
             </ol>
+            <legend>Top Usuarios Nº Comentarios</legend>
+            <ol>
+              {% for usuario in aside.topUsuariosComentarios %}
+                <li>{{usuario.nombre}} {{usuario.familia}}</li>
+              {% endfor %}
+            </ol>
+            <legend>Estadísticas</legend>
+            <p>Resueltas: {{aside.nIncidenciasResueltas}}</p>
+            <p>Pendientes: {{aside.nIncidenciasPendientes}}</p>
           </section>
+          {% endif %}
         </div>
       </aside>
     </div>

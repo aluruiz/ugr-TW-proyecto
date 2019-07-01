@@ -11,3 +11,4 @@ class Comentario{
     $this->usuario = $usuario;
   }
 }
+?>

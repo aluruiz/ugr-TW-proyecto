@@ -14,8 +14,9 @@
     if (!is_null($userBuscado)) {
       echo "email"; //ya existe un usuario con ese email
     } else {
-      $database->nuevoUsuario($nombreRegister, $familiaRegister, $emailRegister, $postalRegister, $tlfRegister, password_hash($passwordRegister, PASSWORD_BCRYPT),'Colaborador','Inactivo');
+      $usuario=$database->nuevoUsuario($nombreRegister, $familiaRegister, $emailRegister, $postalRegister, $tlfRegister, password_hash($passwordRegister, PASSWORD_BCRYPT),'Colaborador','Inactivo');
       echo "ok";
+      $database->nuevoLog("Registrado el usuario: ".$usuario);
     }
   }
   header("Location: ../../../index.php");

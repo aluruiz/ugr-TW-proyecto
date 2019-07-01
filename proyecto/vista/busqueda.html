@@ -51,10 +51,6 @@
 
   <fieldset>
     <legend>Lugar de la incidencia:</legend>
-    <?php
-    require_once "../core/BaseDeDatos.php";
-    $lugares=(new BaseDeDatos()).getAllLugares()
-    ?>
     <select class="desplegable-lugares">
       {% for lugar in lugares %}
       <option value="{{lugar.lugar}}">{{lugar.lugar}}</option>
@@ -104,7 +100,7 @@
     <span>Lugar: {{incidencia.lugar}}</span>
     <span>Fecha: {{incidencia.fecha}}</span>
     <span>Creado por: {{incidencia.usuario.nombre}} {{incidencia.usuario.familia}}</span>
-    <span>Palabras Clave: </span>
+    <span>Palabras Clave: {{incidencia.palabrasClave}}</span>
     <span>Estado: {{incidencia.estado}}</span>
     <span>Valoraciones: +{{incidencia.positivas}}  -{{incidencia.negativas}}</span>
 
