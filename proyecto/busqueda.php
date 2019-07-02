@@ -13,12 +13,34 @@ $twig = new \Twig\Environment($loader);
 $ruta = "vista/busqueda.html";
 $template = $twig -> load($ruta);
 
+$database = new Database();
+$idLogeado = getUsuarioLogged();
+$loggedUser = $database->getUsuarioById($idLogeado);
+$lugares=$database->getAllLugares();
+$aside=new Aside(3);
 
-  $database = new Database();
-  $idLogeado = getUsuarioLogged();
-  $loggedUser = $database->getUsuarioById($idLogeado);
-  $lugares=$database->getAllLugares();
-  $aside=new Aside(3);
+if (isset($_POST['valoracion'])) {
+  $tipoValoracion="";
+  if(strcmp($_POST['valoracion'],"+")){
+    $tipoValoracion="Positiva";
+  }else {
+    $tipoValoracion="Negativa";
+  }
+
+  if($idLogeado!=NULL){
+    try {
+        $database->nuevaValoracionUsuario($idLogeado,$_POST['identificadorInci'],$tipoValoracion);
+    } catch (\Exception $e) {
+
+    }
+  }else {
+    $database->nuevaValoracionAnonima($_POST['identificadorInci'],$tipoValoracion);
+  }
+
+}
+if (isset($_POST['comentario'])) {
+  $database->nuevoComentario($idLogeado,$_POST['identificadorInci'],$_POST['comentario']);
+}
 
   $ordenarBusqueda = $_POST['ordenarBusqueda'] ?? "";
   $textoBusqueda = $_POST['textoBusqueda'] ?? "";

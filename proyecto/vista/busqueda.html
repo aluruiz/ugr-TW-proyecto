@@ -89,10 +89,10 @@
     <input type="submit" class="btn btn-primary" value="Aplicar criterios de busqueda"/>
 </form>
 
-<div class="incidencia">
+<section class="incidencia">
   {% if incidencias is defined %}
   {% for incidencia in incidencias %}
-  <section>
+  <section class="texto-incidencia">
     <h1> {{incidencia.titulo}}</h1>
 
     <p>{{incidencia.descripcion}}</p>
@@ -103,19 +103,35 @@
     <span>Palabras Clave: {{incidencia.palabrasClave}}</span>
     <span>Estado: {{incidencia.estado}}</span>
     <span>Valoraciones: +{{incidencia.positivas}}  -{{incidencia.negativas}}</span>
-
-    <div class="comentarios">
+  </section>
+  <section class="comentarios-incidencia">
       {% for comentario in incidencia.comentarios %}
       <section>
         <p>Comentario de: {{comentario.usuario.nombre}} {{comentario.usuario.familia}}</p>
         <p>{{comentario.comentario}}</p>
       </section>
       {% endfor %}
-    </div>
+  </section>
+  <section class="scripts-incidencia">
+    {% if loggedUser %}
+    <form class="nuevoComentario" action="busqueda.php" method="post">
+      <input type="text" class="form-control" name="comentario" placeholder="Nuevo comentario.">
+      <input type="hidden" name="identificadorInci" value="{{incidencia.id}}">
+      <input type="submit" class="btn btn-primary" value="Enviar comentario"/>
+    </form>
+    {% endif %}
+    <form class="valoracionPositiva" action="busqueda.php" method="post">
+      <input type="hidden" name="identificadorInci" value="{{incidencia.id}}">
+      <input type="submit" class="btn btn-primary" value="+" name="valoracion"/>
+    </form>
+    <form class="valoracionNegativa" action="busqueda.php" method="post">
+      <input type="hidden" name="identificadorInci" value="{{incidencia.id}}">
+      <input type="submit" class="btn btn-primary" value="-" name="valoracion"/>
+    </form>
   </section>
   {% endfor %}
   {% else %}
     <p>NO DEFINIDO</p>
   {% endif %}
-</div>
+</section>
 {% endblock %}

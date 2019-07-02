@@ -1,0 +1,12 @@
+{% extends "vista/base.html" %}
+{% block main %}
+  {% if loggedUser is null %}
+    <h1>No eres usuario, no puedes acceder a esta pagina.</h1>
+  {% else %}
+  <section class="editarIncidencia">
+    {% if incidencia is defined %}
+    
+    {% endif %}
+  </section>
+  {% endif %}
+{% endblock %}

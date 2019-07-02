@@ -3,10 +3,10 @@
   {% if loggedUser is null %}
     <h1>No eres usuario, no puedes acceder a esta pagina.</h1>
   {% else %}
-  <div class="incidencia">
+  <section class="incidencia">
     {% if incidencias is defined %}
     {% for incidencia in incidencias %}
-    <section>
+    <section class="texto-incidencia">
       <h1> {{incidencia.titulo}}</h1>
 
       <p>{{incidencia.descripcion}}</p>
@@ -17,20 +17,25 @@
       <span>Palabras Clave: {{incidencia.palabrasClave}}</span>
       <span>Estado: {{incidencia.estado}}</span>
       <span>Valoraciones: +{{incidencia.positivas}}  -{{incidencia.negativas}}</span>
-
-      <div class="comentarios">
+    </section>
+    <section class="comentarios-incidencia">
         {% for comentario in incidencia.comentarios %}
         <section>
           <p>Comentario de: {{comentario.usuario.nombre}} {{comentario.usuario.familia}}</p>
           <p>{{comentario.comentario}}</p>
         </section>
         {% endfor %}
-      </div>
+    </section>
+    <section class="scripts-incidencia">
+      <form class="editarIncidencia" action="editarIncidencia.php" method="post">
+        <input type="hidden" name="identificadorInci" value="{{incidencia.id}}">
+        <input type="submit" class="btn btn-primary" value="Editar"/>
+      </form>
     </section>
     {% endfor %}
     {% else %}
       <p>NO DEFINIDO</p>
     {% endif %}
-  </div>
+  </section>
   {% endif %}
 {% endblock %}
