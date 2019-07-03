@@ -1,7 +1,7 @@
 {% extends "vista/base.html" %}
 {% block main %}
   {% if loggedUser.rango == 'Administrador' %}
-    <form action="./core/post/admin/postNuevoUsuario.php" method="post">
+    <form action="./core/POST/admin/postNuevoUsuario.php" method="post">
       <label for="Nombre">Nombre</label>
       <input type="text" name="nombre" required>
 

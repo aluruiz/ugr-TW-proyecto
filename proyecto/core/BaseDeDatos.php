@@ -264,7 +264,7 @@ class Database {
     $result=$stmt->get_result();
     $stmt->close();
 
-    $texto="SELECT Usuarios.identificador FROM Usuarios WHERE(Usuarios.nombre=? AND Usuarios.familia=? AND Usuarios.email=?, AND Usuarios.direccion=? AND Usuarios.telefono=? AND Usuarios.password=? AND Usuarios.rango=? AND Usuarios.estado=?)";
+    $texto="SELECT Usuarios.identificador FROM Usuarios WHERE(Usuarios.nombre=? AND Usuarios.familia=? AND Usuarios.email=? AND Usuarios.direccion=? AND Usuarios.telefono=? AND Usuarios.password=? AND Usuarios.rango=? AND Usuarios.estado=?)";
     $stmt=$this->mysqli->prepare($texto);
     $stmt->bind_param("ssssssss",$nombre,$familia,$email,$direccion,$telefono,$password,$rango,$estado);
     $stmt->execute();

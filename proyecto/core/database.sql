@@ -14,7 +14,7 @@ CREATE TABLE Usuarios(
   email VARCHAR(50) NOT NULL UNIQUE,
   direccion VARCHAR(100),
   telefono VARCHAR(15),
-  password VARCHAR(15) NOT NULL,
+  password VARCHAR(255) NOT NULL,
   rango ENUM('Administrador','Colaborador') NOT NULL,
   estado ENUM('Inactivo','Activo') NOT NULL,
   PRIMARY KEY(identificador)
