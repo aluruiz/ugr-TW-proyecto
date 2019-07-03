@@ -1,6 +1,6 @@
 <?php
   require_once "../BaseDeDatos.php";
-  require_once './login.php';
+  require_once '../../login.php';
   $database = new Database();
   session_start();
   $idLogeado = getUsuarioLogged();
