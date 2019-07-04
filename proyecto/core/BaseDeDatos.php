@@ -205,6 +205,17 @@ class Database {
     return $result;
   }
 
+  public function getIncidencia($identificador){
+    $texto="SELECT Incidencias.identificador, Incidencias.titulo, Incidencias.lugar, Incidencias.descripcion, Incidencias.fecha, Incidencias.positivas, Incidencias.negativas, Incidencias.estado FROM Incidencias WHERE Incidencias.identificador=?";
+    $stmt=$this->mysqli->prepare($texto);
+    $stmt->bind_param("s",$identificador);
+    $stmt->execute();
+    $result=$stmt->get_result();
+    $stmt->close();
+    return $result;
+  }
+
+
   public function getComentariosIncidencia($identificador){
     $texto="SELECT Comentarios.identificador, Comentarios.usuario, Comentarios.incidencia, Comentarios.comentario, Usuarios.nombre, Usuarios.familia FROM Comentarios JOIN Usuarios ON (Comentarios.usuario = Usuarios.identificador AND Comentarios.incidencia=?)";
     $stmt=$this->mysqli->prepare($texto);
@@ -348,6 +359,26 @@ class Database {
     $result=$stmt->get_result();
     $stmt->close();
     return $result;
+  }
+
+  public function modificarIncidencia($identificador,$titulo,$lugar,$descripcion){
+    $texto="UPDATE Incidencias SET titulo=?,lugar=?,descripcion=? WHERE identificador=?";
+    $stmt = $this->mysqli->prepare($texto);
+    $stmt->bind_param("sssi",$titulo,$lugar,$descripcion,$identificador);
+    $stmt->execute();
+    $result=$stmt->get_result();
+    $stmt->close();
+    return $this->getIncidencia($identificador);
+  }
+
+  public function modificarEstadoIncidencia($identificador,$estado){
+    $texto="UPDATE Incidencias SET estado=? WHERE identificador=?";
+    $stmt = $this->mysqli->prepare($texto);
+    $stmt->bind_param("si",$estado,$identificador);
+    $stmt->execute();
+    $result=$stmt->get_result();
+    $stmt->close();
+    return $this->getIncidencia($identificador);
   }
 
   public function nuevaImagen($identificadorInci){
