@@ -19,6 +19,7 @@ $ruta = "vista/editarIncidencia.html";
 $template = $twig -> load($ruta);
 
 $incidencia=NULL;
+$claves=$database->getPalabrasClave($_POST['identificadorInci']);
 
 if($loggedUser!=NULL && isset($_POST['identificadorInci'])){
   $identificadorInci=$_POST['identificadorInci'];
@@ -27,18 +28,51 @@ if($loggedUser!=NULL && isset($_POST['identificadorInci'])){
     $result=$database->modificarIncidencia($_POST['identificadorInci'],$_POST['titulo'],$_POST['lugar'],$_POST['descripcion']);
     if ($loggedUser->rango=="Administrador"){ //Aquí falla con strcmp y me gustaría saber por qué.
       $result=$database->modificarEstadoIncidencia($_POST['identificadorInci'],$_POST['estado']);
-
     }
+    $arrayClaves=explode(',',$claves);
+    $clavesMod=$_POST['palabras'];
+    $arrayClavesMod=explode(',',$clavesMod);
+    foreach ($arrayClaves as $key => $value) {
+      $value=trim($value);
+      if(strpos($clavesMod,$value)===false){
+        $database->borrarRelClaveIncidencia($value,$_POST['identificadorInci']);
+      }
+    }
+
+    foreach ($arrayClavesMod as $key => $value) {
+      $value=trim($value);
+      if(strpos($claves,$value)===false){
+        if($database->existePalabraClave($value)==NULL){
+          $database->nuevaPalabraClave($value);
+        }
+        $database->nuevaRelClaveIncidencia($_POST['identificadorInci'],$value);
+      }
+    }
+
+    $claves=$database->getPalabrasClave($_POST['identificadorInci']);
 
   } else {
     $result=$database->getIncidencia($_POST['identificadorInci']);
-
   }
   $row = $result->fetch_assoc();
-  $incidencia = new Incidencia($row["identificador"],$row["titulo"],$row["lugar"],$row["descripcion"],$row["fecha"],$row["positivas"],$row["negativas"],$row["estado"],NULL,NULL,$database->getPalabrasClave($row["identificador"]));
-/*      echo $_POST['estado'];
-  echo $incidencia->estado;
-  echo $_POST['titulo'];*/
+
+  $incidencia = new Incidencia($row["identificador"],$row["titulo"],$row["lugar"],$row["descripcion"],$row["fecha"],$row["positivas"],$row["negativas"],$row["estado"],NULL,NULL,$claves);
+
+  if(isset($_POST['nuevaImagen']) && is_uploaded_file($_FILES['imagen']['tmp_name'])){
+    $dirSubida='./imagenes/';
+    $result=$database->nuevaImagen($_POST['identificadorInci'],pathinfo($_FILES['imagen']['name'],PATHINFO_EXTENSION));
+    $row=$result->fetch_assoc();
+    $nombre="Incidencia-".$_POST['identificadorInci']."-".$row['identificador'].".".$row['extension'];
+    move_uploaded_file($_FILES['imagen']['tmp_name'], $dirSubida.$nombre);
+
+  }
+  $imagenes=array();
+  $result=$database->getImagen($_POST['identificadorInci']);
+  while ($result != NULL && $row=$result->fetch_assoc()) {
+    $imagenes[$row['identificador']]="Incidencia-".$_POST['identificadorInci']."-".$row['identificador'].".".$row['extension'];
+  }
+
+  $incidencia->imagenes=$imagenes;
 }
 
 $argumentos = [];

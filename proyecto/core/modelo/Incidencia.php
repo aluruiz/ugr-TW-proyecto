@@ -12,6 +12,7 @@ class Incidencia{
   public $usuario;
   public $comentarios;
   public $palabrasClave;
+  public $imagenes;
 
   public function __construct($id,$titulo,$lugar,$descripcion,$fecha,$positivas,$negativas,$estado,$usuario,$comentarios,$palabrasClave){
     $this->id=$id;

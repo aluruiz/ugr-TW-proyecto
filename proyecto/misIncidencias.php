@@ -31,6 +31,12 @@ if($loggedUser!=NULL){
       $arrayCom[$rowCom["identificador"]]=$comentario;
     }
     $incidencia = new Incidencia($row["identificador"],$row["titulo"],$row["lugar"],$row["descripcion"],$row["fecha"],$row["positivas"],$row["negativas"],$row["estado"],$loggedUser,$arrayCom,$database->getPalabrasClave($row["identificador"]));
+    $imagenes=array();
+    $resultI=$database->getImagen($row["identificador"]);
+    while ($resultI != NULL && $rowI=$resultI->fetch_assoc()) {
+      $imagenes[$rowI['identificador']]="Incidencia-".$row["identificador"]."-".$rowI['identificador'].".".$rowI['extension'];
+    }
+    $incidencia->imagenes=$imagenes;
     $incidencias[$row["identificador"]] = $incidencia;
   }
 }

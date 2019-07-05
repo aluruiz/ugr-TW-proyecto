@@ -21,8 +21,19 @@
         <option value="{{elemento}}" {% if incidencia.estado is same as(elemento) %}selected{% endif %}>{{elemento}}</option>
         {% endfor %}
       </select>
-      <input type="hidden" name="modificado" value="modificado">
-      <input type="submit" value="Finalizar edicion"/>
+      <!--<input type="hidden" name="modificado" value="modificado">-->
+      <input type="submit" name="modificado" value="Finalizar edicion"/>
+    </form>
+    <div class="imagenes">
+      {% for imagen in incidencia.imagenes %}
+      <img src="./imagenes/{{imagen}}" alt="">
+      {% endfor %}
+    </div>
+
+    <form action="editarIncidencia.php" method="post" enctype="multipart/form-data">
+      <input type="file" name="imagen" accept="image/jpeg, image/gif, image/png" required>
+      <input type="hidden" name="identificadorInci" value="{{incidencia.id}}">
+      <input type="submit" name="nuevaImagen" value="Enviar imagen">
     </form>
     {% endif %}
   </section>

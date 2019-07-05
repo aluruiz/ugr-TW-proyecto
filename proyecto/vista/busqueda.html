@@ -15,13 +15,13 @@
       </div>
 
       <div class="form-check">
-        <input type="radio" name="ordenarBusqueda" value="positivos">
-        <label for="positivos">Numero de positivos (de mas a menos)</label>
+        <input type="radio" name="ordenarBusqueda" value="positivas">
+        <label for="positivas">Numero de positivas (de mas a menos)</label>
       </div>
 
       <div class="form-check">
         <input type="radio" name="ordenarBusqueda" value="netos">
-        <label for="netos">Numero de positivos netos (de mas a menos)</label>
+        <label for="netos">Numero de positivas netos (de mas a menos)</label>
       </div>
 
   </fieldset>
@@ -103,22 +103,25 @@
     <span>Palabras Clave: {{incidencia.palabrasClave}}</span>
     <span>Estado: {{incidencia.estado}}</span>
     <span>Valoraciones: +{{incidencia.positivas}}  -{{incidencia.negativas}}</span>
-  </section>
-  <section class="comentarios-incidencia">
-      {% for comentario in incidencia.comentarios %}
-      <section>
-        <p>Comentario de: {{comentario.usuario.nombre}} {{comentario.usuario.familia}}</p>
-        <p>{{comentario.comentario}}</p>
-      </section>
+    <div class="imagenes">
+      {% for imagen in incidencia.imagenes %}
+      <img src="./imagenes/{{imagen}}" alt="">
       {% endfor %}
+    </div>
   </section>
   <section class="scripts-incidencia">
     {% if loggedUser %}
-    <form class="nuevoComentario" action="busqueda.php" method="post">
-      <input type="text" class="form-control" name="comentario" placeholder="Nuevo comentario.">
-      <input type="hidden" name="identificadorInci" value="{{incidencia.id}}">
-      <input type="submit" class="btn btn-primary" value="Enviar comentario"/>
-    </form>
+      <form class="nuevoComentario" action="busqueda.php" method="post">
+        <input type="text" class="form-control" name="comentario" placeholder="Nuevo comentario.">
+        <input type="hidden" name="identificadorInci" value="{{incidencia.id}}">
+        <input type="submit" class="btn btn-primary" value="Enviar comentario"/>
+      </form>
+      {% if loggedUser.rango == 'Administrador' %}
+        <form class="editarIncidencia" action="editarIncidencia.php" method="post">
+          <input type="hidden" name="identificadorInci" value="{{incidencia.id}}">
+          <input type="submit" class="btn btn-primary" value="Editar"/>
+        </form>
+      {% endif %}
     {% endif %}
     <form class="valoracionPositiva" action="busqueda.php" method="post">
       <input type="hidden" name="identificadorInci" value="{{incidencia.id}}">
@@ -128,6 +131,14 @@
       <input type="hidden" name="identificadorInci" value="{{incidencia.id}}">
       <input type="submit" class="btn btn-primary" value="-" name="valoracion"/>
     </form>
+  </section>
+  <section class="comentarios-incidencia">
+      {% for comentario in incidencia.comentarios %}
+      <section>
+        <p>Comentario de: {{comentario.usuario.nombre}} {{comentario.usuario.familia}}</p>
+        <p>{{comentario.comentario}}</p>
+      </section>
+      {% endfor %}
   </section>
   {% endfor %}
   {% else %}

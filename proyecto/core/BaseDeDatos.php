@@ -381,10 +381,20 @@ class Database {
     return $this->getIncidencia($identificador);
   }
 
-  public function nuevaImagen($identificadorInci){
-    $texto="INSERT INTO Imagenes (incidencia) VALUES (?)";
+  public function nuevaImagen($identificadorInci,$ext){
+    $texto="INSERT INTO Imagenes (incidencia,extension) VALUES (?,?)";
     $stmt=$this->mysqli->prepare($texto);
-    $stmt->bind_param("s",$identificadorInci);
+    $stmt->bind_param("is",$identificadorInci,$ext);
+    $stmt->execute();
+    $result=$stmt->get_result();
+    $stmt->close();
+    return $this->getImagen($identificadorInci);
+  }
+
+  public function getImagen($identificadorInci){
+    $texto="SELECT Imagenes.identificador, Imagenes.extension FROM Imagenes WHERE Imagenes.incidencia=? ORDER BY Imagenes.identificador DESC";
+    $stmt = $this->mysqli->prepare($texto);
+    $stmt->bind_param("i",$identificadorInci);
     $stmt->execute();
     $result=$stmt->get_result();
     $stmt->close();
@@ -394,29 +404,44 @@ class Database {
   public function borrarIncidencia($identificador){
     $texto="DELETE FROM Valoracion WHERE Valoracion.incidencia=?";
     $stmt=$this->mysqli->prepare($texto);
-    $stmt->bind_param("s",$identificadorInci);
+    $stmt->bind_param("i",$identificadorInci);
     $stmt->execute();
     $result=$stmt->get_result();
     $stmt->close();
     $texto="DELETE FROM Comentarios WHERE Comentarios.incidencia=?";
     $stmt=$this->mysqli->prepare($texto);
-    $stmt->bind_param("s",$identificadorInci);
+    $stmt->bind_param("i",$identificadorInci);
     $stmt->execute();
     $result=$stmt->get_result();
     $stmt->close();
     $texto="DELETE FROM Imagenes WHERE Imagenes.incidencia=?";
     $stmt=$this->mysqli->prepare($texto);
-    $stmt->bind_param("s",$identificadorInci);
+    $stmt->bind_param("i",$identificadorInci);
+    $stmt->execute();
+    $result=$stmt->get_result();
+    $stmt->close();
+    $texto="DELETE FROM RelClaveIncidencia WHERE RelClaveIncidencia.incidencia=?";
+    $stmt=$this->mysqli->prepare($texto);
+    $stmt->bind_param("i",$identificadorInci);
     $stmt->execute();
     $result=$stmt->get_result();
     $stmt->close();
     $texto="DELETE FROM Incidencias WHERE Incidencias.identificador=?";
     $stmt=$this->mysqli->prepare($texto);
-    $stmt->bind_param("s",$identificadorInci);
+    $stmt->bind_param("i",$identificadorInci);
     $stmt->execute();
     $result=$stmt->get_result();
     $stmt->close();
     return $result;
+  }
+
+  public function borrarRelClaveIncidencia($clave,$incidencia){
+    $texto="DELETE FROM RelClaveIncidencia WHERE (RelClaveIncidencia.incidencia=? AND RelClaveIncidencia.clave=?)";
+    $stmt=$this->mysqli->prepare($texto);
+    $stmt->bind_param("is",$incidencia,$clave);
+    $stmt->execute();
+    $result=$stmt->get_result();
+    $stmt->close();
   }
 
   public function borrarUsuario($identificadorUsu){
@@ -426,9 +451,13 @@ class Database {
     $stmt->execute();
     $result=$stmt->get_result();
     $stmt->close();
+    while ($row=$result->fetch_assoc()) {
+      $this->borrarIncidencia($row['identificador']);
+    }
+    /*
     foreach ($result as $key => $value) {
       $this->borrarIncidencia($value);
-    }//DUDA: ¿Elimino también las valoraciones y los comentarios realizados por dicho usuario?
+    }*///DUDA: ¿Elimino también las valoraciones y los comentarios realizados por dicho usuario?
     $texto="DELETE FROM Comentarios WHERE Comentarios.usuario=?";
     $stmt=$this->mysqli->prepare($texto);
     $stmt->bind_param("s",$identificadorUsu);

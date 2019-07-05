@@ -44,6 +44,7 @@ INSERT INTO Incidencias(titulo,lugar,descripcion,estado,usuario) VALUES ('Prueba
 CREATE TABLE Imagenes(
   identificador INT AUTO_INCREMENT,
   incidencia INT NOT NULL,
+  extension VARCHAR(10) NOT NULL,
   PRIMARY KEY(identificador),
   FOREIGN KEY(incidencia) REFERENCES Incidencias(identificador)
 );

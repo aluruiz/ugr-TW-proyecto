@@ -17,6 +17,11 @@
       <span>Palabras Clave: {{incidencia.palabrasClave}}</span>
       <span>Estado: {{incidencia.estado}}</span>
       <span>Valoraciones: +{{incidencia.positivas}}  -{{incidencia.negativas}}</span>
+      <div class="imagenes">
+        {% for imagen in incidencia.imagenes %}
+        <img src="./imagenes/{{imagen}}" alt="">
+        {% endfor %}
+      </div>
     </section>
     <section class="comentarios-incidencia">
         {% for comentario in incidencia.comentarios %}
