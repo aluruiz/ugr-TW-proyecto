@@ -27,20 +27,6 @@ main{
   background-color: #f9ecec;
 }
 
-/*Aside*/
-aside{
-  border-left: 2px solid;
-  border-bottom: 2px solid;
-  border-color: black;
-}
-
-/*Footer*/
-footer{
-  margin: 5px;
-  border: 2px solid;
-  background-color:#4d94ff;
-}
-
 /*Formularios*/
 form{
   margin: 5px;
@@ -55,6 +41,34 @@ fieldset {
 legend {
   font-weight: bold;
 }
+
+/*Aside*/
+aside{
+  border-left: 2px solid;
+  border-bottom: 2px solid;
+  border-color: black;
+}
+
+aside fieldset{
+  background-color: #FAD7A0;
+  margin: 5px;
+  padding: 5px;
+}
+
+/*Footer*/
+footer{
+  margin: 5px;
+  border: 2px solid;
+  background-color:#4d94ff;
+  color: white;
+}
+
+footer a{
+  color: inherit;
+  font-weight: bold;
+}
+
+
 
 /*Info*/
 .info {

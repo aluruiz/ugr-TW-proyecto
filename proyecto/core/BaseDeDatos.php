@@ -131,6 +131,15 @@ class Database {
     return $result;
   }
 
+  public function getUsuarios(){
+    $texto="SELECT Usuarios.* FROM Usuarios";
+    $stmt=$this->mysqli->prepare($texto);
+    $stmt->execute();
+    $result=$stmt->get_result();
+    $stmt->close();
+    return $result;
+  }
+
   public function getNumIncidenciasResueltas(){
     $texto="SELECT COUNT(Incidencias.identificador) FROM Incidencias WHERE Incidencias.estado = ? ";
     $stmt=$this->mysqli->prepare($texto);

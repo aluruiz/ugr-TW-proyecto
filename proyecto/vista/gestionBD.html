@@ -1,7 +1,9 @@
 {% extends "vista/base.html" %}
 {% block main %}
   {% if loggedUser.rango == 'Administrador'%}
-    <a href="#">Pincha aqui para hacer una copia de la base de datos.</a>
+    <div class=" d.flex justify-content-around">
+      <button type="submit" class="btn btn-primary">Copia de la Base de Datos</button>
+    </div>
   {% else %}
     <h1>No eres administrador, no puedes acceder a esta pagina.</h1>
   {% endif %}

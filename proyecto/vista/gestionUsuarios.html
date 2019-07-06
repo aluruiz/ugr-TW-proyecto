@@ -1,17 +1,54 @@
 {% extends "vista/base.html" %}
+{% block css %}
+  <link href="./assets/gestion.css" rel="stylesheet"/>
+{% endblock %}
 {% block main %}
   {% if loggedUser.rango == 'Administrador' %}
-    <span>Opciones a realizar</span>
-    <a href="#">Listado</a>
-    <a href="nuevoUsuario.php"> Añadir Usuario </a>
-    <table>
-      <--{% for usuario in usuarios %}-->
+
+    <fieldset class="opciones-gestion">
+      <legend>Opciones Gestion</legend>
+      <div class="container">
+        <span class="row"><a href="#">Listado</a></span>
+        <span class="row"><a href="nuevoUsuario.php"> Añadir Usuario </a></span>
+      </div>
+    </fieldset>
+
+    <table class="table table-striped">
+      <tr>
+        <th>Imagen</th>
+        <th>Datos Personales</th>
+        <th>Opciones </th>
+      </tr>
+      {% for usuario in usuarios %}
         <tr>
-          <td>Imagen</td>
-          <td>Datos Personales</td>
-          <td>Opciones </td>
+          <td><img src="./imagenes/{{usuario.imagen}}" alt=""></td>
+          <td>
+            <div class="container d-flex">
+              <div class="row">
+                <span><strong>Usuario:</strong> {{usuario.nombre}} {{usuario.familia}}</span>
+                <span><strong>Email:</strong> {{usuario.email}}</span>
+              </div>
+              <div class="row">
+                <span><strong>Direccion:</strong> {{usuario.direccion}}</span>
+                <span><strong>Telefono:</strong> {{usuario.telefono}}</span>
+              </div>
+              <div class="row">
+                <span><strong>Rol:</strong> {{usuario.rango}}</span>
+                <span><strong>Estado:</strong> {{usuario.estado}}</span>
+              </div>
+            </div>
+          </td>
+          <td>
+            <form action="editarUsuario.php" method="post">
+              <input type="hidden" name="usuario" value="{{usuario.id}}"/>
+              <input type="submit" class="btn btn-primary" value="Editar"/>
+            </form>
+            <form action="" method="post">
+              <input type="submit" class="btn btn-primary" value="Borrar"/>
+            </form>
+          </td>
         </tr>
-      <--{% endfor %}-->
+      {% endfor %}
     </table>
   {% else %}
     <h1>No eres administrador, no puedes acceder a esta pagina.</h1>

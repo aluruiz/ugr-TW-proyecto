@@ -1,10 +1,24 @@
-/*Vistas*/
 .incidencia {
-  border: 2px solid;
-  border-color: red;
+  background-color: #FAD7A0;
+  margin: 10px;
 }
 
 .incidencia h1 {
   font-size: 18pt;
-  background-color: red;
+  color: white;
+  background-color: #F39C12;
+}
+
+.comentarios-incidencia legend{
+  color: white;
+}
+
+.comentarios-incidencia fieldset{
+  margin: 5px;
+  background-color: #F39C12;
+}
+
+.descripcion-incidencia {
+  margin: 5px;
+  background-color: #F39C12;
 }
