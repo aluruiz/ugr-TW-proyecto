@@ -93,20 +93,32 @@
   {% if incidencias is defined %}
   {% for incidencia in incidencias %}
   <section class="texto-incidencia">
+
     <h1> {{incidencia.titulo}}</h1>
+    <div class="informacion-incidencia container">
+        <div class="row">
+          <span class="col-sm-4"><strong>Lugar:</strong> {{incidencia.lugar}}</span>
+          <span class="col-sm-4"><strong>Fecha:</strong> {{incidencia.fecha}}</span>
+          <span class="col-sm-4"><strong>Creado por:</strong> {{incidencia.usuario.nombre}} {{incidencia.usuario.familia}}</span>
+        </div>
 
-    <p>{{incidencia.descripcion}}</p>
+        <div class="row">
+          <span class="col-sm-4"><strong>Palabras Clave:</strong> {{incidencia.palabrasClave}}</span>
+          <span class="col-sm-4"><strong>Estado:</strong> {{incidencia.estado}}</span>
+          <span class="col-sm-4"><strong>Valoraciones:</strong> +{{incidencia.positivas}}  -{{incidencia.negativas}}</span>
+        </div>
 
-    <span>Lugar: {{incidencia.lugar}}</span>
-    <span>Fecha: {{incidencia.fecha}}</span>
-    <span>Creado por: {{incidencia.usuario.nombre}} {{incidencia.usuario.familia}}</span>
-    <span>Palabras Clave: {{incidencia.palabrasClave}}</span>
-    <span>Estado: {{incidencia.estado}}</span>
-    <span>Valoraciones: +{{incidencia.positivas}}  -{{incidencia.negativas}}</span>
-    <div class="imagenes">
-      {% for imagen in incidencia.imagenes %}
-      <img src="./imagenes/{{imagen}}" alt="">
-      {% endfor %}
+        <div class="descripcion-incidencia">
+          <label><strong>Descripcion</strong></label>
+          <p>{{incidencia.descripcion}}</p>
+        </div>
+
+        <div class="imagenes">
+          <label><strong>Imagenes</strong></label>
+          {% for imagen in incidencia.imagenes %}
+          <img src="./imagenes/{{imagen}}" alt="">
+          {% endfor %}
+        </div>
     </div>
   </section>
   <section class="scripts-incidencia">
@@ -133,12 +145,18 @@
     </form>
   </section>
   <section class="comentarios-incidencia">
+    <fieldset>
+      <legend>Comentarios</legend>
       {% for comentario in incidencia.comentarios %}
-      <section>
-        <p>Comentario de: {{comentario.usuario.nombre}} {{comentario.usuario.familia}}</p>
-        <p>{{comentario.comentario}}</p>
-      </section>
+      <div class="media container">
+        <img src="..." class="align-self-center mr-3" alt="...">
+        <div class="media-body">
+          <span class="mt-0"><strong>{{comentario.usuario.nombre}} {{comentario.usuario.familia}}</strong></span>
+          <p>{{comentario.comentario}}</p>
+        </div>
+      </div>
       {% endfor %}
+    </fieldset>
   </section>
   {% endfor %}
   {% else %}
