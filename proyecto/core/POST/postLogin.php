@@ -15,7 +15,7 @@ if (empty($emailLogin) || empty($passwordLogin)) {
     echo "error1";
     $database->nuevoLog("Inicio de sesión con correo incorrecto: ".$emailLogin);
   } else {
-  if ($passwordLogin == $userBuscado->password/*password_verify($passwordLogin, $userBuscado->password)*/) {
+  if (password_verify($passwordLogin, $userBuscado->password)) {
       $_SESSION["loggedUserId"] = $userBuscado->id;
       $database->nuevoLog("Inicio de sesión correcto: ".$userBuscado->id);
     } else {

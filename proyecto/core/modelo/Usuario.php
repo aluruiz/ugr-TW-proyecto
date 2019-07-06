@@ -10,8 +10,9 @@ class Usuario{
   public $password;
   public $rango;
   public $estado;
+  public $extImagen;
 
-  public function __construct($id, $nombre, $familia, $email, $direccion, $telefono, $password, $rango, $estado){
+  public function __construct($id, $nombre, $familia, $email, $direccion, $telefono, $password, $rango, $estado,$extImagen){
     $this->id=$id;
     $this->nombre=$nombre;
     $this->familia=$familia;
@@ -21,6 +22,7 @@ class Usuario{
     $this->password=$password;
     $this->rango=$rango;
     $this->estado=$estado;
+    $this->extImagen=$extImagen;
   }
 }
 ?>
