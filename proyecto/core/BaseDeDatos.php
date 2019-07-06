@@ -38,6 +38,10 @@ class Database {
         mysqli_report(MYSQLI_REPORT_ERROR | MYSQLI_REPORT_STRICT);
   }
 
+  public function consulta($consulta){
+    return $this->mysqli->query($consulta);
+  }
+
   //orden(fecha,positivas,neto),estado='Pendiente','Comprobada','Tramitada','Irresoluble','Resuelta' o NULL
   public function getIncidenciasTituloDesc($orden,$clave,$estado){
     $texto="SELECT Incidencias.identificador FROM Incidencias WHERE ";
