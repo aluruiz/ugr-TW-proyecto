@@ -4,7 +4,7 @@ require_once './core/BaseDeDatos.php';
 require_once './login.php';
 require_once './core/modelo/Aside.php';
 
-  $aside=new Aside(3);
+$aside=new Aside(3);
 $database = new Database();
 $idLogeado = getUsuarioLogged();
 $loggedUser = $database->getUsuarioById($idLogeado);

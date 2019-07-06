@@ -132,12 +132,16 @@ class Database {
   }
 
   public function getUsuarios(){
-    $texto="SELECT Usuarios.* FROM Usuarios";
+    $texto="SELECT Usuarios.identificador FROM Usuarios";
     $stmt=$this->mysqli->prepare($texto);
     $stmt->execute();
     $result=$stmt->get_result();
+    $usuarios=array();
+    while ($row=$result->fetch_assoc()) {
+      $usuarios[$row['identificador']]=$this->getUsuarioById($row['identificador']);
+    }
     $stmt->close();
-    return $result;
+    return $usuarios;
   }
 
   public function getNumIncidenciasResueltas(){
@@ -226,16 +230,7 @@ class Database {
     $stmt->close();
     return $result;
   }
-/*
-  public function nuevoUsuario($nombre,$familia,$email,$pass,$rango,$estado){
-    $texto="INSERT INTO Usuarios (nombre,familia,email,password,rango,estado) VALUES (?,?,?,?,?,?)";
-    $stmt=$this->mysqli->prepare($texto);
-    $stmt->bind_param("ssssss",$nombre,$familia,$email,$pass,$rango,$estado);
-    $stmt->execute();
-    $result=$stmt->get_result();
-    $stmt->close();
-    return $result;
-  }*/
+
   public function nuevoUsuario($nombre,$familia,$email,$direccion,$telefono,$password,$rango,$estado){
     $texto="INSERT INTO Usuarios (nombre,familia,email,direccion,telefono,password,rango,estado) VALUES (?,?,?,?,?,?,?,?)";
     $stmt = $this->mysqli->prepare($texto);
@@ -250,8 +245,6 @@ class Database {
     $stmt->execute();
     $result=($stmt->get_result()->fetch_assoc())['identificador'];
     $stmt->close();
-    return $result;
-
     return $result;
   }
 

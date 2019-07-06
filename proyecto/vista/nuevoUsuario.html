@@ -3,7 +3,7 @@
   {% if loggedUser.rango == "Colaborador" %}
     <h1>Ya estas registrado.</h1>
   {% else %}
-    <form action="./core/POST/admin/postNuevoUsuario.php" method="post">
+    <form action="./core/POST/admin/postNuevoUsuario.php" method="post" enctype="multipart/form-data">
       <fieldset>
         <legend>Nuevo Usuario</legend>
 
@@ -41,6 +41,12 @@
             <label for="tlf">Telefono</label>
             <input type="tel" class="form-control" name="tlf" onblur='validarTelefono(this)' placeholder="(+34) 999 999999" required>
             <div class='info' id='tlfinfo'></div>
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="col">
+            <label for="imagen">Foto</label>
+            <input type="file" name="imagen" accept="image/jpeg, image/gif, image/png" required>
           </div>
         </div>
       </fieldset>
