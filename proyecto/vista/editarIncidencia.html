@@ -1,4 +1,7 @@
 {% extends "vista/base.html" %}
+{% block css %}
+  <link href="./assets/incidencia.css" rel="stylesheet"/>
+{% endblock %}
 {% block main %}
   {% if loggedUser is null %}
     <h1>No eres usuario, no puedes acceder a esta pagina.</h1>
@@ -6,15 +9,37 @@
   <section class="editarIncidencia">
     {% if incidencia is defined %}
     <form action="editarIncidencia.php" method="post">
-      <label for="titulo">Titulo</label>
-      <input type="text" name="titulo" required value="{{incidencia.titulo}}">
-      <label for="descripcion">Descripcion</label>
-      <textarea name="descripcion" rows="8" cols="80" >{{incidencia.descripcion}}</textarea>
-      <label for="lugar">Lugar</label>
-      <input type="text" name="lugar" required value="{{incidencia.lugar}}">
-      <label for="palabras">Palabras Clave</label>
-      <input type="text" name="palabras" value="{{incidencia.palabrasClave}}">
-      <input type="hidden" name="identificadorInci" value="{{incidencia.id}}">
+      <fieldset>
+        <legend>Editar Incidencia</legend>
+        <label for="formGroupExampleInput">Titulo</label>
+        <input type="text" class="form-control" name="titulo" value="{{incidencia.titulo}}" required>
+
+        <label for="exampleFormControlTextarea1">Descripcion</label>
+        <textarea class="form-control" name="descripcion" rows="8">{{incidencia.descripcion}}</textarea>
+
+        <div class="form-row">
+          <div class="form-group col-md-4">
+            <label for="formGroupExampleInput">Lugar</label>
+            <input type="text" class="form-control" name="lugar" value="{{incidencia.lugar}}" required>
+          </div>
+          <div class="form-group col-md-4">
+            <label for="formGroupExampleInput">Palabras Clave</label>
+            <input type="text" class="form-control" name="palabras" value="{{incidencia.palabrasClave}}">
+          </div>
+          <div class="form-group col-md-4">
+            <label class="my-1 mr-2" for="inlineFormCustomSelectPref">Estado</label>
+            <input type="hidden" name="identificadorInci" value="{{incidencia.id}}">
+            <select class="custom-select my-1 mr-sm-2" name="estado" {% if loggedUser.rango is not constant('Administrador') %} disabled {% endif %} >
+              {% set array=  ["Pendiente","Comprobada","Tramitada","Irresoluble","Resuelta"] %}
+              {% for elemento in array %}
+              <option value="{{elemento}}" {% if incidencia.estado is same as(elemento) %}selected{% endif %}>{{elemento}}</option>
+              {% endfor %}
+            </select>
+          </div>
+        </div>
+      </fieldset>
+      <input type="submit" class="btn btn-primary" value="Finalizar Edicion"/>
+      <!--<input type="hidden" name="identificadorInci" value="{{incidencia.id}}">
       <select class="desplegable-estado" name="estado" {% if loggedUser.rango is not constant('Administrador') %} disabled {% endif %}>
         {% set array=  ["Pendiente","Comprobada","Tramitada","Irresoluble","Resuelta"] %}
         {% for elemento in array %}
@@ -22,19 +47,25 @@
         {% endfor %}
       </select>
       <!--<input type="hidden" name="modificado" value="modificado">-->
-      <input type="submit" name="modificado" value="Finalizar edicion"/>
+      <!--<input type="submit" name="modificado" value="Finalizar edicion"/>-->
     </form>
-    <div class="imagenes">
-      {% for imagen in incidencia.imagenes %}
-      <img src="./imagenes/{{imagen}}" alt="">
-      {% endfor %}
-    </div>
 
-    <form action="editarIncidencia.php" method="post" enctype="multipart/form-data">
-      <input type="file" name="imagen" accept="image/jpeg, image/gif, image/png" required>
-      <input type="hidden" name="identificadorInci" value="{{incidencia.id}}">
-      <input type="submit" name="nuevaImagen" value="Enviar imagen">
-    </form>
+      <div class="imagenes">
+        {% for imagen in incidencia.imagenes %}
+        <img src="./imagenes/{{imagen}}" alt="">
+        {% endfor %}
+      </div>
+
+      <form action="editarIncidencia.php" method="post" enctype="multipart/form-data">
+        <fieldset>
+          <legend>Añadir Imagenes</legend>
+            <input type="file" name="imagen" accept="image/jpeg, image/gif, image/png" required>
+            <input type="hidden" name="identificadorInci" value="{{incidencia.id}}">
+            <input type="submit" class="btn btn-primary" name="nuevaImagen" value="Enviar Imagen"/>
+        </fieldset>
+      </form>
+
+
     {% endif %}
   </section>
   {% endif %}

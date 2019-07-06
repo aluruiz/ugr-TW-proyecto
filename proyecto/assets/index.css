@@ -40,3 +40,23 @@ footer{
   border: 2px solid;
   background-color:#4d94ff;
 }
+
+/*Formularios*/
+form{
+  margin: 5px;
+}
+
+fieldset {
+  background-color: #b3d1ff;
+  margin: 5px;
+  padding: 5px;
+}
+
+legend {
+  font-weight: bold;
+}
+
+/*Info*/
+.info {
+  color: red;
+}

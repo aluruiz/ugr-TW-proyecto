@@ -1,0 +1,67 @@
+{% extends "vista/base.html" %}
+{% block main %}
+  {% if loggedUser == null %}
+    <h1>No estas registrado.</h1>
+  {% else %}
+    <form action="./core/POST/admin/postNuevoUsuario.php" method="post">
+      <fieldset>
+        <legend>Editar Usuario</legend>
+        <div class="form-row">
+          <label for="Imagen">Imagen</label>
+          <div class="imagenes">
+            {% for imagen in incidencia.imagenes %}
+            <img src="./imagenes/{{imagen}}" alt="">
+            {% endfor %}
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="col">
+            <label for="Nombre">Nombre</label>
+            <input type="text" class="form-control" name="nombre" value="{{loggedUser.nombre}}" required>
+          </div>
+          <div class="col">
+            <label for="Familia">Familia</label>
+            <input type="text" class="form-control" name="familia" value="{{loggedUser.familia}}" required>
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group col-md-8">
+            <label for="Email">Email</label>
+            <input type="email" class="form-control" name="email" id = "checkEmail" value="{{loggedUser.email}}" onblur='validarEmail(this)' placeholder="usuario@usuario.algo" required>
+            <div class='info' id='emailinfo'></div>
+          </div>
+          <div class="form-group col-md-4">
+            <label for="Contraseña">Contraseña</label>
+            <input type="password" class="form-control" name="contraseña" onblur='' required>
+            <div class='info' id='contraseñainfo'></div>
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="col">
+            <label for="postal">Direccion Postal</label>
+            <input type="text" class="form-control" name="postal" value="{{loggedUser.direccion}}" onblur='validarPostal(this)' placeholder="99099" required>
+            <div class='info' id='postalinfo'></div>
+          </div>
+          <div class="col">
+            <label for="tlf">Telefono</label>
+            <input type="tel" class="form-control" name="tlf" value="{{loggedUser.telefono}}" onblur='validarTelefono(this)' placeholder="(+34) 999 999999" required>
+            <div class='info' id='tlfinfo'></div>
+          </div>
+        </div>
+      </fieldset>
+      <input type="submit" class="btn btn-primary" value="Editar Usuario"/>
+    </form>
+
+    <form action="editarUsuario.php" method="post" enctype="multipart/form-data">
+      <fieldset>
+        <legend>Añadir Imagenes</legend>
+          <input type="file" name="imagen" accept="image/jpeg, image/gif, image/png" required>
+          <input type="hidden" name="identificadorInci" value="{{incidencia.id}}">
+          <input type="submit" class="btn btn-primary" name="nuevaImagen" value="Enviar Imagen"/>
+      </fieldset>
+    </form>
+  {% endif %}
+{% endblock %}

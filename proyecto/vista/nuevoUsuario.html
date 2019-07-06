@@ -1,32 +1,50 @@
 {% extends "vista/base.html" %}
 {% block main %}
-  {% if loggedUser.rango == 'Administrador' %}
+  {% if loggedUser != null %}
+    <h1>Ya estas registrado.</h1>
+  {% else %}
     <form action="./core/POST/admin/postNuevoUsuario.php" method="post">
-      <label for="Nombre">Nombre</label>
-      <input type="text" name="nombre" required>
+      <fieldset>
+        <legend>Nuevo Usuario</legend>
 
-      <label for="Familia">Familia</label>
-      <input type="text" name="familia" required>
+        <div class="form-row">
+          <div class="col">
+            <label for="Nombre">Nombre</label>
+            <input type="text" class="form-control" name="nombre" required>
+          </div>
+          <div class="col">
+            <label for="Familia">Familia</label>
+            <input type="text" class="form-control" name="familia" required>
+          </div>
+        </div>
 
-      <label for="email">Email</label>
-      <input type="email" name="email" id = "checkEmail" onblur='validarEmail(this)' placeholder="usuario@usuario.algo" required>
-      <div class='info' id='emailinfo'></div>
+        <div class="form-row">
+          <div class="form-group col-md-8">
+            <label for="Email">Email</label>
+            <input type="email" class="form-control" name="email" id = "checkEmail" onblur='validarEmail(this)' placeholder="usuario@usuario.algo" required>
+            <div class='info' id='emailinfo'></div>
+          </div>
+          <div class="form-group col-md-4">
+            <label for="Contraseña">Contraseña</label>
+            <input type="password" class="form-control" name="contraseña" onblur='' required>
+            <div class='info' id='contraseñainfo'></div>
+          </div>
+        </div>
 
-      <label for="postal">Direccion Postal</label>
-      <input type="text" name="postal" onblur='validarPostal(this)' placeholder="99099" required>
-      <div class='info' id='postalinfo'></div>
-
-      <label for="tlf">Telefono</label>
-      <input type="tel" name="tlf" onblur='validarTelefono(this)' placeholder="(+34) 999 999999" required>
-      <div class='info' id='tlfinfo'></div>
-
-      <label for="contraseña">Contraseña</label>
-      <input type="password" name="contraseña" onblur='' required>
-      <div class='info' id='contraseñainfo'></div>
-
-      <input type="submit" value="Enviar datos"/>
+        <div class="form-row">
+          <div class="col">
+            <label for="postal">Direccion Postal</label>
+            <input type="text" class="form-control" name="postal" onblur='validarPostal(this)' placeholder="99099" required>
+            <div class='info' id='postalinfo'></div>
+          </div>
+          <div class="col">
+            <label for="tlf">Telefono</label>
+            <input type="tel" class="form-control" name="tlf" onblur='validarTelefono(this)' placeholder="(+34) 999 999999" required>
+            <div class='info' id='tlfinfo'></div>
+          </div>
+        </div>
+      </fieldset>
+      <input type="submit" class="btn btn-primary" value="Crear Usuario"/>
     </form>
-    {% else %}
-      <h1>No eres administrador, no puedes acceder a esta pagina.</h1>
-    {% endif %}
+  {% endif %}
 {% endblock %}
