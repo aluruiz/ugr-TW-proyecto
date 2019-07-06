@@ -1,6 +1,6 @@
 {% extends "vista/base.html" %}
 {% block main %}
-  {% if loggedUser != null %}
+  {% if loggedUser.rango == "Colaborador" %}
     <h1>Ya estas registrado.</h1>
   {% else %}
     <form action="./core/POST/admin/postNuevoUsuario.php" method="post">
