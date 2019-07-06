@@ -46,7 +46,8 @@ class Database {
   }*/
 
   public function consulta($consulta){
-    return $this->mysqli.query($consulta);
+    echo $consulta;
+    return $this->mysqli->query($consulta);
   }
 /*
   public function getIncidenciasFechaDesc(){

@@ -2,7 +2,9 @@
 {% block main %}
   {% if loggedUser.rango == 'Administrador'%}
     <div class=" d.flex justify-content-around">
-      <button type="submit" class="btn btn-primary">Copia de la Base de Datos</button>
+      <form class="" action="./backup.php" method="post">
+        <button type="submit" class="btn btn-primary">Copia de la Base de Datos</button>
+      </form>
     </div>
   {% else %}
     <h1>No eres administrador, no puedes acceder a esta pagina.</h1>
