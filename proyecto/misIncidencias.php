@@ -23,21 +23,7 @@ $incidencias=array();
 if($loggedUser!=NULL){
   $result=$database->getIncidenciasUsuario($loggedUser->id);
   while ($row = $result->fetch_assoc()) {
-    $resultComentarios=$database->getComentariosIncidencia($row["identificador"]);
-    $arrayCom=array();
-    while($rowCom = $resultComentarios->fetch_assoc()){
-      $usuarioCom = new Usuario($rowCom["usuario"],$rowCom["nombre"],$rowCom["familia"],NULL,NULL,NULL,NULL,NULL,NULL,NULL);
-      $comentario = new Comentario($rowCom["identificador"],$rowCom["comentario"],$usuarioCom);
-      $arrayCom[$rowCom["identificador"]]=$comentario;
-    }
-    $incidencia = new Incidencia($row["identificador"],$row["titulo"],$row["lugar"],$row["descripcion"],$row["fecha"],$row["positivas"],$row["negativas"],$row["estado"],$loggedUser,$arrayCom,$database->getPalabrasClave($row["identificador"]));
-    $imagenes=array();
-    $resultI=$database->getImagen($row["identificador"]);
-    while ($resultI != NULL && $rowI=$resultI->fetch_assoc()) {
-      $imagenes[$rowI['identificador']]="Incidencia-".$row["identificador"]."-".$rowI['identificador'].".".$rowI['extension'];
-    }
-    $incidencia->imagenes=$imagenes;
-    $incidencias[$row["identificador"]] = $incidencia;
+    $incidencias[$row['identificador']]=new Incidencia($row['identificador']);
   }
 }
 

@@ -17,10 +17,10 @@ class Aside{
     $result=$database->getUsuariosIncDesc();
     for ($i=0; $i <$n ; $i++) {
       if($row=$result->fetch_assoc()){
-        $usuario = new Usuario($row["identificador"], $row["nombre"], $row["familia"], $row["email"], $row["direccion"], $row["telefono"], $row["password"], $row["rango"], $row["estado"]);
+        $usuario = $database->getUsuarioById($row['identificador']);
         $this->topUsuariosIncidencias[$i]=$usuario;
       }else{
-        $usuario = new Usuario("-1","Vacante","","","","","","","","");
+        $usuario = new Usuario("-1","Vacante","","","","","","","","","");
         $this->topUsuariosIncidencias[$i]=$usuario;
       }
     }
@@ -29,10 +29,10 @@ class Aside{
     $result=$database->getUsuariosIncDesc();
     for ($i=0; $i <$n ; $i++) {
       if($row=$result->fetch_assoc()){
-        $usuario = new Usuario($row["identificador"], $row["nombre"], $row["familia"], $row["email"], $row["direccion"], $row["telefono"], $row["password"], $row["rango"], $row["estado"]);
+        $usuario = $database->getUsuarioById($row['identificador']);
         $this->topUsuariosComentarios[$i]=$usuario;
       }else{
-        $usuario = new Usuario("-1","Vacante","","","","","","","","");
+        $usuario = new Usuario("-1","Vacante","","","","","","","","","");
         $this->topUsuariosComentarios[$i]=$usuario;
       }
     }

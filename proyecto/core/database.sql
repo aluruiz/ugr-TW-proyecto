@@ -17,11 +17,12 @@ CREATE TABLE Usuarios(
   password VARCHAR(255) NOT NULL,
   rango ENUM('Administrador','Colaborador') NOT NULL,
   estado ENUM('Inactivo','Activo') NOT NULL,
+  extImagen VARCHAR(10),
   PRIMARY KEY(identificador)
 );
 
-INSERT INTO Usuarios (nombre,familia,email,password,rango,estado) VALUES ('admin','admin','admin@admin.com','admin','Administrador','Activo');
-INSERT INTO Usuarios (nombre,familia,email,password,rango,estado) VALUES ('colab','colab','colab@colab.com','colab','Colaborador','Activo');
+INSERT INTO Usuarios (nombre,familia,email,password,rango,estado,extImagen) VALUES ('admin','admin','admin@admin.com','$2y$10$j0CEuY9o3Rbkp2jt8LWlmOQej3Pd7aSvT207CB966c3RQPf.iJyve','Administrador','Activo','png');
+INSERT INTO Usuarios (nombre,familia,email,password,rango,estado,extImagen) VALUES ('colab','colab','colab@colab.com','$2y$10$Ibdc6q1z2FjRBlPvk5SE2OCWCArhjtA8ZW9RNdv4dkmXWP5s4m.Tu','Colaborador','Activo','png');
 
 CREATE TABLE Incidencias(
   identificador INT AUTO_INCREMENT,

@@ -22,7 +22,6 @@ $incidencia=NULL;
 $claves=$database->getPalabrasClave($_POST['identificadorInci']);
 
 if($loggedUser!=NULL && isset($_POST['identificadorInci'])){
-  $identificadorInci=$_POST['identificadorInci'];
   $result=NULL;
   if (isset($_POST['modificado'])) {
     $result=$database->modificarIncidencia($_POST['identificadorInci'],$_POST['titulo'],$_POST['lugar'],$_POST['descripcion']);
@@ -49,14 +48,15 @@ if($loggedUser!=NULL && isset($_POST['identificadorInci'])){
       }
     }
 
-    $claves=$database->getPalabrasClave($_POST['identificadorInci']);
+    //$claves=$database->getPalabrasClave($_POST['identificadorInci']);
 
-  } else {
+  }/* else {
     $result=$database->getIncidencia($_POST['identificadorInci']);
   }
   $row = $result->fetch_assoc();
+*/
 
-  $incidencia = new Incidencia($row["identificador"],$row["titulo"],$row["lugar"],$row["descripcion"],$row["fecha"],$row["positivas"],$row["negativas"],$row["estado"],NULL,NULL,$claves);
+  //$incidencia->palabrasClave=$claves;
 
   if(isset($_POST['nuevaImagen']) && is_uploaded_file($_FILES['imagen']['tmp_name'])){
     $dirSubida='./imagenes/';
@@ -66,13 +66,7 @@ if($loggedUser!=NULL && isset($_POST['identificadorInci'])){
     move_uploaded_file($_FILES['imagen']['tmp_name'], $dirSubida.$nombre);
 
   }
-  $imagenes=array();
-  $result=$database->getImagen($_POST['identificadorInci']);
-  while ($result != NULL && $row=$result->fetch_assoc()) {
-    $imagenes[$row['identificador']]="Incidencia-".$_POST['identificadorInci']."-".$row['identificador'].".".$row['extension'];
-  }
-
-  $incidencia->imagenes=$imagenes;
+  $incidencia = new Incidencia($_POST['identificadorInci']);
 }
 
 $argumentos = [];
