@@ -1,12 +1,20 @@
 # A implementar y algunas indicaciones
-
-## Requisitos Funcionales
+## Identificancion de componentes
+  Laura Gómez Garrido
+  Paula Ruiz García
 
 ## Usuarios nuevos
-+ email: pikapi@gmail.com contraseña: ashesmiamo
-+ eeveelucion@correo.com contraseña:flareonpresident
-+ growlithe@admin.com contraseña:admin
-+ lindoskitty@gmail.com contraseña:delgatoalhecho
+  + email: pikapi@gmail.com contraseña: ashesmiamo
+  + eeveelucion@correo.com contraseña:flareonpresident
+  + growlithe@admin.com contraseña:admin
+  + lindoskitty@gmail.com contraseña:delgatoalhecho
+
+## Fichero de Restacion de la BD
+database.sql
+
+## Diseño de la aplicacion.
+
+## Requisitos Funcionales
 
 ### Comunes a todos los usuarios
 
