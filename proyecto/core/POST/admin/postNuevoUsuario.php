@@ -26,9 +26,10 @@
 
       echo "ok";
       $database->nuevoLog("Registrado el usuario: ".$usuario);
+      header("Location: ../../../accionUsuario.php");
     }
   }
-  header("Location: ../../../index.php");
+
 ?>
 /*
 */

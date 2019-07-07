@@ -12,45 +12,45 @@
         <span class="row"><a href="nuevoUsuario.php"> Añadir Usuario </a></span>
       </div>
     </fieldset>
-
-    <table class="table table-striped">
-      <tr>
-        <th>Imagen</th>
-        <th>Datos Personales</th>
-        <th>Opciones </th>
-      </tr>
+    <section id="usuarios-gestion">
       {% for usuario in usuarios %}
-        <tr>
-          <td><img src="./imagenes/Usuario-{{usuario.id}}.{{usuario.extImagen}}" alt=""></td>
-          <td>
-            <div class="container d-flex">
-              <div class="row">
-                <span><strong>Usuario:</strong> {{usuario.nombre}} {{usuario.familia}}</span>
-                <span><strong>Email:</strong> {{usuario.email}}</span>
-              </div>
-              <div class="row">
-                <span><strong>Direccion:</strong> {{usuario.direccion}}</span>
-                <span><strong>Telefono:</strong> {{usuario.telefono}}</span>
-              </div>
-              <div class="row">
-                <span><strong>Rol:</strong> {{usuario.rango}}</span>
-                <span><strong>Estado:</strong> {{usuario.estado}}</span>
-              </div>
+      <div class="row" id="propiedades-usuario" >
+        <div class="col-md-3">
+          <img src="./imagenes/Usuario-{{usuario.id}}.{{usuario.extImagen}}" alt="" width="300">
+        </div>
+
+        <div class="col-md-6">
+          <div class="container">
+            <div class="row">
+              <span><strong>Usuario:</strong> {{usuario.nombre}} {{usuario.familia}} </span>
+              <span><strong>Email:</strong> {{usuario.email}} </span>
             </div>
-          </td>
-          <td>
-            <form action="editarUsuario.php" method="post">
-              <input type="hidden" name="usuario" value="{{usuario.id}}"/>
-              <input type="submit" class="btn btn-primary" value="Editar"/>
-            </form>
-            <form action="./core/POST/admin/postBorrarUsuario.php" method="post">
-              <input type="hidden" name="usuario" value="{{usuario.id}}"/>
-              <input type="submit" class="btn btn-primary" value="Borrar"/>
-            </form>
-          </td>
-        </tr>
+            <div class="row">
+              <span><strong>Direccion:</strong> {{usuario.direccion}} </span>
+              <span><strong>Telefono:</strong> {{usuario.telefono}} </span>
+            </div>
+            <div class="row">
+              <span><strong>Rol:</strong> {{usuario.rango}} </span>
+              <span><strong>Estado:</strong> {{usuario.estado}} </span>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-md-3">
+          <form action="editarUsuario.php" method="post">
+            <input type="hidden" name="usuario" value="{{usuario.id}}"/>
+            <input type="submit" class="btn btn-primary" value="Editar"/>
+          </form>
+          <form action="./core/POST/admin/postBorrarUsuario.php" method="post">
+            <input type="hidden" name="usuario" value="{{usuario.id}}"/>
+            <input type="submit" class="btn btn-primary" value="Borrar"/>
+          </form>
+        </div>
+      </div>
       {% endfor %}
-    </table>
+    </section>
+
+
   {% else %}
     <h1>No eres administrador, no puedes acceder a esta pagina.</h1>
   {% endif %}

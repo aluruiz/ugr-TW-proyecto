@@ -1,8 +1,17 @@
 .opciones-gestion{
   background-color: #b3d1ff;
+  margin: 5px;
 }
 
 .opciones-gestion a{
   color: black;
   padding-left: 5px;
+}
+
+#usuarios-gestion #propiedades-usuario:nth-child(odd){
+  background-color: #4d94ff;
+}
+
+#usuarios-gestion #propiedades-usuario:nth-child(even){
+  background-color: #b3d1ff;
 }

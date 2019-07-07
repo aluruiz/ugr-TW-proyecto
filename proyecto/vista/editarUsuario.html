@@ -34,7 +34,7 @@
           </div>
           <div class="form-group col-md-4">
             <label for="Contraseña">Contraseña</label>
-            <input type="password" class="form-control" name="contraseña">
+            <input type="password" class="form-control" name="contraseña" onblur='validarContraseña(this)'>
             <div class='info' id='contraseñainfo'></div>
           </div>
         </div>
@@ -47,7 +47,7 @@
           </div>
           <div class="col">
             <label for="tlf">Telefono</label>
-            <input type="tel" class="form-control" name="tlf" value="{{usuario.telefono}}" onblur='validarTelefono(this)' placeholder="(+34) 999 999999" required>
+            <input type="tel" class="form-control" name="tlf" value="{{usuario.telefono}}" onblur='validarTelefono(this)' placeholder="999 999999" required>
             <div class='info' id='tlfinfo'></div>
           </div>
         </div>

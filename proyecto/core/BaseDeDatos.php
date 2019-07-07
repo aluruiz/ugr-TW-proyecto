@@ -9,11 +9,11 @@ class Database {
   private $mysqli;
 
   public function __construct() {
-    /*$hostname = "localhost";
+    $hostname = "localhost";
     $username1 = "tw";
     $password1 = "KpxlwisaphBmGOVD";
-    $databaseName1 = "tw_proyecto";*/
-    /*FZkuCumUMWErcqfb*/
+    $databaseName1 = "tw_proyecto";
+    /*FZkuCumUMWErcqfb
     //KpxlwisaphBmGOVD
     $hostname = "localhost";
     $username1 = "paularg981819";
@@ -21,8 +21,8 @@ class Database {
     $username2 = "lauragogar1819";
     $password2 = "KdnkJuSY";
     $databaseName1 = "paularg981819";
-    $databaseName2 = "lauragogar1819";
-    $this->mysqli = new mysqli($hostname, $username2, $password2, $databaseName2);
+    $databaseName2 = "lauragogar1819";*/
+    $this->mysqli = new mysqli($hostname, $username1, $password1, $databaseName1);
 /*    if(!$this->mysql){
       $this->mysqli = new mysqli($hostname, $username1, $password1, $databaseName1);
     }*/

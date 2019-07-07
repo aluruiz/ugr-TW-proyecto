@@ -9,34 +9,21 @@ function validarEmail(email){
 function validarPostal(postal){
  postalcheck = /^\d{5}$/;
  if(!postalcheck.test(postal.value)){
-   document.getElementById('postalinfo').textContent='postal no valido';
+   document.getElementById('postalinfo').textContent='Postal no valido';
  }
 }
 
 function validarTelefono(tlf){
- telefonocheck = /^(\(\+[0-9]{2}\))?\s*[0-9]{3}\s*[0-9]{6}$/;
+ telefonocheck = /^\d{3}\s\d{6}$/;
  if(!telefonocheck.test(tlf.value)){
-   document.getElementById('tlfinfo').textContent='telefono no valido';
+   document.getElementById('tlfinfo').textContent='Telefono no valido';
  }
 }
 
+function validarContraseña(constrasenia){
+  contraseniacheck = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{5,20}$/;
+  if(!contrasenia.value.match(contraseniacheck)){
+    document.getElementById('contraseniainfo').textContent='Contraseña no valida';
+  }
 
-    /*$('#checkEmail').on('blur', function() {
-
-        $('#emailinfo').html('existe').fadeOut(1000);
-
-        var username = $(this).val();
-        var dataString = 'username='+username;
-
-        $.ajax({
-            type: "POST",
-            url: "../../core/ajax/validarEmail.php",
-            data: dataString,
-            success: function(data) {
-              alert("hola");
-                $('#emailinfo').fadeIn(1000).html(data);
-
-            }
-        });
-
-});*/
+}
