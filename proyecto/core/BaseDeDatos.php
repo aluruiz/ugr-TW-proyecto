@@ -390,34 +390,39 @@ class Database {
   public function borrarIncidencia($identificador){
     $texto="DELETE FROM Valoracion WHERE Valoracion.incidencia=?";
     $stmt=$this->mysqli->prepare($texto);
-    $stmt->bind_param("i",$identificadorInci);
+    $stmt->bind_param("i",$identificador);
     $stmt->execute();
     $result=$stmt->get_result();
     $stmt->close();
+    echo "Valoracion borrada";
     $texto="DELETE FROM Comentarios WHERE Comentarios.incidencia=?";
     $stmt=$this->mysqli->prepare($texto);
-    $stmt->bind_param("i",$identificadorInci);
+    $stmt->bind_param("i",$identificador);
     $stmt->execute();
     $result=$stmt->get_result();
     $stmt->close();
+    echo "Comentarios borrados";
     $texto="DELETE FROM Imagenes WHERE Imagenes.incidencia=?";
     $stmt=$this->mysqli->prepare($texto);
-    $stmt->bind_param("i",$identificadorInci);
+    $stmt->bind_param("i",$identificador);
     $stmt->execute();
     $result=$stmt->get_result();
     $stmt->close();
+    echo "imagenes borrados";
     $texto="DELETE FROM RelClaveIncidencia WHERE RelClaveIncidencia.incidencia=?";
     $stmt=$this->mysqli->prepare($texto);
-    $stmt->bind_param("i",$identificadorInci);
+    $stmt->bind_param("i",$identificador);
     $stmt->execute();
     $result=$stmt->get_result();
     $stmt->close();
+    echo "ClaveIncidencia borrados";
     $texto="DELETE FROM Incidencias WHERE Incidencias.identificador=?";
     $stmt=$this->mysqli->prepare($texto);
-    $stmt->bind_param("i",$identificadorInci);
+    $stmt->bind_param("i",$identificador);
     $stmt->execute();
     $result=$stmt->get_result();
     $stmt->close();
+    echo "Incidencias borradas";
     return $result;
   }
 
