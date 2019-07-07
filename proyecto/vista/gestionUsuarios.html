@@ -43,7 +43,8 @@
               <input type="hidden" name="usuario" value="{{usuario.id}}"/>
               <input type="submit" class="btn btn-primary" value="Editar"/>
             </form>
-            <form action="" method="post">
+            <form action="./core/POST/admin/postBorrarUsuario.php" method="post">
+              <input type="hidden" name="usuario" value="{{usuario.id}}"/>
               <input type="submit" class="btn btn-primary" value="Borrar"/>
             </form>
           </td>

@@ -13,7 +13,6 @@ $ruta = "vista\base.html";
 $idLogeado = getUsuarioLogged();
 $loggedUser = $database->getUsuarioById($idLogeado);
 
-
 $template = $twig -> load($ruta);
 $argumentos = [];
 $argumentos["loggedUser"] = $loggedUser;

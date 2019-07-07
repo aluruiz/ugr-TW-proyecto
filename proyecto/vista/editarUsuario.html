@@ -66,7 +66,7 @@
             <select class="custom-select my-1 mr-sm-2" name="estado" {% if loggedUser.rango is not constant('Administrador') %} disabled {% endif %} >
               {% set array=  ["Activo","Inactivo"] %}
               {% for elemento in array %}
-              <option value="{{elemento}}" {% if usuario.rango is same as(elemento) %}selected{% endif %}>{{elemento}}</option>
+              <option value="{{elemento}}" {% if usuario.estado is same as(elemento) %}selected{% endif %}>{{elemento}}</option>
               {% endfor %}
             </select>
           </div>

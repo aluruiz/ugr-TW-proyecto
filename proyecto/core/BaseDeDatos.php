@@ -43,12 +43,12 @@ class Database {
   }
 
   //orden(fecha,positivas,neto),estado='Pendiente','Comprobada','Tramitada','Irresoluble','Resuelta' o NULL
-  public function getIncidenciasTituloDesc($orden,$clave,$estado){
+  public function getIncidenciasTituloDesc($orden,$clave,$estado,$lugar){
     $texto="SELECT Incidencias.identificador FROM Incidencias WHERE ";
     if(!is_null($estado)){
       $texto.="Incidencias.estado = ? AND ";
     }
-    $texto.="Incidencias.titulo LIKE CONCAT('%',?,'%') ORDER BY ";
+    $texto.="Incidencias.lugar = ? AND Incidencias.titulo LIKE CONCAT('%',?,'%') ORDER BY ";
     if(strcmp($orden,"neto")==0){
       $texto.="Incidencias.positivas - Incidencias.negativas";
     }else {
@@ -59,9 +59,9 @@ class Database {
     $stmt=$this->mysqli->prepare($texto);
 
     if(!is_null($estado)){
-      $stmt->bind_param("ss",$estado,$clave);
+      $stmt->bind_param("sss",$estado,$lugar,$clave);
     }else{
-      $stmt->bind_param("s",$clave);
+      $stmt->bind_param("ss",$lugar,$clave);
     }
     $stmt->execute();
     $result=$stmt->get_result();
@@ -69,12 +69,12 @@ class Database {
     return $result;
   }
 
-  public function getIncidenciasDescripcionDesc($orden,$clave,$estado){
+  public function getIncidenciasDescripcionDesc($orden,$clave,$estado,$lugar){
     $texto="SELECT Incidencias.identificador FROM Incidencias WHERE ";
     if(!is_null($estado)){
       $texto.="Incidencias.estado = ? AND ";
     }
-    $texto.="Incidencias.descripcion LIKE CONCAT('%',?,'%') ORDER BY ";
+    $texto.="Incidencias.lugar = ? AND Incidencias.descripcion LIKE CONCAT('%',?,'%') ORDER BY ";
     if(strcmp($orden,"neto")==0){
       $texto.="Incidencias.positivas - Incidencias.negativas";
     }else {
@@ -83,9 +83,9 @@ class Database {
     $texto.=" DESC";
     $stmt=$this->mysqli->prepare($texto);
     if(!is_null($estado)){
-      $stmt->bind_param("ss",$estado,$clave);
+      $stmt->bind_param("sss",$estado,$lugar,$clave);
     }else{
-      $stmt->bind_param("s",$clave);
+      $stmt->bind_param("ss",$lugar,$clave);
     }
     $stmt->execute();
     $result=$stmt->get_result();
@@ -93,12 +93,12 @@ class Database {
     return $result;
   }
 
-  public function getIncidenciasClaveDesc($orden,$clave,$estado){
+  public function getIncidenciasClaveDesc($orden,$clave,$estado,$lugar){
     $texto="SELECT Incidencias.identificador FROM Incidencias WHERE ";
     if(!is_null($estado)){
       $texto.="Incidencias.estado = ? AND ";
     }
-    $texto.="Incidencias IN (SELECT RelClaveIncidencia.incidencia WHERE RelClaveIncidencia LIKE CONCAT('%',?,'%')) ORDER BY ";
+    $texto.="Incidencias.lugar = ? AND Incidencias IN (SELECT RelClaveIncidencia.incidencia WHERE RelClaveIncidencia LIKE CONCAT('%',?,'%')) ORDER BY ";
     if(strcmp($orden,"neto")==0){
       $texto.="Incidencias.positivas - Incidencias.negativas";
     }else {
@@ -107,9 +107,9 @@ class Database {
     $texto.=" DESC";
     $stmt=$this->mysqli->prepare($texto);
     if(!is_null($estado)){
-      $stmt->bind_param("ss",$estado,$clave);
+      $stmt->bind_param("sss",$estado,$lugar,$clave);
     }else{
-      $stmt->bind_param("s",$clave);
+      $stmt->bind_param("ss",$lugar,$clave);
     }
     $stmt->execute();
     $result=$stmt->get_result();
@@ -194,7 +194,7 @@ class Database {
 
 
   public function getComentariosIncidencia($identificador){
-    $texto="SELECT Comentarios.identificador, Comentarios.usuario, Comentarios.incidencia, Comentarios.comentario, Usuarios.nombre, Usuarios.familia FROM Comentarios JOIN Usuarios ON (Comentarios.usuario = Usuarios.identificador AND Comentarios.incidencia=?)";
+    $texto="SELECT Comentarios.identificador, Comentarios.usuario, Comentarios.incidencia, Comentarios.comentario FROM Comentarios WHERE Comentarios.incidencia=?";
     $stmt=$this->mysqli->prepare($texto);
     $stmt->bind_param("i",$identificador);
     $stmt->execute();

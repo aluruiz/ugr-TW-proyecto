@@ -23,8 +23,10 @@
     {% block nav %}
     <nav class="navbar d.flex justify-content-around">
       <a href="busqueda.php">Ver Incidencias</a>
-
-      {% if loggedUser.rango == 'Colaborador' %}
+      
+      {% if loggedUser.estado is constant('Inactivo') %}
+        <h1>Usuario inactivo. Por favor, consulte con su administrador.</h1>
+      {% elseif loggedUser.rango == 'Colaborador' %}
         <a href="nuevaIncidencia.php">Nueva Incidencia</a>
         <a href="misIncidencias.php">Mis Incidencias</a>
       {% endif %}

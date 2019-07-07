@@ -46,26 +46,27 @@ if (isset($_POST['comentario'])) {
   $textoBusqueda = $_POST['textoBusqueda'] ?? "";
   $buscarEn = $_POST['lugarBusqueda'] ?? "";
   $estadoBusqueda = $_POST['estadoBusqueda'] ?? array();
+  $lugarIncidencia= $_POST['lugar'] ?? "";
 
 
   $incidencias = array();
   if(strcmp($buscarEn,"lugarTitulo")){
     foreach ($estadoBusqueda as $key => $value) {
-      $result=$database->getIncidenciasTituloDesc($ordenarBusqueda,$textoBusqueda,$value);
+      $result=$database->getIncidenciasTituloDesc($ordenarBusqueda,$textoBusqueda,$value,$lugarIncidencia);
       while ($row = $result->fetch_assoc()) {
         $incidencias[$row['identificador']]=new Incidencia($row['identificador']);
       }
     }
   }elseif (strcmp($buscarEn,"lugarDescripcion")) {
     foreach ($estadoBusqueda as $key => $value) {
-      $result=$database->getIncidenciasDescripcionDesc($ordenarBusqueda,$textoBusqueda,$value);
+      $result=$database->getIncidenciasDescripcionDesc($ordenarBusqueda,$textoBusqueda,$value,$lugarIncidencia);
       while ($row = $result->fetch_assoc()) {
         $incidencias[$row['identificador']]=new Incidencia($row['identificador']);
       }
     }
   }elseif (strcmp($buscarEn,"lugarClave")) {
     foreach ($estadoBusqueda as $key => $value) {
-      $result=$database->getIncidenciasClaveDesc($ordenarBusqueda,$textoBusqueda,$value);
+      $result=$database->getIncidenciasClaveDesc($ordenarBusqueda,$textoBusqueda,$value,$lugarIncidencia);
       while ($row = $result->fetch_assoc()) {
         $incidencias[$row['identificador']]=new Incidencia($row['identificador']);
       }
@@ -77,6 +78,11 @@ if (isset($_POST['comentario'])) {
   $argumentos["loggedUser"] = $loggedUser;
   $argumentos["lugares"]=$lugares;
   $argumentos["aside"]=$aside;
+  $argumentos['ordenarBusqueda']=$ordenarBusqueda;
+  $argumentos['textoBusqueda']=$textoBusqueda;
+  $argumentos['buscarEn']=$buscarEn;
+  $argumentos['estadoBusqueda']=$estadoBusqueda;
+  $argumentos['lugarIncidencia']=$lugarIncidencia;
   //$argumentos["usuarios"]=$usuarios;
 
 echo $template -> render($argumentos);

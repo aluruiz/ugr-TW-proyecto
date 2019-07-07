@@ -10,18 +10,18 @@
   <fieldset>
     <legend>Ordenar por:</legend>
       <div class="form-check">
-        <input type="radio" name="ordenarBusqueda" value="fecha" checked>
+        <input type="radio" name="ordenarBusqueda" value="fecha" {% if ordenarBusqueda in ['fecha',""] %}checked{% endif %}>
         <label for="fecha">Fecha (primero las mas recientes)</label>
       </div>
 
       <div class="form-check">
-        <input type="radio" name="ordenarBusqueda" value="positivas">
+        <input type="radio" name="ordenarBusqueda" value="positivas" {% if ordenarBusqueda in ['positivas'] %}checked{% endif %}>
         <label for="positivas">Numero de positivas (de mas a menos)</label>
       </div>
 
       <div class="form-check">
-        <input type="radio" name="ordenarBusqueda" value="netos">
-        <label for="netos">Numero de positivas netos (de mas a menos)</label>
+        <input type="radio" name="ordenarBusqueda" value="neto" {% if ordenarBusqueda in ['neto'] %}checked{% endif %}>
+        <label for="neto">Numero de positivas netas (de mas a menos)</label>
       </div>
 
   </fieldset>
@@ -31,17 +31,17 @@
       <label for="texto">Texto de busqueda:</label>
 
       <div class="form-check form-check-inline">
-        <input class="form-check-input" type="radio" name="lugarBusqueda" value="lugarTitulo">
+        <input class="form-check-input" type="radio" name="lugarBusqueda" value="lugarTitulo" {% if lugarBusqueda in ['lugarTitulo',""] %}checked{% endif %} >
         <label class="form-check-label" for="lugarTitulo">Título</label>
       </div>
 
       <div class="form-check form-check-inline">
-        <input class="form-check-input" type="radio" name="lugarBusqueda" value="lugarDescripcion">
+        <input class="form-check-input" type="radio" name="lugarBusqueda" value="lugarDescripcion" {% if lugarBusqueda in ['lugarDescripcion'] %}checked{% endif %}>
         <label class="form-check-label" for="lugarDescripcion">Descripción</label>
       </div>
 
       <div class="form-check form-check-inline">
-        <input class="form-check-input" type="radio" name="lugarBusqueda" value="lugarClave">
+        <input class="form-check-input" type="radio" name="lugarBusqueda" value="lugarClave" {% if lugarBusqueda in  ['lugarClave'] %}checked{% endif %}>
         <label class="form-check-label" for="lugarClave">Palabras Clave</label>
       </div>
 
@@ -51,9 +51,9 @@
 
   <fieldset>
     <legend>Lugar de la incidencia:</legend>
-    <select class="desplegable-lugares">
+    <select class="desplegable-lugares" name="lugar">
       {% for lugar in lugares %}
-      <option value="{{lugar.lugar}}">{{lugar.lugar}}</option>
+      <option value="{{lugar.lugar}}" {% if lugar.lugar is same as(lugarIncidencia) %}selected{% endif %}>{{lugar.lugar}}</option>
       {% endfor %}
     </select>
   </fieldset>
@@ -61,27 +61,27 @@
   <fieldset>
     <legend>Estado: </legend>
       <div class="form-check form-check-inline">
-        <input class="form-check-input" type="checkbox" name="estadoBusqueda[]" value="Pendiente">
+        <input class="form-check-input" type="checkbox" name="estadoBusqueda[]" value="Pendiente" {% if 'Pendiente' in estadoBusqueda %}checked{% endif %}>
         <label class="form-check-label" for="Pendiente">Pendiente</label>
       </div>
 
       <div class="form-check form-check-inline">
-        <input class="form-check-input" type="checkbox" name="estadoBusqueda[]" value="Comprobada">
+        <input class="form-check-input" type="checkbox" name="estadoBusqueda[]" value="Comprobada" {% if 'Comprobada' in estadoBusqueda %}checked{% endif %}>
         <label class="form-check-label" for="Comprobada">Comprobada</label>
       </div>
 
       <div class="form-check form-check-inline">
-        <input class="form-check-input" type="checkbox" name="estadoBusqueda[]" value="Tramitada">
+        <input class="form-check-input" type="checkbox" name="estadoBusqueda[]" value="Tramitada" {% if 'Tramitada' in estadoBusqueda %}checked{% endif %}>
         <label class="form-check-label" for="Tramitada">Tramitada</label>
       </div>
 
       <div class="form-check form-check-inline">
-        <input class="form-check-input" type="checkbox"  name="estadoBusqueda[]" value="Irresoluble">
+        <input class="form-check-input" type="checkbox"  name="estadoBusqueda[]" value="Irresoluble" {% if 'Irresoluble' in estadoBusqueda %}checked{% endif %}>
         <label class="form-check-label" for="Irresoluble">Irresoluble</label>
       </div>
 
       <div class="form-check form-check-inline">
-        <input class="form-check-input" type="checkbox" name="estadoBusqueda[]" value="Resuelta">
+        <input class="form-check-input" type="checkbox" name="estadoBusqueda[]" value="Resuelta" {% if 'Resuelta' in estadoBusqueda %}checked{% endif %}>
         <label class="form-check-label" for="Resuelta">Resuelta</label>
       </div>
   </fieldset>
@@ -122,7 +122,6 @@
     </div>
   </section>
   <section class="scripts-incidencia">
-    {% if loggedUser %}
       <form class="nuevoComentario" action="busqueda.php" method="post">
         <input type="text" class="form-control" name="comentario" placeholder="Nuevo comentario.">
         <input type="hidden" name="identificadorInci" value="{{incidencia.id}}">
@@ -134,7 +133,6 @@
           <input type="submit" class="btn btn-primary" value="Editar"/>
         </form>
       {% endif %}
-    {% endif %}
     <form class="valoracionPositiva" action="busqueda.php" method="post">
       <input type="hidden" name="identificadorInci" value="{{incidencia.id}}">
       <input type="submit" class="btn btn-primary" value="+" name="valoracion"/>

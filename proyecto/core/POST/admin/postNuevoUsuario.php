@@ -7,7 +7,7 @@
   $emailRegister = $_POST['email'] ?? "";
   $postalRegister = $_POST['postal'] ?? "";
   $tlfRegister = $_POST['tlf'] ?? "";
-  $passwordRegister = $_POST['password'] ?? "";
+  $passwordRegister = $_POST['contraseña'] ?? "";
 
   if (isset($nombreRegister) && !empty($nombreRegister) ||  isset($familiaRegister) && !empty($familiaRegister) || isset($emailRegister) && !empty($emailRegister) || isset($postalRegister) && !empty($postalRegister) || isset($tlfRegister) && !empty($tlfRegister) || isset($passwordRegister) && !empty($passwordRegister)) {
     $userBuscado = $database->getUsuarioByEmail($emailRegister);
@@ -28,7 +28,7 @@
       $database->nuevoLog("Registrado el usuario: ".$usuario);
     }
   }
-//  header("Location: ../../../index.php");
+  header("Location: ../../../index.php");
 ?>
 /*
 */

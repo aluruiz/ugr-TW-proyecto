@@ -5,6 +5,8 @@
 {% block main %}
   {% if loggedUser is null %}
     <h1>No eres usuario, no puedes acceder a esta pagina.</h1>
+  {% elseif loggedUser.estado is constant('Inactivo') %}
+    <h1>Usuario inactivo. Por favor, consulte con su administrador.</h1>
   {% else %}
   <form action="nuevaIncidencia.php" method="post">
     <fieldset>

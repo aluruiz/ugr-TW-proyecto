@@ -2,6 +2,7 @@
 $ROOT_PATH = dirname(__DIR__);
 require_once $ROOT_PATH.'/BaseDeDatos.php';
 require_once 'Comentario.php';
+require_once 'Usuario.php';
 
 class Incidencia{
   public $id;
@@ -35,8 +36,12 @@ class Incidencia{
 
     $this->comentarios=array();
     $result=$database->getComentariosIncidencia($this->id);
+
     while($result != NULL && $row=$result->fetch_assoc()){
-      $usuarioCom=$database->getUsuarioById($row['usuario']);
+      $usuarioCom=NULL;
+      if(!is_object($usuarioCom=$database->getUsuarioById($row['usuario']))){
+        $suarioCom=new Usuario(0,"Anónimo"," "," "," "," "," "," "," ","png");
+      }
       $comentario=new Comentario($row["identificador"],$row["comentario"],$usuarioCom);
       $this->comentarios[$row['identificador']]=$comentario;
     }
