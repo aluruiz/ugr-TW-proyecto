@@ -9,20 +9,20 @@ class Database {
   private $mysqli;
 
   public function __construct() {
-    $hostname = "localhost";
+  /*  $hostname = "localhost";
     $username1 = "tw";
     $password1 = "KpxlwisaphBmGOVD";
     $databaseName1 = "tw_proyecto";
     /*FZkuCumUMWErcqfb
     //KpxlwisaphBmGOVD*/
-    /*$hostname = "localhost";
+    $hostname = "localhost";
     $username1 = "paularg981819";
     $password1 = "fuExW4c7";
     $username2 = "lauragogar1819";
     $password2 = "KdnkJuSY";
     $databaseName1 = "paularg981819";
-    $databaseName2 = "lauragogar1819";*/
-    $this->mysqli = new mysqli($hostname, $username1, $password1, $databaseName1);
+    $databaseName2 = "lauragogar1819";
+    $this->mysqli = new mysqli($hostname, $username2, $password2, $databaseName2);
 /*    if(!$this->mysql){
       $this->mysqli = new mysqli($hostname, $username1, $password1, $databaseName1);
     }*/
@@ -44,11 +44,11 @@ class Database {
 
   //orden(fecha,positivas,neto),estado='Pendiente','Comprobada','Tramitada','Irresoluble','Resuelta' o NULL
   public function getIncidenciasTituloDesc($orden,$clave,$estado,$lugar){
-    $texto="SELECT Incidencias.identificador FROM Incidencias WHERE ";
+    $texto="SELECT Incidencias.identificador FROM Incidencias WHERE(";
     if(!is_null($estado)){
       $texto.="Incidencias.estado = ? AND ";
     }
-    $texto.="Incidencias.lugar = ? AND Incidencias.titulo LIKE CONCAT('%',?,'%') ORDER BY ";
+    $texto.="Incidencias.lugar = ? AND Incidencias.titulo LIKE CONCAT('%',?,'%')) ORDER BY ";
     if(strcmp($orden,"neto")==0){
       $texto.="Incidencias.positivas - Incidencias.negativas";
     }else {
@@ -70,11 +70,11 @@ class Database {
   }
 
   public function getIncidenciasDescripcionDesc($orden,$clave,$estado,$lugar){
-    $texto="SELECT Incidencias.identificador FROM Incidencias WHERE ";
+    $texto="SELECT Incidencias.identificador FROM Incidencias WHERE(";
     if(!is_null($estado)){
       $texto.="Incidencias.estado = ? AND ";
     }
-    $texto.="Incidencias.lugar = ? AND Incidencias.descripcion LIKE CONCAT('%',?,'%') ORDER BY ";
+    $texto.="Incidencias.lugar = ? AND Incidencias.descripcion LIKE CONCAT('%',?,'%')) ORDER BY ";
     if(strcmp($orden,"neto")==0){
       $texto.="Incidencias.positivas - Incidencias.negativas";
     }else {
@@ -94,11 +94,11 @@ class Database {
   }
 
   public function getIncidenciasClaveDesc($orden,$clave,$estado,$lugar){
-    $texto="SELECT Incidencias.identificador FROM Incidencias WHERE ";
+    $texto="SELECT Incidencias.identificador FROM Incidencias WHERE (";
     if(!is_null($estado)){
       $texto.="Incidencias.estado = ? AND ";
     }
-    $texto.="Incidencias.lugar = ? AND Incidencias IN (SELECT RelClaveIncidencia.incidencia WHERE RelClaveIncidencia LIKE CONCAT('%',?,'%')) ORDER BY ";
+    $texto.="Incidencias.lugar = ? AND Incidencias IN (SELECT RelClaveIncidencia.incidencia WHERE RelClaveIncidencia LIKE CONCAT('%',?,'%'))) ORDER BY ";
     if(strcmp($orden,"neto")==0){
       $texto.="Incidencias.positivas - Incidencias.negativas";
     }else {

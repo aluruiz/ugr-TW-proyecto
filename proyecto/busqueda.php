@@ -19,6 +19,7 @@ $loggedUser = $database->getUsuarioById($idLogeado);
 $lugares=$database->getAllLugares();
 $aside=new Aside(3);
 $valorado = "";
+
 if (isset($_POST['valoracion'])) {
   $tipoValoracion="";
   if(strcmp($_POST['valoracion'],"+")){
@@ -34,7 +35,7 @@ if (isset($_POST['valoracion'])) {
       $valorado="Ya has valorado";
     }
   }else {
-    if(!isset($_COOKIE[$_POST['identificadorInci']]))
+    if(!isset($_COOKIE[$_POST['identificadorInci']])){
       $database->nuevaValoracionAnonima($_POST['identificadorInci'],$tipoValoracion);
       setcookie($_POST['identificadorInci'],$_POST['identificadorInci'],time() + (86400 * 30), "/");
     }else{
@@ -53,6 +54,7 @@ if (isset($_POST['comentario'])) {
   $estadoBusqueda = $_POST['estadoBusqueda'] ?? array();
   $lugarIncidencia= $_POST['lugar'] ?? "";
 
+echo $textoBusqueda;
 
   $incidencias = array();
   if(strcmp($buscarEn,"lugarTitulo")){
@@ -85,7 +87,7 @@ if (isset($_POST['comentario'])) {
   $argumentos["aside"]=$aside;
   $argumentos['ordenarBusqueda']=$ordenarBusqueda;
   $argumentos['textoBusqueda']=$textoBusqueda;
-  $argumentos['buscarEn']=$buscarEn;
+  $argumentos['lugarBusqueda']=$buscarEn;
   $argumentos['estadoBusqueda']=$estadoBusqueda;
   $argumentos['lugarIncidencia']=$lugarIncidencia;
   $argumentos['valorado']=$valorado;

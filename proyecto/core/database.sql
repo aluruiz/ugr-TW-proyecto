@@ -21,10 +21,10 @@ CREATE TABLE Usuarios(
   PRIMARY KEY(identificador)
 );
 
-INSERT INTO Usuarios (nombre,familia,email,password,rango,estado) VALUES ('Growlithe', 'Growlithe', 'growlithe@admin.com', '22222', '999 222222', '$2y$10$j0CEuY9o3Rbkp2jt8LWlmOQej3Pd7aSvT207CB966c3RQPf.iJyve', 'Administrador', 'Activo', 'png');
-INSERT INTO Usuarios (nombre,familia,email,password,rango,estado) VALUES ('Pikachu', 'Pichu', 'pikapi@gmail.com', '11111', '999 111111', '$2y$10$Yhxr2x0S1VRLJ2HwFezqQeCxUPTu3/hBAVfP7Vw2HFabrx/yGPYXK', 'Colaborador', 'Activo', 'png');
-INSERT INTO Usuarios (nombre,familia,email,password,rango,estado) VALUES ('Skitty', 'Delcatty', 'lindoskitty@gmail.com', '23023', '999 232323', '$2y$10$sL1Hk3WEEviS1ns/VyOpMu0R85PqkqOSJG9q3FHbvmhQlG4vJs5se', 'Colaborador', 'Inactivo', 'png');
-INSERT INTO Usuarios (nombre,familia,email,password,rango,estado) VALUES ('Eevee', 'Eevee', 'eeveelucion@correo.com', '33333', '999 333333', '$2y$10$RovDxzZNjumRceRJ5U7qmu7Vx8GaIxWCeSAW0GHot7PMaJAG8/PkG', 'Colaborador', 'Activo', 'png');
+INSERT INTO Usuarios (nombre,familia,email,direccion,telefono,password,rango,estado,extImagen) VALUES ('Growlithe', 'Growlithe', 'growlithe@admin.com', '22222', '999 222222', '$2y$10$j0CEuY9o3Rbkp2jt8LWlmOQej3Pd7aSvT207CB966c3RQPf.iJyve', 'Administrador', 'Activo', 'png');
+INSERT INTO Usuarios (nombre,familia,email,direccion,telefono,password,rango,estado,extImagen) VALUES ('Pikachu', 'Pichu', 'pikapi@gmail.com', '11111', '999 111111', '$2y$10$Yhxr2x0S1VRLJ2HwFezqQeCxUPTu3/hBAVfP7Vw2HFabrx/yGPYXK', 'Colaborador', 'Activo', 'png');
+INSERT INTO Usuarios (nombre,familia,email,direccion,telefono,password,rango,estado,extImagen) VALUES ('Skitty', 'Delcatty', 'lindoskitty@gmail.com', '23023', '999 232323', '$2y$10$sL1Hk3WEEviS1ns/VyOpMu0R85PqkqOSJG9q3FHbvmhQlG4vJs5se', 'Colaborador', 'Inactivo', 'png');
+INSERT INTO Usuarios (nombre,familia,email,direccion,telefono,password,rango,estado,extImagen) VALUES ('Eevee', 'Eevee', 'eeveelucion@correo.com', '33333', '999 333333', '$2y$10$RovDxzZNjumRceRJ5U7qmu7Vx8GaIxWCeSAW0GHot7PMaJAG8/PkG', 'Colaborador', 'Activo', 'png');
 
 CREATE TABLE Incidencias(
   identificador INT AUTO_INCREMENT,
@@ -40,9 +40,6 @@ CREATE TABLE Incidencias(
   PRIMARY KEY(identificador),
   FOREIGN KEY(usuario) REFERENCES Usuarios(identificador)
 );
-
-INSERT INTO Incidencias(titulo,lugar,descripcion,estado,usuario) VALUES ('Incidencia de prueba','En un rincon de la mancha', 'texto de ejemplo', 'Resuelta',1);
-INSERT INTO Incidencias(titulo,lugar,descripcion,estado,usuario) VALUES ('Prueba mi Prueba','De cuyo nombre no quiero acordarme', 'texto de ejemplo', 'Pendiente',1);
 
 CREATE TABLE Imagenes(
   identificador INT AUTO_INCREMENT,
@@ -83,8 +80,6 @@ CREATE TABLE Comentarios(
   FOREIGN KEY(incidencia) REFERENCES Incidencias(identificador),
   PRIMARY KEY(identificador)
 );
-
-INSERT INTO Comentarios(usuario,incidencia,comentario) VALUES(1,2,'Comentario de prueba');
 
 CREATE TABLE Log(
   identificador INT AUTO_INCREMENT,

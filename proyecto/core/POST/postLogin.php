@@ -17,10 +17,10 @@ if (empty($emailLogin) || empty($passwordLogin)) {
   } else {
   if (password_verify($passwordLogin, $userBuscado->password)) {
       $_SESSION["loggedUserId"] = $userBuscado->id;
-      $database->nuevoLog("Inicio de sesión correcto: ".$userBuscado->id);
+      $database->nuevoLog("Inicio de sesión correcto: ".$userBuscado->name." ".$userBuscado->familia);
     } else {
       echo "error2";
-     $database->nuevoLog("Contraseña incorrecta para el usuario: ".$userBuscado->id);
+     $database->nuevoLog("Contraseña incorrecta para el usuario: ".$userBuscado->name." ".$userBuscado->familia);
     }
    }
 }

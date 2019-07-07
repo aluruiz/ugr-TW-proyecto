@@ -26,7 +26,7 @@ class Aside{
     }
 
     $this->topUsuariosComentarios=array();
-    $result=$database->getUsuariosIncDesc();
+    $result=$database->getUsuariosComDesc();
     for ($i=0; $i <$n ; $i++) {
       if($row=$result->fetch_assoc()){
         $usuario = $database->getUsuarioById($row['identificador']);
