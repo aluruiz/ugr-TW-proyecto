@@ -1,9 +1,14 @@
-# A implementar y algunas indicaciones
-## Identificancion de componentes.
+# Pokejas! Atrapalas todas
+
+Memoria del proyecto de la asignatura de Tecnologías Web del curso 2018/2019.
+
+El objetivo es crear una página web para anotar las quejas de un vecindario. En nuestro caso, hemos decidido un toque más y ambientarlo en el mundo pokemon de forma que nuestros vecinos sean estos adorables seres.
+
+##### Autores
   Laura Gómez Garrido
   Paula Ruiz García
 
-## Fichero de Restauracion de la BD.
+##### Fichero de Restauracion de la BD.
 database.sql
 
 ## Diseño de la aplicacion.
@@ -72,6 +77,18 @@ Además, se puede filtrar según los siguientes criterios:
 + Número de inciencias resueltas, pendientes, etc...
 
 ## Datos a almacenar
+A partir de los anteriores requisitos, esta claro que vamos a tener que almacenar información dentro de una base de datos. Por ello, primeros mostraremos el modelo entidad relación básico que habrá dentro de nuestra base de datos, seguido tendremos el diseño lógico de esta y, finalmente, mostraremos cómo son las tablas que hemos creado para esto junto con una breve descripción de la utilidad de cada una.
+
+### Modelo Entidad-Relación
+
+![ModeloER](./ArchivosDocumentacion/ModeloEntidadRelacion.png)
+
+### Diseo Lógico
+
+
+![ModeloRelacional](./ArchivosDocumentacion/ModeloRelacional.png)
+
+### Tablas
 Cada una de las categorías se refiere a una tabla en sql por lo que también indicaremos los tipos de cada dato.
 
 #### Incidencias
@@ -128,7 +145,7 @@ Necesaria para establecer la relación de muchos a muchos entre incidencias y pa
 - Incidencia (int) - Foreign Key
 Juntos, forman la Primary Key.
 
-### Imágenes
+#### Imágenes
 Una incidencia puede contener muchas imágenes asociadas.
 - Identificador (int) - Primary Key, Autoincrement
 - Incidencia (int) - Foreign Key
@@ -146,7 +163,7 @@ Relación de una valoración realizada por un usuario respecto a una incidencia 
 Usuario e incidencias forman, juntos, la clave primaria. En este caso, sólo controlamos que los usuarios registrados no hagan más de una valoración para cada incidencia. Nótese que cada vez que hacemos una nueva valoración para una determinada incidencia el contador correspondiente que posee la incidencia crece. De esta forma, esta tabla servirá para controlar que las valoraciones de nuestros usuarios sean únicas para cada incidencia y no para utilizarla como contador.
 
 
-### Comentarios
+#### Comentarios
 Relación entre los comentarios realizados por los usuarios y las incidencias en las que sucede. La clave primaria será un identificador porque también pueden realizar comentarios un usuario anónimo y, además, no hay límite de comentarios por usuario en cada incidencia.
 + Identificador (int) - Primary Key, Autoincrement
 + Identificador de Usuario (int) - Foreign Key
