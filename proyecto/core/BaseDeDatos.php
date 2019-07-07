@@ -13,11 +13,11 @@ class Database {
     $username1 = "tw";
     $password1 = "KpxlwisaphBmGOVD";
     $databaseName1 = "tw_proyecto";
-    /*FZkuCumUMWErcqfb
+    //FZkuCumUMWErcqfb
     //KpxlwisaphBmGOVD
-    $hostname = "localhost";
+  /*$hostname = "localhost";
     $username1 = "paularg981819";
-    $password1 = "fuWxW4c7";
+    $password1 = "fuExW4c7";
     $username2 = "lauragogar1819";
     $password2 = "KdnkJuSY";
     $databaseName1 = "paularg981819";
