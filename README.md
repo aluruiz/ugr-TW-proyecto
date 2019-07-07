@@ -1,18 +1,19 @@
 # A implementar y algunas indicaciones
-## Identificancion de componentes
+## Identificancion de componentes.
   Laura Gómez Garrido
   Paula Ruiz García
 
-## Usuarios nuevos
+## Usuarios nuevos.
   + email: pikapi@gmail.com contraseña: ashesmiamo
   + eeveelucion@correo.com contraseña:flareonpresident
   + growlithe@admin.com contraseña:admin
   + lindoskitty@gmail.com contraseña:delgatoalhecho
 
-## Fichero de Restacion de la BD
+## Fichero de Restacion de la BD.
 database.sql
 
 ## Diseño de la aplicacion.
+
 
 ## Requisitos Funcionales
 

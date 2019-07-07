@@ -35,7 +35,7 @@ if(isset($_POST['titulo'])) {
   }
 
   $database->nuevoLog("El usuario ".$loggedUser->id." ha realizado una nueva incidencia: ".$incidencia);
-  header("Location: ./accionIncidencia.php");
+
 }
 
 $argumentos = [];
