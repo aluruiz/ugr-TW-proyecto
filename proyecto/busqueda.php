@@ -19,6 +19,7 @@ $loggedUser = $database->getUsuarioById($idLogeado);
 $lugares=$database->getAllLugares();
 $aside=new Aside(3);
 $valorado = "";
+
 if (isset($_POST['valoracion'])) {
   $tipoValoracion="";
   if(strcmp($_POST['valoracion'],"+")){
@@ -53,6 +54,7 @@ if (isset($_POST['comentario'])) {
   $estadoBusqueda = $_POST['estadoBusqueda'] ?? array();
   $lugarIncidencia= $_POST['lugar'] ?? "";
 
+echo $textoBusqueda;
 
   $incidencias = array();
   if(strcmp($buscarEn,"lugarTitulo")){
@@ -85,7 +87,7 @@ if (isset($_POST['comentario'])) {
   $argumentos["aside"]=$aside;
   $argumentos['ordenarBusqueda']=$ordenarBusqueda;
   $argumentos['textoBusqueda']=$textoBusqueda;
-  $argumentos['buscarEn']=$buscarEn;
+  $argumentos['lugarBusqueda']=$buscarEn;
   $argumentos['estadoBusqueda']=$estadoBusqueda;
   $argumentos['lugarIncidencia']=$lugarIncidencia;
   $argumentos['valorado']=$valorado;

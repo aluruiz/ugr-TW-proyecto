@@ -27,14 +27,14 @@ $usuario=NULL;
     if(isset($_POST['modificado'])){
       if($loggedUser->rango=="Administrador"){
         $database->modificarDatosRangoAdministrador($_POST['usuario'],$_POST['nombre'],$_POST['familia'],$_POST['email'],$_POST['postal'],$_POST['tlf'],$_POST['rango'],$_POST['estado']);
-        $database->nuevoLog("Editado usuario Administrador: ".$usuario->nombre." "$usuario->familia);
+        $database->nuevoLog("Editado usuario Administrador: ".$usuario->nombre." ".$usuario->familia);
       }else{
         $database->modificarDatosRangoColaborador($_POST['usuario'],$_POST['nombre'],$_POST['familia'],$_POST['email'],$_POST['postal'],$_POST['tlf']);
-        $database->nuevoLog("Editado usuario Colaborador: ".$usuario->nombre." "$usuario->familia);
+        $database->nuevoLog("Editado usuario Colaborador: ".$usuario->nombre." ".$usuario->familia);
       }
       if(isset($_POST['contraseña']) && $_POST['contraseña']!=""){
         $database->modificarContraseña($_POST['usuario'],$_POST['contraseña']);
-        $database->nuevoLog("Modificada contraseña de Usuario: ".$usuario->nombre." "$usuario->familia);
+        $database->nuevoLog("Modificada contraseña de Usuario: ".$usuario->nombre." ".$usuario->familia);
       }
     }
 
