@@ -18,7 +18,7 @@ $idLogeado = getUsuarioLogged();
 $loggedUser = $database->getUsuarioById($idLogeado);
 $lugares=$database->getAllLugares();
 $aside=new Aside(3);
-
+$valorado = "";
 if (isset($_POST['valoracion'])) {
   $tipoValoracion="";
   if(strcmp($_POST['valoracion'],"+")){
@@ -31,10 +31,15 @@ if (isset($_POST['valoracion'])) {
     try {
         $database->nuevaValoracionUsuario($idLogeado,$_POST['identificadorInci'],$tipoValoracion);
     } catch (\Exception $e) {
-
+      $valorado="Ya has valorado";
     }
   }else {
-    $database->nuevaValoracionAnonima($_POST['identificadorInci'],$tipoValoracion);
+    if(!isset($_COOKIE[$_POST['identificadorInci']]))
+      $database->nuevaValoracionAnonima($_POST['identificadorInci'],$tipoValoracion);
+      setcookie($_POST['identificadorInci'],$_POST['identificadorInci'],time() + (86400 * 30), "/");
+    }else{
+      $valorado="Ya has valorado";
+    }
   }
 
 }
@@ -83,6 +88,7 @@ if (isset($_POST['comentario'])) {
   $argumentos['buscarEn']=$buscarEn;
   $argumentos['estadoBusqueda']=$estadoBusqueda;
   $argumentos['lugarIncidencia']=$lugarIncidencia;
+  $argumentos['valorado']=$valorado;
   //$argumentos["usuarios"]=$usuarios;
 
 echo $template -> render($argumentos);
