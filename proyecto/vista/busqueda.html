@@ -4,6 +4,10 @@
 <link href="./assets/incidencia.css" rel="stylesheet"/>
 {% endblock %}
 
+{% block javascript %}
+  <script src="./assets/incidencias.js"></script>
+{% endblock %}
+
 {% block main %}
 
 <form class="formularioBusqueda" action="busqueda.php" method="post">
@@ -89,74 +93,83 @@
     <input type="submit" class="btn btn-primary" value="Aplicar criterios de busqueda"/>
 </form>
 
-<section class="incidencia">
-  {% if incidencias is defined %}
+
+{% if incidencias is defined %}
   {% for incidencia in incidencias %}
-  <section class="texto-incidencia">
+    <section id="incidencia-{{incidencia.id}}" class="incidencia">
+      <section class="texto-incidencia">
 
-    <h1> {{incidencia.titulo}}</h1>
-    <div class="informacion-incidencia container">
-        <div class="row">
-          <span class="col-sm-4"><strong>Lugar:</strong> {{incidencia.lugar}}</span>
-          <span class="col-sm-4"><strong>Fecha:</strong> {{incidencia.fecha}}</span>
-          <span class="col-sm-4"><strong>Creado por:</strong> {{incidencia.usuario.nombre}} {{incidencia.usuario.familia}}</span>
+        <h1 onclick="desplegarIncidencia({{incidencia.id}})"> {{incidencia.titulo}}</h1>
+        <div id="infoIncidencia-{{incidencia.id}}" class="informacion-incidencia container">
+            <div class="row">
+              <span class="col-sm-4"><strong>Lugar:</strong> {{incidencia.lugar}}</span>
+              <span class="col-sm-4"><strong>Fecha:</strong> {{incidencia.fecha}}</span>
+              <span class="col-sm-4"><strong>Creado por:</strong> {{incidencia.usuario.nombre}} {{incidencia.usuario.familia}}</span>
+            </div>
+
+            <div class="row">
+              <span class="col-sm-4"><strong>Palabras Clave:</strong> {{incidencia.palabrasClave}}</span>
+              <span class="col-sm-4"><strong>Estado:</strong> {{incidencia.estado}}</span>
+              <span class="col-sm-4"><strong>Valoraciones:</strong> +{{incidencia.positivas}}  -{{incidencia.negativas}}</span>
+            </div>
+
+            <div class="descripcion-incidencia">
+              <label><strong>Descripcion</strong></label>
+              <p>{{incidencia.descripcion}}</p>
+            </div>
+
+            <div class="imagenes">
+              <label><strong>Imagenes</strong></label>
+              {% for imagen in incidencia.imagenes %}
+              <img src="./imagenes/{{imagen}}" alt="">
+              {% endfor %}
+            </div>
         </div>
-
-        <div class="row">
-          <span class="col-sm-4"><strong>Palabras Clave:</strong> {{incidencia.palabrasClave}}</span>
-          <span class="col-sm-4"><strong>Estado:</strong> {{incidencia.estado}}</span>
-          <span class="col-sm-4"><strong>Valoraciones:</strong> +{{incidencia.positivas}}  -{{incidencia.negativas}}</span>
+      </section>
+      <section id="nuevoComentarioIncidencia-{{incidencia.id}}" class="scripts-incidencia">
+        <div class="container">
+          <div class="row">
+            <div class="col md-8">
+              <form class="nuevoComentario" action="busqueda.php" method="post">
+                <input type="text" class="form-control" name="comentario" placeholder="Nuevo comentario.">
+                <input type="hidden" name="identificadorInci" value="{{incidencia.id}}">
+                <input type="submit" class="btn btn-primary" value="Enviar comentario"/>
+              </form>
+            </div>
+            <div class="col md-4 d-flex justify-content-end">
+              {% if loggedUser.rango == 'Administrador' %}
+                <form class="editarIncidencia" action="editarIncidencia.php" method="post">
+                  <input type="hidden" name="identificadorInci" value="{{incidencia.id}}">
+                  <input type="submit" class="btn btn-primary" value="Editar"/>
+                </form>
+              {% endif %}
+              <form class="valoracionPositiva" action="busqueda.php" method="post">
+                <input type="hidden" name="identificadorInci" value="{{incidencia.id}}">
+                <input type="submit" class="btn btn-primary" value="+" name="valoracion"/>
+              </form>
+              <form class="valoracionNegativa" action="busqueda.php" method="post">
+                <input type="hidden" name="identificadorInci" value="{{incidencia.id}}">
+                <input type="submit" class="btn btn-primary" value="-" name="valoracion"/>
+              </form>
+            </div>
+          </div>
         </div>
-
-        <div class="descripcion-incidencia">
-          <label><strong>Descripcion</strong></label>
-          <p>{{incidencia.descripcion}}</p>
-        </div>
-
-        <div class="imagenes">
-          <label><strong>Imagenes</strong></label>
-          {% for imagen in incidencia.imagenes %}
-          <img src="./imagenes/{{imagen}}" alt="">
+      </section>
+      <section id="listaComentariosIncidencia-{{incidencia.id}}" class="comentarios-incidencia">
+        <fieldset>
+          <legend>Comentarios</legend>
+          {% for comentario in incidencia.comentarios %}
+          <div class="media container">
+            <img src="..." class="align-self-center mr-3" alt="...">
+            <div class="media-body">
+              <span class="mt-0"><strong>{{comentario.usuario.nombre}} {{comentario.usuario.familia}}</strong></span>
+              <p>{{comentario.comentario}}</p>
+            </div>
+          </div>
           {% endfor %}
-        </div>
-    </div>
-  </section>
-  <section class="scripts-incidencia">
-      <form class="nuevoComentario" action="busqueda.php" method="post">
-        <input type="text" class="form-control" name="comentario" placeholder="Nuevo comentario.">
-        <input type="hidden" name="identificadorInci" value="{{incidencia.id}}">
-        <input type="submit" class="btn btn-primary" value="Enviar comentario"/>
-      </form>
-      {% if loggedUser.rango == 'Administrador' %}
-        <form class="editarIncidencia" action="editarIncidencia.php" method="post">
-          <input type="hidden" name="identificadorInci" value="{{incidencia.id}}">
-          <input type="submit" class="btn btn-primary" value="Editar"/>
-        </form>
-      {% endif %}
-    <form class="valoracionPositiva" action="busqueda.php" method="post">
-      <input type="hidden" name="identificadorInci" value="{{incidencia.id}}">
-      <input type="submit" class="btn btn-primary" value="+" name="valoracion"/>
-    </form>
-    <form class="valoracionNegativa" action="busqueda.php" method="post">
-      <input type="hidden" name="identificadorInci" value="{{incidencia.id}}">
-      <input type="submit" class="btn btn-primary" value="-" name="valoracion"/>
-    </form>
-  </section>
-  <section class="comentarios-incidencia">
-    <fieldset>
-      <legend>Comentarios</legend>
-      {% for comentario in incidencia.comentarios %}
-      <div class="media container">
-        <img src="..." class="align-self-center mr-3" alt="...">
-        <div class="media-body">
-          <span class="mt-0"><strong>{{comentario.usuario.nombre}} {{comentario.usuario.familia}}</strong></span>
-          <p>{{comentario.comentario}}</p>
-        </div>
-      </div>
-      {% endfor %}
-    </fieldset>
-  </section>
-  {% endfor %}
+        </fieldset>
+      </section>
+    {% endfor %}
   {% else %}
     <p>NO DEFINIDO</p>
   {% endif %}
