@@ -236,7 +236,7 @@ class Database {
   }
 
   public function nuevoUsuario($nombre,$familia,$email,$direccion,$telefono,$password,$rango,$estado){
-    $texto="INSERT INTO Usuarios (nombre,familia,email,direccion,telefono,password,rango,estado) VALUES (?,?,?,?,?,?,?,?)";
+    $texto="INSERT INTO Usuarios (nombre,familia,email,direccion,telefono,password,rango,estado) VALUES (?,?,?,?,?,?,?,?) ORDER BY Incidencia.identificador DESC";
     $stmt = $this->mysqli->prepare($texto);
     $stmt->bind_param("ssssssss",$nombre,$familia,$email,$direccion,$telefono,$password,$rango,$estado);
     $stmt->execute();
