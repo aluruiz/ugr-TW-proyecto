@@ -34,7 +34,7 @@ if(isset($_POST['titulo'])) {
     $database->nuevaRelClaveIncidencia($incidencia,$value);
   }
 
-  $database->nuevoLog("El usuario ".$loggedUser->id." ha realizado una nueva incidencia: ".$incidencia);
+  $database->nuevoLog("El usuario ".$loggedUser->nombre." ".$loggedUser->familia." ha realizado una nueva incidencia: ");
 
 }
 
