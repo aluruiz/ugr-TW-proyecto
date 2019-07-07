@@ -24,7 +24,7 @@
     <nav class="navbar d.flex justify-content-around">
       <a href="busqueda.php">Ver Incidencias</a>
 
-      {% if loggedUser.estado is constant('Inactivo') %}
+      {% if loggedUser.estado in ['Inactivo'] %}
         <p>Usuario Inactivo, porfavor consulte con su administrador</p>
       {% elseif loggedUser.rango == 'Colaborador' %}
         <a href="nuevaIncidencia.php">Nueva Incidencia</a>

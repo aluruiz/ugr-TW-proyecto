@@ -2,7 +2,7 @@
 {% block main %}
   {% if loggedUser.rango == "Colaborador" %}
     <h1>Ya estas registrado.</h1>
-  {% elseif loggedUser.estado is constant('Inactivo') %}
+  {% elseif loggedUser.estado in ['Inactivo'] %}
     <h1>Usuario inactivo. Por favor, consulte con su administrador.</h1>
   {% else %}
     <form action="./core/POST/admin/postNuevoUsuario.php" method="post" enctype="multipart/form-data">

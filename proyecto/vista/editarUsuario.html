@@ -2,6 +2,8 @@
 {% block main %}
   {% if loggedUser == null %}
     <h1>No estas registrado.</h1>
+  {% elseif loggedUser.estado in ['Inactivo'] %}
+    <h1>Usuario inactivo. Por favor, consulte con su administrador.</h1>
   {% else %}
     <form action="editarUsuario.php" method="post">
       <input type="hidden" name="usuario" value="{{usuario.id}}">
