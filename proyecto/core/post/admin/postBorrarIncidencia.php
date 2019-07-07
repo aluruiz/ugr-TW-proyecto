@@ -12,6 +12,6 @@ if (isset($_POST['identificadorInci'])) {
   $database->borrarIncidencia($_POST['identificadorInci']);
 
   $database->nuevoLog("Borrada Incidencia: ".$_POST['identificadorInci']);
-  //header("Location: ../../../accionIncidencia.php");
+  header("Location: ../../../accionIncidencia.php");
 }
  ?>
