@@ -178,3 +178,21 @@ Relación entre los comentarios realizados por los usuarios y las incidencias en
 + Implementar avatar por defecto.
 + Implementar administrador por defecto en caso de que no haya ninguno. (Usuario: admin Contraseña: admin). **Cuidado, esto debe de funcionar tanto al inicio del sistema como si al restaurar la BBDD no se pone ningún administrador.**
 + Mostrar incidencias por lotes **(OPCIONAL)**
+
+
+## Desarrollo de la práctica
+
+#### Consultas a la Base de Datos
+Para este apartado hemos desarrollado una clase llamada BaseDeDatos que se encuentra guardada en la ruta `proyecto/core`. En esta clase no sólo nos encargamos de realizar la conexión a la base de datos de nuestra página sino que también es la encargada de realizar todas las consultas. Es decir, cuando vayamos a realizar una consulta no nos tendremos que preocupar de ver cómo hacemos la consulta ni tampoco de cómo evitar algunos problemas como pueden ser la inyección sql, porque ya lo hace esta clase.
+
+Todas y cada una de las consultas que vayamos a utilizar están implementadas aquí de forma segura y nos ahorramos el tener que ir pensando cómo debemos de redactar una consulta cada vez que sea necesario en nuestro código php. Es decir, estamos añadiendo una pequeña capa de abstracción.
+
+#### Modelos de datos
+Sin embargo, no siempre es del todo útil trabajar sólo con los resultados de la base de datos y por ello hemos implementado algunas clases que nos ayudan a almacenar los datos y agruparlos de forma útil dentro de nuestro código. Estas clases también no serán de utilidad a la hora de utilizar Twig para nuestro código html. Estas, se encuentran en la ruta `proyecto/core/modelo` y son las siguientes:
++ Aside: tiene como constructor el recibir un número, este número será el que utilizará para delimitar el tamaño de los rankings que esta clase almacena. Después de todo, en definitiva se encarga de consultar la base de datos para obtener la información interesante que hemos utilizado para crear el aside de nuestra página como puede ser el ranking de usarios con más incidencias, el ranking de usuarios con más comentarios, el número de incidencias pendientes, entre otros.
++ Comentario: clase con un constructor que se encarga de asignar los valores de las variables que almacena. Sirve como representación de un comentario con toda su información asociada.
++ Usuario: clase con un constructor que se encarga de asignar los valores de las varibles que almacena. Sirve como representación de usuario con toda su información asociada.
++ Log: clase con un constructor que se encarga de asignar los valroes de las variables que almacena. Sirve como representación de un elemento de nuestro log de la aplicación con toda su información asociada.
++ Incidencia: clase con un constructor con el id de la incidencia que representa. Esta clase se encarga de realizar la búsqueda por sí misma a base de datos para obtener todos los datos que la representan. No sólo eso, sino que también realiza la consultas necesarias para crear el usuario asociado a la insidencia y los comentarios asociados junto con sus usuarios utilizando los constructores de asignación de las otras clases.
+
+Nótese, que a veces será la propia base quien nos dará estas clases ya creadas y otras seremos nosotros quienes los creemos a partir de determinados parámaetros.
