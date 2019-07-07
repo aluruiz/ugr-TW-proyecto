@@ -30,7 +30,7 @@ CREATE TABLE Incidencias(
   identificador INT AUTO_INCREMENT,
   titulo VARCHAR(50) NOT NULL,
   lugar VARCHAR(50) NOT NULL,
-  descripcion VARCHAR(300),
+  descripcion VARCHAR(500),
   fecha TIMESTAMP DEFAULT CURRENT_TIMESTAMP
  ON UPDATE CURRENT_TIMESTAMP,
   positivas INT DEFAULT 0,
