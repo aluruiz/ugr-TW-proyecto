@@ -2,6 +2,12 @@
 
 ## Requisitos Funcionales
 
+## Usuarios nuevos
++ email: pikapi@gmail.com contraseña: ashesmiamo
++ eeveelucion@correo.com contraseña:flareonpresident
++ growlithe@admin.com contraseña:admin
++ lindoskitty@gmail.com contraseña:delgatoalhecho
+
 ### Comunes a todos los usuarios
 
 + Ver incidencia
@@ -140,6 +146,10 @@ Relación entre los comentarios realizados por los usuarios y las incidencias en
 + Implementar administrador por defecto en caso de que no haya ninguno. (Usuario: admin Contraseña: admin). **Cuidado, esto debe de funcionar tanto al inicio del sistema como si al restaurar la BBDD no se pone ningún administrador.**
 + Mostrar incidencias por lotes **(OPCIONAL)**
 
+<<<<<<< HEAD
 
 ![ModeloRelacional](./ArchivosDocumentacion/ModeloRelacional.png)
 ![ModeloER](./ArchivosDocumentacion/ModeloEntidadRelacion.png)
+=======
+##
+>>>>>>> a70383b601109434e4283cee649c5540afabfb50

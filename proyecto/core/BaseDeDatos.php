@@ -17,7 +17,7 @@ class Database {
     //KpxlwisaphBmGOVD*/
     $hostname = "localhost";
     $username1 = "paularg981819";
-    $password1 = "fuWxW4c7";
+    $password1 = "fuExW4c7";
     $username2 = "lauragogar1819";
     $password2 = "KdnkJuSY";
     $databaseName1 = "paularg981819";
