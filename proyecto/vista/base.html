@@ -9,6 +9,8 @@
     <script src="./assets/js/comprobaciones.js"></script>
     {% block css %}
     {% endblock %}
+    {% block javascript %}
+    {% endblock %}
     <title>Pokejas</title>
   </head>
   <body>
@@ -73,7 +75,7 @@
             <label><img src="./imagenes/Usuario-{{loggedUser.id}}.{{loggedUser.extImagen}}" alt="" width="300"></label>
             <a href="../proyecto/editarUsuario.php">Editar</a>
             <form action="../proyecto/core/POST/postLogout.php" method="post">
-            <input name="logout" type="submit" value="Logout"/>
+            <input type="submit" class="btn btn-primary" value="Logout" name="Logout"/>
             </form>
           {% endif %}
 

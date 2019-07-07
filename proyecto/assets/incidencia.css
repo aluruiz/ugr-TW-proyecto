@@ -9,6 +9,17 @@
   background-color: #F39C12;
 }
 
+.informacion-incidencia{
+  display: none;
+}
+
+.scripts-incidencia{
+  display: none;
+}
+
+.comentarios-incidencia {
+  display: none;
+}
 .comentarios-incidencia legend{
   color: white;
 }

@@ -152,4 +152,5 @@ Relación entre los comentarios realizados por los usuarios y las incidencias en
 ![ModeloER](./ArchivosDocumentacion/ModeloEntidadRelacion.png)
 =======
 ##
+
 >>>>>>> a70383b601109434e4283cee649c5540afabfb50
