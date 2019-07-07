@@ -34,7 +34,7 @@ if (isset($_POST['valoracion'])) {
       $valorado="Ya has valorado";
     }
   }else {
-    if(!isset($_COOKIE[$_POST['identificadorInci']]))
+    if(!isset($_COOKIE[$_POST['identificadorInci']])){
       $database->nuevaValoracionAnonima($_POST['identificadorInci'],$tipoValoracion);
       setcookie($_POST['identificadorInci'],$_POST['identificadorInci'],time() + (86400 * 30), "/");
     }else{

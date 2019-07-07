@@ -12,7 +12,71 @@ El objetivo es crear una página web para anotar las quejas de un vecindario. En
 database.sql
 
 ## Diseño de la aplicacion.
+#### Busqueda
+A continuación vemos un ejemplo de como funciona nuestra busqueda, y es que tenemos una serie de filtros para mostrar las incidencias que nos van a ir saliendo, las podemos filtrar segun un orden, palabras que buscamos que contengan, el lugar donde ha ocurrido y el estado en el que estan.
 
+![Busqueda](./ArchivosDocumentacion/Captura_busqueda.jpg)
+
+Ademas, en este apartado hemos implementado JavaScript para que en principio solo nos muestre el nombre de las incidencias y a continuación, si pinchamos en el titulo, se nos mostrara la incidencia completa, con toda su información, junto con sus comentarios y las opciones a las que podemos optar si somos usuarios colaboradores o invitados(personas que no estan registradas en nuestra página).
+
+![Busqueda](./ArchivosDocumentacion/Captura_busquedaAmpliada.jpg)
+
+Si por casualidad somos Administradores de la pagina, ademas nos saldran las opciones de borrar y editar las incidencias de otros usuarios.
+
+![Busqueda](./ArchivosDocumentacion/Captura_busquedaAmpliadaAdmin.jpg)
+
+#### Incidencias
+Para la organización de las incidencias contamos con diferentes tipos de paginas a los que podemos acceder tanto siendo Colaboradores como Administradores, pero los segundos con más beneficios que los primeros.
+
+###### Nueva Incidencia
+Todos los usuarios registrados tienen la opcion de añadir incidencias a nuestra pagina web, y todas empiezan con el mismo estado Pendiente, y son los Administradores los encargados de ir registrando las distintas etapas en las que se encuentra una incidencia.
+
+![Nueva Incidencia](./ArchivosDocumentacion/Captura_NuevaIncidencia.PNG)
+
+###### Mis Incidencias y Editar Incidencia
+Ademas, todos los usuarios registrados tienen acceso a ver las incidencias que ellos mismos han publicado y editar sus datos. Aqui tenemos la misma opción que en busqueda de pulsar el titulo de la incidencia para verla entera, asi los usuarios que tenga muchas quejas pueden tener una mejor organización.
+
+![Mis Incidencias](./ArchivosDocumentacion/captura_misincidencia.jpg)
+
+Además los Administradores tienen la opción de editar cualquier incidencia de nuestra página.
+
+![Editar Incidencia](./ArchivosDocumentacion/captura_editarincidencia.jpg)
+
+#### Usuario
+
+###### Nuevo Usuario
+Si no estas registrado en la nuestra pagina y buscas entrar en nuestra bonita comunidad, la opcion de `Registrarse` en el apartado del logearse en nuestra mejor solución ya que gracias a esta pagina cualquiera puede registrarse, pero siempre tienes que esperar a que nuestros administradores te den de alta en la pagina, ya que una siempre que se crea un nuevo usuario se añade como inactivo hasta que nuestro administrador de el visto bueno.
+
+Ademas, el administrador tambien tiene la opcion de añadir nuevos usuarios a nuestra web.
+
+![Añadir Usuario](./ArchivosDocumentacion/captura_nuevousuario.jpg)
+
+###### Editar Usuario
+Cualquier usuario registrado tiene la opción de editar sus propiedades, además si eres administrador tienes las opciones de activar o desactivar un usuario, mediante el desplegable de estado, o de editar el rango de un usuario cualquiera (excepto si eres Growlithe, a quien nadie puede quitarle el poder o borrarlo).
+
+![Editar Usuario](./ArchivosDocumentacion/captura_editarusuario.jpg)
+
+#### Opciones del Administrador unicamente
+El administrador es el principal encargado de asegurar el buen funcionamiento de nuestra web, y, además, de mantener el orden entre los usuarios. Por ello tiene una serie de nuevas opciones en su barra de navegacion.
+
+###### Gestión de usuarios
+En ella podemos ver todos los usuarios registrados en nuestra pagina y tenemos las opciones de borrar o editar un usuario, y dentro hacerlo pasar de inactivo a activo y viceversa. Ademas podra añadir todos los usuarios que vea necesarios.
+
+![Gestión Usuarios](./ArchivosDocumentacion/Captura_GestionUsuarios.PNG)
+
+###### Gestion de Base de Datos
+En esta pagina tenemos la opcion de hacer una copia de nuestra base de datos y guardarla como un fichero `.sql` para poder cargarla en otro momento.
+
+![Gestion BD](./ArchivosDocumentacion/captura_gestionBD.jpg)
+
+![Pulsar BD](./ArchivosDocumentacion/captura_codigobd.jpg)
+
+![Guardar BD](./ArchivosDocumentacion/captura_guardarbd.jpg)
+
+###### Ver log
+Por ultimo, una de las cosas más importantes de ser administrador, es que tienes acceso para ver lo que va ocurriendo en la pagina web mediante una tabla que proporciona todas las acciones que se realizan en la pagina con respecto al uso de la base de datos.
+
+![Guardar BD](./ArchivosDocumentacion/captura_log.jpg)
 
 ## Requisitos Funcionales
 
